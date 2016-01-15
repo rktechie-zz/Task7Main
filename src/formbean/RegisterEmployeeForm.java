@@ -3,7 +3,9 @@ package formbean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterEmployeeForm {
+import org.mybeans.form.FormBean;
+
+public class RegisterEmployeeForm extends FormBean {
 	private String firstName;
 	private String lastName;
 	private String userName;
