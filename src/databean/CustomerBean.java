@@ -2,8 +2,9 @@ package databean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("userName")
+@PrimaryKey("customerId")
 public class CustomerBean {
+	private int customerId;
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -14,6 +15,14 @@ public class CustomerBean {
 	private String state;
 	private String zipcode;
 	private long cash;
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 
 	public void setUserName(String v) {
 		userName = v;
