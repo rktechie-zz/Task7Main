@@ -6,8 +6,7 @@
 <div class="form-group">
 <div class="col-sm-4">
 <span class="input-group-addon">$</span>
-<input type="text" class="form-control" id="checkAmount" placeholder="Amount in dollars">
-<sapn class="input-group-addon">.00</sapn>
+<input type="text" class="form-control" id="requestAmount" placeholder="Amount in two decimal places">
 </div>
 <div class="col-sm-4">
 <button type="submit" class="btn btn-success">Witdraw Money</button>
