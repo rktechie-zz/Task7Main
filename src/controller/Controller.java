@@ -45,10 +45,9 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//System.out.println("in Controller GET. ");
+
 		String nextPage = performTheAction(request);
-		//System.out.println(nextPage);
+
 		sendToNextPage(nextPage, request, response);
 	}
 
@@ -56,7 +55,7 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 
@@ -67,7 +66,7 @@ public class Controller extends HttpServlet {
 		//System.out.println(action);
 
 		if (session.getAttribute("user") == null) {
-			// If the user hasn't logged in, so login is the only option
+
 			return Action.perform("login.do", request);
 		}
 
@@ -79,15 +78,9 @@ public class Controller extends HttpServlet {
 				return Action.perform("employeeMain.do", request);
 		}
 
-		// Let the logged in user run his chosen action
 		return Action.perform(action, request);
 	}
 
-	/*
-	 * If nextPage is null, send back 404 If nextPage ends with ".do", redirect
-	 * to this page. If nextPage ends with ".jsp", dispatch (forward) to the
-	 * page (the view) This is the common case
-	 */
 	private void sendToNextPage(String nextPage, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		if (nextPage == null) {
@@ -110,12 +103,8 @@ public class Controller extends HttpServlet {
 				Controller.class.getName() + ".sendToNextPage(\"" + nextPage + "\"): invalid extension.");
 	}
 
-	/*
-	 * Returns the path component after the last slash removing any "extension"
-	 * if present.
-	 */
 	private String getActionName(String path) {
-		// We're guaranteed that the path will start with a slash
+
 		int slash = path.lastIndexOf('/');
 		return path.substring(slash + 1);
 	}	
