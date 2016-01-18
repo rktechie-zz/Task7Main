@@ -64,7 +64,7 @@ public class RequestCheckAction extends Action {
 				tBean.setTransactionType("Request Check");
 				tBean.setAmount(Long.parseLong(s));
 				transactionDAO.create(tBean);
-				return "success.jsp";
+				return "success-customer.jsp";
 			}
 		} catch (RollbackException e) {
 			errors.add("System roll back");
