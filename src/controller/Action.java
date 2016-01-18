@@ -14,6 +14,7 @@ public abstract class Action {
 
 	public static void add(Action a) {
 		synchronized (hash) {
+			System.out.println(a.getName());
 			if (hash.get(a.getName()) != null) {
 				throw new AssertionError("Two actions with the same name (" + a.getName() + "): "
 						+ a.getClass().getName() + " and " + hash.get(a.getName()).getClass().getName());

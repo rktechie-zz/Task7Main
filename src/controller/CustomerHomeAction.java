@@ -21,7 +21,7 @@ public class CustomerHomeAction extends Action {
 	}
 
 	public String getName() {
-		return "viewAccount.do";
+		return "customerHome.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -36,7 +36,7 @@ public class CustomerHomeAction extends Action {
 				
 				customer = customerDAO.read(customer.getUserName());
 
-				return "employeeHome.jsp";	
+				return "customerHome.jsp";	
 
 			} else {
 				// logout and re-login
