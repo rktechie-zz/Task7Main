@@ -23,13 +23,13 @@ public class Controller extends HttpServlet {
      */
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
 	public void init() throws ServletException {
         Model model = new Model(getServletConfig());
 
         Action.add(new LoginAction(model));
+        Action.add(new CreateFundAction(model));
 }
 
 	/**
