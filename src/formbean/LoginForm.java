@@ -6,16 +6,17 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class LoginForm extends FormBean {
-	private String userName;
+	public String userNm;
 	private String password;
 	private String type;
 
 	public String getUserName() {
-		return userName;
+		return userNm;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		//System.out.println("uname: " + userName);
+		this.userNm = userName;
 	}
 
 	public String getPassword() {
@@ -45,12 +46,17 @@ public class LoginForm extends FormBean {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
-		if (userName == null || userName.trim().length() == 0)
-			errors.add("Username is required");
-		if (password == null || password.trim().length() == 0)
+		
+		if (password == null || password.trim().length() == 0){
 			errors.add("Password is required");
-		if (type == null)
+		}
+		System.out.println("name in errors:" + userNm);
+		if (userNm == null || userNm.trim().length() == 0){
+			errors.add("Username is required");
+		}
+		if (type == null){
 			errors.add("Type is required");
+		}
 
 		if (errors.size() > 0)
 			return errors;
