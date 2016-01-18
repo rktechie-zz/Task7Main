@@ -1,8 +1,5 @@
 package databean;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transactionId")
@@ -81,5 +78,4 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
 	public long getAmount() {
 		return amount;
 	}
-
 }

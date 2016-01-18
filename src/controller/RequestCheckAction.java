@@ -13,9 +13,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
 import databean.TransactionBean;
-import formbean.LoginForm;
 import formbean.RequestCheckForm;
-import model.CustomerDAO;
 import model.Model;
 import model.TransactionDAO;
 
@@ -36,8 +34,8 @@ public class RequestCheckAction extends Action {
 		request.setAttribute("errors", errors);
 		HttpSession session = request.getSession();
 		try {
-			RequestCheckForm requestCheckForm = formBeanFactory.create(request);
-			if (!requestCheckForm.isPresent() || errors.size() != 0) {
+			RequestCheckForm form = formBeanFactory.create(request);
+			if (!form.isPresent() || errors.size() != 0) {
 				return "requestCheck.jsp";
 			}
 
@@ -69,14 +67,11 @@ public class RequestCheckAction extends Action {
 				return "success-customer.jsp";
 			}
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			errors.add("Sytem roll back");
+			errors.add("System roll back");
 			return "requestCheck.jsp";
 		} catch (FormBeanException e1) {
-			// TODO Auto-generated catch block
 			errors.add("Form data wrong");
 			return "requestCheck.jsp";
 		}
 	}
-
 }
