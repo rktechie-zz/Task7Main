@@ -33,7 +33,7 @@ public class LoginAction extends Action {
 	}
 
 	public String perform(HttpServletRequest request) {
-		System.out.print("InLoginAction!");
+		//System.out.println("InLoginAction!");
 		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
@@ -49,22 +49,30 @@ public class LoginAction extends Action {
 		try {
 			LoginForm loginForm = formBeanFactory.create(request);
 			request.setAttribute("form", loginForm);
-
+			//System.out.println("LoginFormCreated?"+loginForm.userNm);
+			
+			if (!loginForm.isPresent()) {
+				return "index.jsp";
+			}
+			
 			errors.addAll(loginForm.getValidationErrors());
-			if (!loginForm.isPresent() || errors.size() != 0) {
-				return "login.jsp";
+			//System.out.println(""+loginForm.getUserName());
+			if ( (errors.size() != 0)) {
+				//System.out.println("Returning to index.html");
+				return "index.jsp";
 			}
 			if (loginForm.isEmployee()) {
 				EmployeeBean user = employeeDAO.read(loginForm.getUserName());
-
+				System.out.println(user);
 				if (user == null) {
+					//System.out.println("FOrm not read");
 					errors.add("Incorrect Username: Username not found.");
-					return "login.jsp";
+					return "index.jsp";
 				}
 
 				if (!user.getPassword().equals(loginForm.getPassword())) {
 					errors.add("Incorrect password.");
-					return "login.jsp";
+					return "index.jsp";
 				}
 				session.setAttribute("user", user);
 
@@ -74,26 +82,26 @@ public class LoginAction extends Action {
 
 				if (user == null) {
 					errors.add("Incorrect Username: Username not found.");
-					return "login.jsp";
+					return "index.jsp";
 				}
 
 				if (!user.getPassword().equals(loginForm.getPassword())) {
 					errors.add("Incorrect password.");
-					return "login.jsp";
+					return "index.jsp";
 				}
 				session.setAttribute("user", user);
 
 				return "customerHome.do";
 			} else {
-				return "login.jsp";
+				return "index.jsp";
 			}
 
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "login.jsp";
+			return "index.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "login.jsp";
+			return "index.jsp";
 		}
 	}
 }

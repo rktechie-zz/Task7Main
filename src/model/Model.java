@@ -5,6 +5,9 @@ import javax.servlet.ServletException;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
+import org.genericdao.RollbackException;
+
+import databean.EmployeeBean;
 
 public class Model {
 	private CustomerDAO customerDAO;
@@ -27,8 +30,18 @@ public class Model {
 			fundPriceHistoryDAO = new FundPriceHistoryDAO(pool, "Fund_Price_History");
 			transactionDAO = new TransactionDAO(pool, "Transaction");
 			positionDAO = new PositionDAO(pool, "Position");
+			
+			EmployeeBean eb = employeeDAO.read("root");
+			if (eb == null) {
+				eb = new EmployeeBean();
+				eb.setUserName("root");
+				eb.setFirstName("root");
+				eb.setLastName("root");
+				eb.setPassword("root");
+				employeeDAO.create(eb);
+			}
 		} 		
-		catch (DAOException e) {
+		catch (DAOException | RollbackException e) {
 			throw new ServletException(e);
 		}
 	}
