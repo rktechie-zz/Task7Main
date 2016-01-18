@@ -60,7 +60,7 @@ public class CreateFundAction extends Action{
 			fundBean.setFundId(createFundForm.getFundId());
 			
 			fundDAO.create(fundBean);
-			return "createFund.jsp";			
+			return "success-employee.jsp";			
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "createFund.jsp";
