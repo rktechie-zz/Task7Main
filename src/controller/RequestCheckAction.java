@@ -34,13 +34,12 @@ public class RequestCheckAction extends Action {
 		request.setAttribute("errors", errors);
 		HttpSession session = request.getSession();
 		try {
+			if (session.getAttribute("user") == null) {
+			return "login.do";
+			}
 			RequestCheckForm form = formBeanFactory.create(request);
 			if (!form.isPresent() || errors.size() != 0) {
 				return "requestCheck.jsp";
-			}
-
-			if (session.getAttribute("user") == null) {
-				return "login.do";
 			}
 
 			CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");

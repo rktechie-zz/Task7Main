@@ -38,13 +38,13 @@ public class DepositCheckAction extends Action {
 		HttpSession session = request.getSession();
 		try {
 			DepositCheckForm requestCheckForm = formBeanFactory.create(request);
-			if (!requestCheckForm.isPresent() || errors.size() != 0) {
-				return "requestCheck.jsp";
-			}
-
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
+			if (!requestCheckForm.isPresent() || errors.size() != 0) {
+				return "depositCheck.jsp";
+			}
+			
 			String s = String.format("%.2f", session.getAttribute("depositAmount"));
 			CustomerBean customerBean = customerDAO.read(session.getAttribute("userName"));
 			TransactionBean tBean = new TransactionBean();
