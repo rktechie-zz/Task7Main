@@ -34,8 +34,8 @@ public class RequestCheckAction extends Action {
 		request.setAttribute("errors", errors);
 		HttpSession session = request.getSession();
 		try {
-			RequestCheckForm requestCheckForm = formBeanFactory.create(request);
-			if (!requestCheckForm.isPresent() || errors.size() != 0) {
+			RequestCheckForm form = formBeanFactory.create(request);
+			if (!form.isPresent() || errors.size() != 0) {
 				return "requestCheck.jsp";
 			}
 
