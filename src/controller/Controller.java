@@ -30,10 +30,8 @@ public class Controller extends HttpServlet {
 
         Action.add(new LoginAction(model));
         Action.add(new LogoutAction(model));
-
         Action.add(new CreateFundAction(model));
         Action.add(new ChangePasswordAction(model));
-
         Action.add(new CreateEmployeeAction(model));
         Action.add(new CreateCustomerAction(model));
         Action.add(new RequestCheckAction(model));
@@ -102,7 +100,7 @@ public class Controller extends HttpServlet {
 		}
 
 		if (nextPage.endsWith(".jsp") || nextPage.endsWith(".html")) {
-			RequestDispatcher d = request.getRequestDispatcher("WEB-INF/" +nextPage);
+			RequestDispatcher d = request.getRequestDispatcher(nextPage);
 			d.forward(request, response);
 			return;
 		}
