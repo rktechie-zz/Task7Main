@@ -34,30 +34,27 @@ public class CreateFundAction extends Action{
 
 	@Override
 	public String perform(HttpServletRequest request) {
-		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
-		if (session.getAttribute("user") != null) {
-			if (session.getAttribute("user") instanceof EmployeeBean) {
-				return "employeeHome.do";
-			} else if (session.getAttribute("user") instanceof CustomerBean) {
-				return "customerHome.do";
-			}
-		}
+		HttpSession session = request.getSession();
 	
 		try {
 			CreateFundForm createFundForm = formBeanFactory.create(request);
 			request.setAttribute("form", createFundForm);
-
+			
+			if (session.getAttribute("user") == null) {
+				return "login.do";
+			}
+			
 			errors.addAll(createFundForm.getValidationErrors());
 			if (!createFundForm.isPresent() || errors.size() != 0) {
 				return "createFund.jsp";
 			}
 			
 			FundBean fundBean = new FundBean();
-			fundBean.setName(createFundForm.getName());
-			fundBean.setFundId(createFundForm.getFundId());
+			String name = session.getAttribute("fundName"));
+			fundBean.setName((String) session.getAttribute("fundName"));
+			fundBean.setFundId(Integer.parseInt((String) session.getAttribute("fundId")));
 			
 			fundDAO.create(fundBean);
 			return "success-employee.jsp";			

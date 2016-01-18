@@ -15,8 +15,7 @@
 						<tr>
 							<td class="col-md-2 text-left">Fund ID:</td>
 							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" id="fundId"
-								placeholder="Fund ID">
+								class="form-control" id="fundId" placeholder="Fund ID">
 						</tr>
 						<tr>
 							<td></td>
