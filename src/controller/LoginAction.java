@@ -76,7 +76,7 @@ public class LoginAction extends Action {
 				}
 				session.setAttribute("user", user);
 
-				return "login.jsp";
+				return "employeeHome.do";
 			} else if (loginForm.isCustomer()) {
 				CustomerBean user = customerDAO.read(loginForm.getUserName());
 
@@ -91,17 +91,17 @@ public class LoginAction extends Action {
 				}
 				session.setAttribute("user", user);
 
-				return "login.jsp";
+				return "customerHome.do";
 			} else {
-				return "login.jsp";
+				return "index.jsp";
 			}
 
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "login.jsp";
+			return "index.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "login.jsp";
+			return "index.jsp";
 		}
 	}
 }

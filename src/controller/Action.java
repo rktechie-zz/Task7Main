@@ -27,6 +27,7 @@ public abstract class Action {
 		Action a;
 		synchronized (hash) {
 			a = hash.get(name);
+			System.out.println(a.getName());
 		}
 
 		if (a == null)
