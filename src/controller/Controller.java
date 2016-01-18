@@ -37,8 +37,9 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.print("in Controller GET.");
+		//System.out.println("in Controller GET. ");
 		String nextPage = performTheAction(request);
+		//System.out.println(nextPage);
 		sendToNextPage(nextPage, request, response);
 	}
 
@@ -54,10 +55,9 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
 		String action = getActionName(servletPath);
-		System.out.println(action);
+		//System.out.println(action);
 
 		if (session.getAttribute("user") == null) {
-			System.out.println("user is null");
 			// If the user hasn't logged in, so login is the only option
 			return Action.perform("login.do", request);
 		}
@@ -91,8 +91,8 @@ public class Controller extends HttpServlet {
 			return;
 		}
 
-		if (nextPage.endsWith(".jsp")) {
-			RequestDispatcher d = request.getRequestDispatcher("WEB-INF/" + nextPage);
+		if (nextPage.endsWith(".jsp") || nextPage.endsWith(".html")) {
+			RequestDispatcher d = request.getRequestDispatcher("WEB-INF/" +nextPage);
 			d.forward(request, response);
 			return;
 		}
