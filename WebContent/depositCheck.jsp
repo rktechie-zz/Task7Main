@@ -2,6 +2,7 @@
 <div class="jumbotron text-center">
 	<h1>&nbsp</h1>
 	<h1>&nbsp</h1>
+	<jsp:include page="error.jsp" />
 	<form action="depositCheck.do" method="POST">
 		<div class="row">
 			<div class="col-md-6">
