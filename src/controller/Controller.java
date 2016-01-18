@@ -30,13 +30,11 @@ public class Controller extends HttpServlet {
 
 
         Action.add(new LoginAction(model));
-        Action.add(new RequestCheckAction(model));
         Action.add(new LogoutAction(model));
-        Action.add(new DepositCheckAction(model));
-        Action.add(new LoginAction(model));
+
         Action.add(new CreateFundAction(model));
         Action.add(new ChangePasswordAction(model));
-        Action.add(new LogoutAction(model));
+
         Action.add(new CreateEmployeeAction(model));
         Action.add(new CreateCustomerAction(model));
         Action.add(new RequestCheckAction(model));
