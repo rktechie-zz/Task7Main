@@ -30,10 +30,15 @@ public class Controller extends HttpServlet {
         Model model = new Model(getServletConfig());
 
         Action.add(new LoginAction(model));
+        Action.add(new ChangePasswordAction(model));
         Action.add(new LogoutAction(model));
         Action.add(new CreateEmployeeAction(model));
         Action.add(new CreateCustomerAction(model));
         Action.add(new ChangePasswordAction(model));
+        Action.add(new RequestCheckAction(model));
+        Action.add(new DepositCheckAction(model));
+        Action.add(new TransactionHistoryAction(model));
+        Action.add(new ViewCustomerTransactionAction(model));
 }
 
 	/**
@@ -113,7 +118,5 @@ public class Controller extends HttpServlet {
 		// We're guaranteed that the path will start with a slash
 		int slash = path.lastIndexOf('/');
 		return path.substring(slash + 1);
-	}
-
-	
+	}	
 }

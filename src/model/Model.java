@@ -5,9 +5,6 @@ import javax.servlet.ServletException;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
-import org.genericdao.RollbackException;
-
-import databean.EmployeeBean;
 
 public class Model {
 	private CustomerDAO customerDAO;
