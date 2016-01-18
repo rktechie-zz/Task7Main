@@ -13,7 +13,6 @@
 <div class="col-sm-4">
 <span class="input-group-addon">$</span>
 <input type="text" class="form-control" id="depoistAmount" placeholder="Amount in two decimal places">
-<sapn class="input-group-addon">.00</sapn>
 </div>
 <div class="col-sm-4">
 <button type="submit" class="btn btn-success">Deposit Money</button>
