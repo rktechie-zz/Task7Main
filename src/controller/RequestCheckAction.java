@@ -13,7 +13,6 @@ import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
 import databean.TransactionBean;
-import formbean.LoginForm;
 import formbean.RequestCheckForm;
 import model.Model;
 import model.TransactionDAO;
@@ -68,14 +67,11 @@ public class RequestCheckAction extends Action {
 				return "success.jsp";
 			}
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			errors.add("Sytem roll back");
+			errors.add("System roll back");
 			return "requestCheck.jsp";
 		} catch (FormBeanException e1) {
-			// TODO Auto-generated catch block
 			errors.add("Form data wrong");
 			return "requestCheck.jsp";
 		}
 	}
-
 }
