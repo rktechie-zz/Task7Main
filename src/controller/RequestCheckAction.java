@@ -13,17 +13,14 @@ import org.mybeans.form.FormBeanFactory;
 import databean.CustomerBean;
 import databean.TransactionBean;
 import formbean.RequestCheckForm;
-import model.CustomerDAO;
 import model.Model;
 import model.TransactionDAO;
 
 public class RequestCheckAction {
 	private FormBeanFactory<RequestCheckForm> formBeanFactory = FormBeanFactory.getInstance(RequestCheckForm.class);
-	private CustomerDAO customerDAO;
 	private TransactionDAO transactionDAO;
 	
 	public RequestCheckAction(Model model) {
-		customerDAO = model.getCustomerDAO();
 		transactionDAO = model.getTransactionDAO();
 	}
 	

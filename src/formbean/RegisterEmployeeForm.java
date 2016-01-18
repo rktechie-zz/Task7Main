@@ -82,5 +82,4 @@ public class RegisterEmployeeForm extends FormBean {
 	private String sanitize(String s) {
 		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
-
 }

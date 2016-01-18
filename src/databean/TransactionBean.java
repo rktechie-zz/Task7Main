@@ -1,8 +1,5 @@
 package databean;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transactionId")
@@ -71,17 +68,4 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
 	public long getAmount() {
 		return amount;
 	}
-
-	// @Override
-	// public int compareTo(TransactionBean tb) {
-	// SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	// dateFormat.setLenient(false);
-	// try {
-	// return
-	// dateFormat.parse(this.executeDate).compareTo(dateFormat.parse(tb.executeDate));
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// }
-	// return 0;
-	// }
 }
