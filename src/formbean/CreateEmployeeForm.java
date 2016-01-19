@@ -18,7 +18,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = sanitize(firstName);
 	}
 
 	public String getLastName() {
@@ -26,7 +26,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = sanitize(lastName);
 	}
 
 	public String getUserName() {
@@ -34,7 +34,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = sanitize(userName);
 	}
 
 	public String getPassword() {
@@ -42,7 +42,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = sanitize(password);
 	}
 
 	public String getConfirmPassword() {
@@ -50,7 +50,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+		this.confirmPassword = sanitize(confirmPassword);
 	}
 
 	public String getType() {
@@ -58,7 +58,7 @@ public class CreateEmployeeForm extends FormBean {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type = sanitize(type);
 	}
 
 	public List<String> getValidationErrors() {

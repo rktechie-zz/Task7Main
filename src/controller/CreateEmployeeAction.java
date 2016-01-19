@@ -64,8 +64,8 @@ public class CreateEmployeeAction extends Action{
 
 				request.setAttribute("message", "Employee account for " +form.getUserName()+ " was created successfully.");
 				request.removeAttribute("form");
-				
-				return "employeeHome.jsp";
+
+				return "success.jsp";
 			} else {
 				return "createEmployee.jsp";
 			}
