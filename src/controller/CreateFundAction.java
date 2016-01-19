@@ -13,8 +13,6 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import databean.CustomerBean;
-import databean.EmployeeBean;
 import databean.FundBean;
 import formbean.CreateFundForm;
 
@@ -52,7 +50,6 @@ public class CreateFundAction extends Action{
 			}
 			
 			FundBean fundBean = new FundBean();
-			String name = session.getAttribute("fundName"));
 			fundBean.setName((String) session.getAttribute("fundName"));
 			fundBean.setFundId(Integer.parseInt((String) session.getAttribute("fundId")));
 			

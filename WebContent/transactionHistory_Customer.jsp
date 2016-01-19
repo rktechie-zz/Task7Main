@@ -4,7 +4,7 @@
 
 <div id="viewTransactionHistory" class="container-fluid text-center">
 
-     <br><br><br><br><br><br><br><br>
+     <br><br><br><br>
 
     <ul class="list-group">
         <li class="list-group-item list-group-item-success">Customer
