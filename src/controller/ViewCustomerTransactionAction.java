@@ -56,7 +56,7 @@ public class ViewCustomerTransactionAction extends Action {
 
             if (arr == null) {
                 errors.add("No transaction history to be viewed");
-                return "NoInformation.jsp";
+                return "failure-employee.jsp";
             } else {
                 return "TransactionHistory.jsp";
             }

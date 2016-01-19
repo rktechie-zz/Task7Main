@@ -15,7 +15,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><button type="submit" class="btn btn-success pull-left">Witdraw Money</button></td>
+							<td><button type="submit" class="btn btn-success pull-left">Withdraw Money</button></td>
 						</tr>
 					</tbody>
 				</table>
