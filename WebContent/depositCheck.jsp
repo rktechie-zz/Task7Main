@@ -1,5 +1,4 @@
-<jsp:include page="template-top-customer.jsp" />
-<div class="jumbotron text-center">
+<jsp:include page="template-top-employee.jsp" />
 	<h1>&nbsp</h1>
 	<h1>&nbsp</h1>
 	<jsp:include page="error.jsp" />
@@ -29,6 +28,5 @@
 			</div>
 		</div>
 	</form>
-</div>
 
 <jsp:include page="template-bottom.jsp" />

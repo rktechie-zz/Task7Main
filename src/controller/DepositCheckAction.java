@@ -47,6 +47,10 @@ public class DepositCheckAction extends Action {
 			
 			String s = String.format("%.2f", session.getAttribute("depositAmount"));
 			CustomerBean customerBean = customerDAO.read(session.getAttribute("userName"));
+			if (customerBean == null) {
+				errors.add("No such user!");
+				return "depositCheck.jsp";
+			}
 			TransactionBean tBean = new TransactionBean();
 			tBean.setCustomer_id(customerBean.getCustomerId());
 			tBean.setTransactionType("Deposit Check");
@@ -56,11 +60,11 @@ public class DepositCheckAction extends Action {
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			errors.add("Sytem roll back");
-			return "requestCheck.jsp";
+			return "depositCheck.do";
 		} catch (FormBeanException e1) {
 			// TODO Auto-generated catch block
 			errors.add("Form data wrong");
-			return "requestCheck.jsp";
+			return "depositCheck.do";
 		}
 	}
 

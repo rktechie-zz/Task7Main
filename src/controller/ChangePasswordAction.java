@@ -28,7 +28,7 @@ public class ChangePasswordAction extends Action{
 	}
 
 	public String getName() {
-		return "changePassword.do";
+		return "cutomerChangePassword.do";
 	}
 	
 	public String perform(HttpServletRequest request) {
