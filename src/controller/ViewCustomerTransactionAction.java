@@ -58,7 +58,7 @@ public class ViewCustomerTransactionAction extends Action {
                 errors.add("No transaction history to be viewed");
                 return "failure-employee.jsp";
             } else {
-                return "TransactionHistory.jsp";
+                return "transactionHistory_Employee.jsp";
             }
         } catch (RollbackException e) {
             errors.add("System roll back");

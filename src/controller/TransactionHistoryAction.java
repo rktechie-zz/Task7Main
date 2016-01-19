@@ -38,15 +38,15 @@ public class TransactionHistoryAction extends Action {
                         }
 
                         CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
-                        TransactionBean[] arr;
+                        TransactionBean[] transactions;
 
-                        arr = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId())));
+                        transactions = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId())));
 
-                        if (arr == null) {
+                        if (transactions == null) {
                                 errors.add("No transaction history to be viewed");
                                 return "failure-customer.jsp";
                         } else {
-                                return "TransactionHistory.jsp";
+                                return "transactionHistory_Customer.jsp";
                         }
                 } catch (RollbackException e) {
                         errors.add("System roll back");

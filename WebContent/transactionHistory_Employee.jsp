@@ -1,4 +1,6 @@
-<jsp:include page="template-top-customer.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="template-top-employee.jsp" />
 
 <div id="viewTransactionHistory" class="container-fluid text-center">
 
@@ -29,14 +31,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
+            <c:forEach var="tran" items="${transactions}">   
+                <tr>
+                    <th>${tran.executeDate}</th>
+                    <th>${tran.transactionType}</th>
+                    <th>${tran.fundName}</th>
+                    <th>${tran.shares}</th>
+                    <th>${tran.sharePrice}</th>
+                    <th>${tran.amount}</th>
+                </tr>
+             </c:forEach>   
         </tbody>
     </table>
 </div>

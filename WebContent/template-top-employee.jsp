@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <a class="navbar-brand" href="index.jsp">CFS</a>
+                <a class="navbar-brand" href="index.jsp">Carnegie Financial Services</a>
         
             </div>
             

@@ -30,7 +30,7 @@
                 <span class="icon-bar"></span> <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="index.jsp">Logo</a>
+            <a class="navbar-brand" href="index.jsp">Carnegie Financial Services</a>
 
         </div>
 

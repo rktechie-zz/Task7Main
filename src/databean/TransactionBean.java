@@ -5,77 +5,95 @@ import org.genericdao.PrimaryKey;
 @PrimaryKey("transactionId")
 public class TransactionBean /* implements Comparable<TransactionBean> */ {
 
-	private int customer_id;
+        private int customer_id;
 
-	private int transactionId;
-	private String userName;
-	private int fundId;
-	private String executeDate;
-	private long shares;
-	private String transactionType;
-	private long amount;
+        private int transactionId;
+        private String userName;
+        private int fundId;
+        private String fundName;
+        private String executeDate;
+        private long shares;
+        private String sharePrice;
+        private String transactionType;
+        private long amount;
 
-	public int getCustomer_id() {
-		return customer_id;
-	}
+        public int getCustomer_id() {
+                return customer_id;
+        }
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
-	}
+        public void setCustomer_id(int customer_id) {
+                this.customer_id = customer_id;
+        }
 
-	public void setTransactionId(int v) {
-		transactionId = v;
-	}
+        public String getFundName() {
+                return fundName;
+        }
 
-	public void setUserName(String v) {
-		userName = v;
-	}
+        public String getSharePrice() {
+                return sharePrice;
+        }
 
-	public void setFundId(int v) {
-		fundId = v;
-	}
+        public void setSharePrice(String sharePrice) {
+                this.sharePrice = sharePrice;
+        }
 
-	public void setExecuteDate(String today) {
-		executeDate = today;
-	}
+        public void setFundName(String fundName) {
+                this.fundName = fundName;
+        }
 
-	public void setShares(long v) {
-		shares = v;
-	}
+        public void setTransactionId(int v) {
+                transactionId = v;
+        }
 
-	public void setTransactionType(String v) {
-		transactionType = v;
-	}
+        public void setUserName(String v) {
+                userName = v;
+        }
 
-	public void setAmount(long v) {
-		amount = v;
-	}
+        public void setFundId(int v) {
+                fundId = v;
+        }
 
-	public int getTransactionId() {
-		return transactionId;
-	}
+        public void setExecuteDate(String today) {
+                executeDate = today;
+        }
 
-	public String getUserName() {
-		return userName;
-	}
+        public void setShares(long v) {
+                shares = v;
+        }
 
-	public int getFundId() {
-		return fundId;
-	}
+        public void setTransactionType(String v) {
+                transactionType = v;
+        }
 
-	public String getExecuteDate() {
-		return executeDate;
-	}
+        public void setAmount(long v) {
+                amount = v;
+        }
 
-	public long getShares() {
-		return shares;
-	}
+        public int getTransactionId() {
+                return transactionId;
+        }
 
-	public String getTransactionType() {
-		return transactionType;
-	}
+        public String getUserName() {
+                return userName;
+        }
 
-	public long getAmount() {
-		return amount;
-	}
+        public int getFundId() {
+                return fundId;
+        }
+
+        public String getExecuteDate() {
+                return executeDate;
+        }
+
+        public long getShares() {
+                return shares;
+        }
+
+        public String getTransactionType() {
+                return transactionType;
+        }
+
+        public long getAmount() {
+                return amount;
+        }
 }
