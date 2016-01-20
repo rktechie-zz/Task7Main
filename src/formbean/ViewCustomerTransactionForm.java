@@ -6,47 +6,29 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class ViewCustomerTransactionForm extends FormBean {
-    private String firstName;
-    private String lastName;
-    private int customerId = Integer.MIN_VALUE;
+        private String userName;
 
-    public String getFirstName() {
-        return firstName;
-    }
+        public String getUserName() {
+                return userName;
+        }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+        public void setUserName(String userName) {
+                this.userName = sanitize(userName);
+        }
 
-    public String getLastName() {
-        return lastName;
-    }
+        public List<String> getValidationErrors() {
+                List<String> errors = new ArrayList<String>();
+                
+                if (userName == null || userName.trim().length() == 0)
+                        errors.add("User name is required.");
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+                if (errors.size() > 0)
+                        return errors;
 
-    public int getCustomerId() {
-        return customerId;
-    }
+                return errors;
+        }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<String> getValidationErrors() {
-        List<String> errors = new ArrayList<String>();
-
-        if (firstName == null || firstName.trim().length() == 0)
-            errors.add("Customer first name is required");
-        if (lastName == null || lastName.trim().length() == 0)
-            errors.add("Customer last name is required");
-        if (customerId == Integer.MIN_VALUE)
-            errors.add("Customer Id is required");
-
-        if (errors.size() > 0)
-            return errors;
-        
-        return errors;
-    }
+        private String sanitize(String s) {
+                return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+        }
 }

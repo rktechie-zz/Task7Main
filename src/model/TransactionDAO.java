@@ -1,12 +1,72 @@
 package model;
 
+import java.util.Arrays;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
+import org.genericdao.MatchArg;
+import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
+import databean.CustomerBean;
 import databean.TransactionBean;
 public class TransactionDAO extends GenericDAO<TransactionBean> {
 	public TransactionDAO(ConnectionPool cp, String tableName) throws DAOException {
 		super(TransactionBean.class, tableName, cp);
 	}
+	
+	public String getLastDate(CustomerBean c) throws RollbackException{
+		String date = null;
+		try {
+			Transaction.begin();
+		
+			TransactionBean[] transaction  = match(MatchArg.notEquals("executeDate", null), MatchArg.equals("userName", c.getUserName()));
+			if( transaction == null || transaction.length == 0) date = null;
+			else {
+				Arrays.sort(transaction);
+				date = transaction[transaction.length-1].getExecuteDate();
+			}
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		
+		return date;
+	}
+	
+	public double getValidBalance (String userName, double amount) throws RollbackException {
+		TransactionBean[] tbs = null;
+		try {
+			Transaction.begin();
+			
+			// How to execute select * from table where transactionType IS NULL
+			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("userName", userName));
+			
+			if (tbs != null) {
+				for (TransactionBean t : tbs) {
+					switch(Integer.parseInt(t.getTransactionType())) {
+					case TransactionBean.BUY_FUND:
+						amount -= t.getAmount() / 100.00;
+						break;
+					case TransactionBean.REQUEST_CHECK:
+						amount -= t.getAmount() / 100.00;
+						break;
+					case TransactionBean.DEPOSIT_CHECK:
+						amount += t.getAmount() / 100.00;
+						break;	
+					default:
+						break;
+					}
+				}
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		
+		return amount;
+	}
+	
 }

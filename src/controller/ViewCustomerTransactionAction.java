@@ -10,8 +10,10 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import databean.CustomerBean;
 import databean.TransactionShareBean;
 import formbean.ViewCustomerTransactionForm;
+import model.CustomerDAO;
 import model.Model;
 import model.TransactionShareDAO;
 
@@ -19,9 +21,11 @@ public class ViewCustomerTransactionAction extends Action {
         private FormBeanFactory<ViewCustomerTransactionForm> formBeanFactory = FormBeanFactory
                         .getInstance(ViewCustomerTransactionForm.class);
         private TransactionShareDAO transactionShareDAO;
+        private CustomerDAO customerDAO;
 
         public ViewCustomerTransactionAction(Model model) {
                 transactionShareDAO = model.getTransactionShareDAO();
+                customerDAO = model.getCustomerDAO();
         }
 
         @Override
@@ -35,7 +39,9 @@ public class ViewCustomerTransactionAction extends Action {
                 request.setAttribute("errors", errors);
                 HttpSession session = request.getSession();
                 try {
+                        
                         ViewCustomerTransactionForm form = formBeanFactory.create(request);
+                        
                         if (!form.isPresent() || errors.size() != 0) {
                                 return "viewCustomerTransaction.jsp";
                         }
@@ -43,15 +49,15 @@ public class ViewCustomerTransactionAction extends Action {
                         if (session.getAttribute("user") == null) {
                                 return "login.do";
                         }
-
-                        int customer_Id = form.getCustomerId();
+                        
+                        CustomerBean customer = customerDAO.read(form.getUserName());
 
                         String sql = "select executeDate as executeDate, transactionType as transactionType, "
                                         + "fundId as fundId, shares as shares, price as sharePrice, amount as amount " 
                                         + "customer_id as customer_id, transactionId as transactionId" 
                                         + "from transaction, fund_price_history where customer.id=?";
                         
-                        TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer_Id);
+                        TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer.getCustomerId());
                         
                         request.setAttribute("transactions", transactionShares);
 
