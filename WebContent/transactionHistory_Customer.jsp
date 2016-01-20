@@ -35,7 +35,7 @@
                 <tr>
                     <th>${tran.executeDate}</th>
                     <th>${tran.transactionType}</th>
-                    <th>${tran.fundName}</th>
+                    <th>${tran.fundId}</th>
                     <th>${tran.shares}</th>
                     <th>${tran.sharePrice}</th>
                     <th>${tran.amount}</th>

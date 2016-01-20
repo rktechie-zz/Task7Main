@@ -10,10 +10,8 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
         private int transactionId;
         private String userName;
         private int fundId;
-        private String fundName;
         private String executeDate;
         private long shares;
-        private String sharePrice;
         private String transactionType;
         private long amount;
 
@@ -23,22 +21,6 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
 
         public void setCustomer_id(int customer_id) {
                 this.customer_id = customer_id;
-        }
-
-        public String getFundName() {
-                return fundName;
-        }
-
-        public String getSharePrice() {
-                return sharePrice;
-        }
-
-        public void setSharePrice(String sharePrice) {
-                this.sharePrice = sharePrice;
-        }
-
-        public void setFundName(String fundName) {
-                this.fundName = fundName;
         }
 
         public void setTransactionId(int v) {

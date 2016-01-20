@@ -41,6 +41,8 @@ public class TransactionHistoryAction extends Action {
                         TransactionBean[] transactions;
 
                         transactions = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId())));
+                        
+                        request.setAttribute("transactions", transactions);
 
                         if (transactions == null) {
                                 errors.add("No transaction history to be viewed");
