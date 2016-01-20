@@ -64,7 +64,6 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
 		String action = getActionName(servletPath);
-		//System.out.println(action);
 
 		if (session.getAttribute("user") == null) {
 
@@ -72,7 +71,6 @@ public class Controller extends HttpServlet {
 		}
 
 		if (action.equals("welcome")) {
-			// User is logged in, but at the root of our web app
 			if (session.getAttribute("user") instanceof CustomerBean)
 				return Action.perform("customerMain.do", request);
 			else

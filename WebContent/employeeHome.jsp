@@ -19,7 +19,6 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar"
 	data-offset="60">
 
-<<<<<<< HEAD
     <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
