@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 
@@ -29,15 +28,15 @@ public class TransactionHistoryAction extends Action {
         public String perform(HttpServletRequest request) {
                 List<String> errors = new ArrayList<String>();
                 request.setAttribute("errors", errors);
-                HttpSession session = request.getSession();
 
                 try {
-                        if (session.getAttribute("user") == null) {
+                        CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
+                        
+                        if (user == null) {
                                 return "login.do";
                         }
 
-                        CustomerBean customer = (CustomerBean) request .getAttribute("user");
-                        int customer_Id = customer.getCustomerId();
+                        int customer_Id = user.getCustomerId();
                         
                         String sql = "select executeDate as executeDate, transactionType as transactionType, "
                                         + "fundId as fundId, shares as shares, price as sharePrice, amount as amount " 
@@ -46,7 +45,7 @@ public class TransactionHistoryAction extends Action {
                         
                         TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer_Id);
 
-                        request.setAttribute("customer", customer);
+                        request.setAttribute("customer", user);
                         request.setAttribute("transactions", transactionShares);
 
                         if (transactionShares == null) {

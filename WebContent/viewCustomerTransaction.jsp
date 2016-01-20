@@ -20,11 +20,6 @@
                                 class="form-control" id="customerLastName" placeholder="Enter customer last name">
                         </tr>
 						<tr>
-							<td class="col-md-2 text-right">Customer ID:</td>
-							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" id="customerId" placeholder="Enter customer ID">
-						</tr>
-						<tr>
 							<td></td>
 							<td><button type="submit" class="btn btn-success pull-left">View Transaction</button></td>
 						</tr>
