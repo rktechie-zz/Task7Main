@@ -36,17 +36,25 @@ public class DepositCheckAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		HttpSession session = request.getSession();
+		
 		try {
-			DepositCheckForm requestCheckForm = formBeanFactory.create(request);
+			DepositCheckForm depisitCheckForm = formBeanFactory.create(request);
+			request.setAttribute("form",depisitCheckForm);
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
-			if (!requestCheckForm.isPresent() || errors.size() != 0) {
+			
+			if (!depisitCheckForm.isPresent()) {
+				return "depositCheck.jsp";
+			}
+			errors.addAll(depisitCheckForm.getValidationErrors());
+			if (errors.size() != 0) {
 				return "depositCheck.jsp";
 			}
 			
-			String s = String.format("%.2f", session.getAttribute("depositAmount"));
-			CustomerBean customerBean = customerDAO.read(session.getAttribute("userName"));
+			String s = String.format("%.2s", depisitCheckForm.getDepositAmount());
+			CustomerBean customerBean = customerDAO.read(depisitCheckForm.getUserName());
+			//System.out.println(customerBean.getUserName());
 			if (customerBean == null) {
 				errors.add("No such user!");
 				return "depositCheck.jsp";
@@ -60,11 +68,11 @@ public class DepositCheckAction extends Action {
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			errors.add("Sytem roll back");
-			return "depositCheck.do";
+			return "depositCheck.jsp";
 		} catch (FormBeanException e1) {
 			// TODO Auto-generated catch block
 			errors.add("Form data wrong");
-			return "depositCheck.do";
+			return "depositCheck.jsp";
 		}
 	}
 

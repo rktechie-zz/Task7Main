@@ -11,11 +11,11 @@
 						<tr>
 							<td class="col-md-2 text-left">Amount:</td>
 							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" id="requestAmount" placeholder="Amount in two decimal places">
+								class="form-control" name="requestAmount" placeholder="Amount in two decimal places">
 						</tr>
 						<tr>
 							<td></td>
-							<td><button type="submit" class="btn btn-success pull-left">Withdraw Money</button></td>
+							<td><button type="submit" name="action" class="btn btn-success pull-left">Withdraw Money</button></td>
 						</tr>
 					</tbody>
 				</table>

@@ -38,39 +38,44 @@ public class RequestCheckAction extends Action {
 			return "login.do";
 			}
 			RequestCheckForm form = formBeanFactory.create(request);
-			if (!form.isPresent() || errors.size() != 0) {
+			request.setAttribute("form",form);
+			
+			if (!form.isPresent()) {
+				return "requestCheck.jsp";
+			}
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
 				return "requestCheck.jsp";
 			}
 
 			CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
-			TransactionBean[] arr;
 
-			arr = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId()),
+			TransactionBean[] arr = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId()),
 					MatchArg.equals("executeDate", null)));
 
 			long amount = 0;
 			for (TransactionBean bean : arr) {
 				amount += bean.getAmount();
 			}
-			String s = String.format("%.2f", session.getAttribute("requestAmount"));
+			String s = String.format("%.2s", form.getRequestAmount());
 			amount += Long.parseLong(s);
 			if (user.getCash() < amount) {
 				errors.add("Balance is not enough to proceed the request");
-				return "requestCheck.do";
-			} else {
-				TransactionBean tBean = new TransactionBean();
-				tBean.setCustomer_id(user.getCustomerId());
-				tBean.setTransactionType("Request Check");
-				tBean.setAmount(Long.parseLong(s));
-				transactionDAO.create(tBean);
-				return "success-customer.jsp";
-			}
+				return "requestCheck.jsp";
+			} 
+			TransactionBean tBean = new TransactionBean();
+			tBean.setCustomer_id(user.getCustomerId());
+			tBean.setTransactionType("Request Check");
+			tBean.setAmount(Long.parseLong(s));
+			transactionDAO.create(tBean);
+			return "success-customer.jsp";
+			
 		} catch (RollbackException e) {
 			errors.add("System roll back");
-			return "requestCheck.do";
+			return "requestCheck.jsp";
 		} catch (FormBeanException e1) {
 			errors.add("Form data wrong");
-			return "requestCheck.do";
+			return "requestCheck.jsp";
 		}
 	}
 }
