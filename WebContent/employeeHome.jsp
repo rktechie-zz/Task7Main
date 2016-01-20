@@ -77,9 +77,7 @@
 				</h4>
 				<p>This is VIEW CUSTOMER ACCOUNT</p>
 			</div>
-
-		</div>
-   </div>
+         </div>
 
 		<br>
 		<br>
@@ -112,7 +110,7 @@
 
 		</div>
 		
-		<div class="row">
+	<div class="row">
 		<div class="col-sm-4">
 				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
 				<h4>
@@ -130,6 +128,8 @@
 		</div>
 
 	</div>
+    
+    </div>
 
 	<!-- Container ("Contact Us" Section) -->
 	<div id="contact" class="contact slideanim">

@@ -46,6 +46,7 @@ public class TransactionHistoryAction extends Action {
                         
                         TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer_Id);
 
+                        request.setAttribute("customer", customer);
                         request.setAttribute("transactions", transactionShares);
 
                         if (transactionShares == null) {

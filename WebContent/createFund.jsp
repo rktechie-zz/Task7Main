@@ -1,7 +1,8 @@
 <jsp:include page="template-top-employee.jsp" />
-	<h1>&nbsp</h1>
-	<h1>&nbsp</h1>
-	<jsp:include page="error.jsp" />
+<jsp:include page="error.jsp" />
+
+    <br><br><br><br><br><br><br><br><br>
+
 	<form action="createFund.do" method="POST">
 		<div class="row">
 			<div class="col-md-6">

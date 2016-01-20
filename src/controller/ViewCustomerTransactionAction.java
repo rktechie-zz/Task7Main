@@ -26,7 +26,7 @@ public class ViewCustomerTransactionAction extends Action {
 
         @Override
         public String getName() {
-                return "ViewCustomerTransaction.do";
+                return "viewCustomerTransaction.do";
         }
 
         @Override

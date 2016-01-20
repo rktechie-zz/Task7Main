@@ -3,16 +3,15 @@
 <jsp:include page="template-top-employee.jsp" />
 
 <div id="viewTransactionHistory" class="container-fluid text-center">
-
      <br><br><br><br>
-
     <ul class="list-group">
         <li class="list-group-item list-group-item-success">Customer
-            Name:</li>
+            First Name: {$customer.firstName}</li>
+         <li class="list-group-item list-group-item-success">Customer
+            Last Name: {$customer.lastName}</li>
         <li class="list-group-item list-group-item-warning">Customer
-            Id:</li>
+            Id: {$customer.customerId}</li>
     </ul>
-
 </div>
 
 
