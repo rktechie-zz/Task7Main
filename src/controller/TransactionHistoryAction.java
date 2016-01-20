@@ -6,19 +6,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
 import databean.CustomerBean;
-import databean.TransactionBean;
+import databean.TransactionShareBean;
 import model.Model;
-import model.TransactionDAO;
+import model.TransactionShareDAO;
 
 public class TransactionHistoryAction extends Action {
-        private TransactionDAO transactionDAO;
+        private TransactionShareDAO transactionShareDAO;
 
         public TransactionHistoryAction(Model model) {
-                transactionDAO = model.getTransactionDAO();
+                transactionShareDAO = model.getTransactionShareDAO();
         }
 
         @Override
@@ -37,12 +36,19 @@ public class TransactionHistoryAction extends Action {
                                 return "login.do";
                         }
 
-                        CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
-                        TransactionBean[] transactions;
+                        CustomerBean customer = (CustomerBean) request .getAttribute("user");
+                        int customer_Id = customer.getCustomerId();
+                        
+                        String sql = "select executeDate as executeDate, transactionType as transactionType, "
+                                        + "fundId as fundId, shares as shares, price as sharePrice, amount as amount " 
+                                        + "customer_id as customer_id, transactionId as transactionId" 
+                                        + "from transaction, fund_price_history where customer_id=?";
+                        
+                        TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer_Id);
 
-                        transactions = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId())));
+                        request.setAttribute("transactions", transactionShares);
 
-                        if (transactions == null) {
+                        if (transactionShares == null) {
                                 errors.add("No transaction history to be viewed");
                                 return "failure-customer.jsp";
                         } else {

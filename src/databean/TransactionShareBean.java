@@ -3,79 +3,62 @@ package databean;
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transactionId")
-public class TransactionBean /* implements Comparable<TransactionBean> */ {
-
+public class TransactionShareBean /* implements Comparable<TransactionBean> */ {       
         private int customer_id;
-
         private int transactionId;
-        private String userName;
         private int fundId;
         private String executeDate;
         private long shares;
+        private long sharePrice;
         private String transactionType;
         private long amount;
-
+        
         public int getCustomer_id() {
                 return customer_id;
         }
-
         public void setCustomer_id(int customer_id) {
                 this.customer_id = customer_id;
         }
-
-        public void setTransactionId(int v) {
-                transactionId = v;
-        }
-
-        public void setUserName(String v) {
-                userName = v;
-        }
-
-        public void setFundId(int v) {
-                fundId = v;
-        }
-
-        public void setExecuteDate(String today) {
-                executeDate = today;
-        }
-
-        public void setShares(long v) {
-                shares = v;
-        }
-
-        public void setTransactionType(String v) {
-                transactionType = v;
-        }
-
-        public void setAmount(long v) {
-                amount = v;
-        }
-
         public int getTransactionId() {
                 return transactionId;
         }
-
-        public String getUserName() {
-                return userName;
+        public void setTransactionId(int transactionId) {
+                this.transactionId = transactionId;
         }
-
         public int getFundId() {
                 return fundId;
         }
-
+        public void setFundId(int fundId) {
+                this.fundId = fundId;
+        }
         public String getExecuteDate() {
                 return executeDate;
         }
-
+        public void setExecuteDate(String executeDate) {
+                this.executeDate = executeDate;
+        }
         public long getShares() {
                 return shares;
         }
-
+        public void setShares(long shares) {
+                this.shares = shares;
+        }
+        public long getSharePrice() {
+                return sharePrice;
+        }
+        public void setSharePrice(long sharePrice) {
+                this.sharePrice = sharePrice;
+        }
         public String getTransactionType() {
                 return transactionType;
         }
-
+        public void setTransactionType(String transactionType) {
+                this.transactionType = transactionType;
+        }
         public long getAmount() {
                 return amount;
+        }
+        public void setAmount(long amount) {
+                this.amount = amount;
         }
 }

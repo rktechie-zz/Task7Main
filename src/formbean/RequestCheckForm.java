@@ -6,7 +6,7 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class RequestCheckForm extends FormBean {
-	private String amount;
+	private String requestAmount;
 	private String action;
 
 	public String getAction() {
@@ -17,29 +17,30 @@ public class RequestCheckForm extends FormBean {
 		this.action = action;
 	}
 
-	public String getAmount() {
-		return amount;
-	}
-
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-
 	public boolean isPresent() {
 		return action != null;
+	}
+	
+
+	public String getRequestAmount() {
+		return requestAmount;
+	}
+
+	public void setRequestAmount(String requestAmount) {
+		this.requestAmount = requestAmount;
 	}
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
 		try {
-			Long.parseLong(amount);
+			Long.parseLong(requestAmount);
 		} catch (NumberFormatException e1) {
 			errors.add("Amount should be an Integer");
 			return errors;
 		}
 
-		if (Long.parseLong(amount) <= 0) {
+		if (Long.parseLong(requestAmount) <= 0) {
 			errors.add("The amount of request should be a positive");
 		}
 

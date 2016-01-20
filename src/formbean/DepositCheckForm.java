@@ -6,15 +6,26 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class DepositCheckForm extends FormBean {
-	private String amount;
+	private String userName;
+	private String depositAmount;
 	private String action;
 
-	public String getAmount() {
-		return amount;
+
+
+	public String getDepositAmount() {
+		return depositAmount;
 	}
 
-	public void setAmount(String amount) {
-		this.amount = amount;
+	public void setDepositAmount(String depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getAction() {
@@ -31,15 +42,17 @@ public class DepositCheckForm extends FormBean {
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-
+		System.out.println(userName);
+		System.out.println(depositAmount);
+		
 		try {
-			Integer.parseInt(amount);
+			Long.parseLong(depositAmount);
 		} catch (NumberFormatException e1) {
 			errors.add("Amount should be an Integer");
 			return errors;
 		}
 
-		if (Integer.parseInt(amount) <= 0) {
+		if (Long.parseLong(depositAmount) <= 0) {
 			errors.add("The amount of request should be a positive");
 		}
 

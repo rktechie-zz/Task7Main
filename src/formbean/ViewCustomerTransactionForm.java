@@ -8,7 +8,7 @@ import org.mybeans.form.FormBean;
 public class ViewCustomerTransactionForm extends FormBean {
     private String firstName;
     private String lastName;
-    private String customerId;
+    private int customerId = Integer.MIN_VALUE;
 
     public String getFirstName() {
         return firstName;
@@ -26,11 +26,11 @@ public class ViewCustomerTransactionForm extends FormBean {
         this.lastName = lastName;
     }
 
-    public String getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -41,7 +41,7 @@ public class ViewCustomerTransactionForm extends FormBean {
             errors.add("Customer first name is required");
         if (lastName == null || lastName.trim().length() == 0)
             errors.add("Customer last name is required");
-        if (customerId == null || customerId.trim().length() == 0)
+        if (customerId == Integer.MIN_VALUE)
             errors.add("Customer Id is required");
 
         if (errors.size() > 0)
