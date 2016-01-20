@@ -60,7 +60,7 @@ public class DepositCheckAction extends Action {
 				return "depositCheck.jsp";
 			}
 			TransactionBean tBean = new TransactionBean();
-			tBean.setCustomer_id(customerBean.getCustomerId());
+			tBean.setCustomerId(customerBean.getCustomerId());
 			tBean.setTransactionType("Deposit Check");
 			tBean.setAmount(Long.parseLong(s));
 			transactionDAO.create(tBean);

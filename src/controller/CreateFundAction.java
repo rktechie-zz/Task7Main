@@ -52,8 +52,6 @@ public class CreateFundAction extends Action{
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-System.out.println(createFundForm.getName());	
-System.out.println(createFundForm.getSymbol());	
 
 			FundBean fundBean = new FundBean();
 			fundBean.setName(createFundForm.getName());

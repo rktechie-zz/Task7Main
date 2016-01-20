@@ -64,7 +64,7 @@ public class RequestCheckAction extends Action {
 				return "requestCheck.jsp";
 			} 
 			TransactionBean tBean = new TransactionBean();
-			tBean.setCustomer_id(user.getCustomerId());
+			tBean.setCustomerId(user.getCustomerId());
 			tBean.setTransactionType("Request Check");
 			tBean.setAmount(Long.parseLong(s));
 			transactionDAO.create(tBean);
