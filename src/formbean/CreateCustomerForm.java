@@ -16,7 +16,7 @@ public class CreateCustomerForm  extends FormBean {
 	private String city;
 	private String state;
 	private String zip;
-	private long cash;
+	private String cash;
 	private String type;
 
 	public String getFirstName() {
@@ -24,6 +24,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setFirstName(String firstName) {
+		System.out.println("Set name : " + firstName);
 		this.firstName = sanitize(firstName);
 	}
 
@@ -99,12 +100,12 @@ public class CreateCustomerForm  extends FormBean {
 		this.zip = sanitize(zip);
 	}
 
-	public long getCash() {
+	public String getCash() {
 		return cash;
 	}
 
-	public void setCash(long cash) {
-		this.cash = Long.parseLong(sanitize(Long.toString(cash)));
+	public void setCash(String cash) {
+		this.cash = sanitize(cash);
 	}
 
 	public String getType() {
@@ -148,7 +149,7 @@ public class CreateCustomerForm  extends FormBean {
 		if (state == null || state.trim().length() == 0)
 			errors.add("State is required.");
 		
-		if (cash < 0)
+		if (cash == null || cash.trim().length() == 0 || cash.charAt(0) == '-' )
 			errors.add("Cash is required and it should be positive.");
 		
 		if (type == null)

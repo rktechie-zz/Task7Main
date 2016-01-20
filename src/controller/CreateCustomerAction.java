@@ -65,7 +65,7 @@ public class CreateCustomerAction extends Action {
 				newUser.setCity(form.getCity());
 				newUser.setState(form.getState());
 				newUser.setZipcode(form.getZip());
-				newUser.setCash(form.getCash());
+				newUser.setCash(Long.parseLong(form.getCash()));
 
 				customerDAO.create(newUser);
 
@@ -76,7 +76,10 @@ public class CreateCustomerAction extends Action {
 			} else {
 				return "createCustomer.jsp";
 			}
-		} catch (RollbackException e) {
+		} catch (NumberFormatException e) {
+			errors.add("The number is too long.");
+			return "createCustomer.jsp";
+		}catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "createCustomer.jsp";
 		} catch (FormBeanException e) {
