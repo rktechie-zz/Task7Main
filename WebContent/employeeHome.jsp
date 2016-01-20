@@ -31,7 +31,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="createCustomer.do">CREATE CUSTOMER ACCOUNT</a></li>
                     <li><a href="changePassword.do">RESET CUSTOMER PASSWORD</a></li>
-                    <li><a href="viewCustomerAccount.do">VIEW CUSTOMER ACCOUNT</a></li>
+                    <li><a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a></li>
                 </ul></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">EMPLOYEE OPERATION
                  <span class="caret"></span></a>
@@ -73,7 +73,7 @@
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-eye-open logo-small slideanim"></span>
 				<h4>
-					<a href="viewCustomerAccount.do">VIEW CUSTOMER ACCOUNT</a>
+					<a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a>
 				</h4>
 				<p>This is VIEW CUSTOMER ACCOUNT</p>
 			</div>
