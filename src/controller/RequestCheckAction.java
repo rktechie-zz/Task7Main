@@ -56,7 +56,7 @@ public class RequestCheckAction extends Action {
 			amount += Long.parseLong(s);
 			if (user.getCash() < amount) {
 				errors.add("Balance is not enough to proceed the request");
-				return "requestCheck.jsp";
+				return "requestCheck.do";
 			} else {
 				TransactionBean tBean = new TransactionBean();
 				tBean.setCustomer_id(user.getCustomerId());
@@ -67,10 +67,10 @@ public class RequestCheckAction extends Action {
 			}
 		} catch (RollbackException e) {
 			errors.add("System roll back");
-			return "requestCheck.jsp";
+			return "requestCheck.do";
 		} catch (FormBeanException e1) {
 			errors.add("Form data wrong");
-			return "requestCheck.jsp";
+			return "requestCheck.do";
 		}
 	}
 }

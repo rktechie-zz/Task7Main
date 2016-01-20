@@ -19,6 +19,7 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar"
 	data-offset="60">
 
+<<<<<<< HEAD
     <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -47,7 +48,6 @@
     </nav>
 
 	<div id="dashBoard" class="container-fluid text-center">
-
 		<h2>DASHBOARD</h2>
 		<h4>What Can I Do?</h4>
 		<br>
@@ -56,30 +56,31 @@
 		<div class="row">
 
 			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-briefcase logo-small slideanim"></span>
+				<span class="glyphicon glyphicon-user logo-small slideanim"></span>
 				<h4>
-					<a href="">CREATE EMPLOYEE ACCOUNT</a>
+					<a href="createEmployee.do">CREATE EMPLOYEE ACCOUNT</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is CREATE EMPLOYEE ACCOUNT</p>
 			</div>
 
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-user logo-small slideanim"></span>
 				<h4>
-					<a href="">CREATE CUSTOMER ACCOUNT</a>
+					<a href="createCustomer.do">CREATE CUSTOMER ACCOUNT</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is CREATE CUSTOMER ACCOUNT</p>
 			</div>
 
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-eye-open logo-small slideanim"></span>
 				<h4>
-					<a href="">VIEW CUSTOMER ACCOUNT</a>
+					<a href="viewCustomerAccount.do">VIEW CUSTOMER ACCOUNT</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is VIEW CUSTOMER ACCOUNT</p>
 			</div>
 
 		</div>
+   </div>
 
 		<br>
 		<br>
@@ -89,9 +90,9 @@
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-floppy-open logo-small slideanim"></span>
 				<h4>
-					<a href="">CREATE FUND</a>
+					<a href="createFund.do">CREATE FUND</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is CREATE FUND</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -99,17 +100,34 @@
 				<h4>
 					<a href="">TRANSITION DAY</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is TRANSITION DAY</p>
 			</div>
 
 			<div class="col-sm-4">
-				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
+				<span class="glyphicon glyphicon-briefcase logo-small slideanim"></span>
 				<h4>
-					<a href="">MANAGE PASSWORD</a>
+					<a href="depositCheck.do">DEPOSIT CHECK</a>
 				</h4>
-				<p>This is...</p>
+				<p>This is DEPOSIT CHECK</p>
 			</div>
 
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-4">
+				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
+				<h4>
+					<a href="">RESET CUSTOMER PASSWORD</a>
+				</h4>
+				<p>This is RESET CUSTOMER PASSWORD</p>
+		</div>
+		
+		<div class="col-sm-4">
+				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
+				<h4>
+					<a href="employeeChangePassword.do">CHANGE EMPLOYEE PASSWORD</a>
+				</h4>
+				<p>This is CHANGE EMPLOYEE PASSWORD</p>
 		</div>
 
 	</div>
