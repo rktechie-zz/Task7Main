@@ -31,7 +31,7 @@ public class DepositCheckAction extends Action {
 	public String getName() {
 		return "depositCheck.do";
 	}
-
+	
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
