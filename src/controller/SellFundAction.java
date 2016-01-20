@@ -76,15 +76,22 @@ public class SellFundAction extends Action{
 			FundBean fundBean = fundDAO.read(transanctionForm.getName());
 			int fundId = fundBean.getFundId();
 			
-			//Get the price of this fund
-			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.read(fundId);
+			//Get the price of this fund of the latest day
+			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
+			Long latestPrice = priceBean.getPrice();
 			
+			//Calculate shares
+			Long shares = Long.parseLong(transanctionForm.getShares());
+			Long amount = shares * latestPrice;
 			
-			
+			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
-			transactionBean.setAmount(Long.parseLong(transanctionForm.getAmount()));
-			transactionBean.setShares(Long.parseLong(transanctionForm.getShares()));
-
+			transactionBean.setCustomerId(customerId);
+			transactionBean.setUserName(customerBean.getUserName());
+			transactionBean.setAmount(amount);
+			transactionBean.setShares(shares);
+			transactionBean.setTransactionType("4");
+			
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";
 		} catch (RollbackException e) {
