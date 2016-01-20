@@ -1,6 +1,7 @@
 <jsp:include page="template-top-employee.jsp" />
-	<h1>&nbsp</h1>
-	<h1>&nbsp</h1>
+	
+    <br><br><br><br><br><br><br><br><br>
+    
 	<jsp:include page="error.jsp" />
 	<form action="depositCheck.do" method="POST">
 		<div class="row">

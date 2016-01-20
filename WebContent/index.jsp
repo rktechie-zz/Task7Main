@@ -32,7 +32,7 @@
                         class="icon-bar"></span> <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="#">Logo</a>
+                <a class="navbar-brand" href="#">CFS</a>
 
             </div>
 

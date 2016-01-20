@@ -1,6 +1,7 @@
 <jsp:include page="template-top-customer.jsp" />
-	<h1>&nbsp</h1>
-	<h1>&nbsp</h1>
+	
+    <br><br><br><br><br><br><br><br>
+    
 	<form action="createFund.do" method="POST">
 		<div class="row">
 			<div class="col-md-6">
