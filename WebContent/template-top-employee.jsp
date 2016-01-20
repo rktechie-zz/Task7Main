@@ -40,7 +40,7 @@
                     <li><a href="transitionDay.do">TRANSITION DAY</a></li>
                 </ul></li>
             <li><a href="createEmployee.do">CREATE EMPLOYEE ACCOUNT</a></li>
-             <li><a href="logOut.jsp">LOG OUT</a></li>
+             <li><a href="logout.do">LOG OUT</a></li>
         </ul>
     </div>
     </nav>
