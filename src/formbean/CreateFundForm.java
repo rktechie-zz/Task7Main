@@ -27,6 +27,8 @@ public class CreateFundForm extends FormBean{
 
 		if (name == null || name.trim().length() == 0)
 			errors.add("Fund name is required");
+		if (name.matches(".*\\d.*")) 
+			errors.add("Fund name should not contain number");
 		if (symbol == null || symbol.length() < 1
 				|| symbol.length() >5)
 			errors.add("The length of sysbol should be between 1~5");
@@ -35,5 +37,9 @@ public class CreateFundForm extends FormBean{
 			return errors;
 		
 		return errors;
+	}
+	
+	private String sanitize(String s) {
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 }
