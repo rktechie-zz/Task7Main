@@ -44,15 +44,21 @@ public class CreateFundAction extends Action{
 				return "login.do";
 			}
 			
-			errors.addAll(createFundForm.getValidationErrors());
-			if (!createFundForm.isPresent() || errors.size() != 0) {
+			if (!createFundForm.isPresent()) {
 				return "createFund.jsp";
 			}
 			
+			errors.addAll(createFundForm.getValidationErrors());
+			if (errors.size() != 0) {
+				return "createFund.jsp";
+			}
+System.out.println(createFundForm.getName());	
+System.out.println(createFundForm.getSymbol());	
+
 			FundBean fundBean = new FundBean();
-			fundBean.setName((String) session.getAttribute("fundName"));
-			fundBean.setFundId(Integer.parseInt((String) session.getAttribute("fundId")));
-			
+			fundBean.setName(createFundForm.getName());
+			fundBean.setSymbol(createFundForm.getSymbol());
+		
 			fundDAO.create(fundBean);
 			return "success-employee.jsp";			
 		} catch (RollbackException e) {

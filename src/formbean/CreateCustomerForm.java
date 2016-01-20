@@ -24,7 +24,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = sanitize(firstName);
 	}
 
 	public String getLastName() {
@@ -32,7 +32,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = sanitize(lastName);
 	}
 
 	public String getUserName() {
@@ -40,7 +40,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = sanitize(userName);
 	}
 
 	public String getPassword() {
@@ -48,7 +48,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = sanitize(password);
 	}
 
 	public String getConfirmPassword() {
@@ -56,7 +56,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+		this.confirmPassword = sanitize(confirmPassword);
 	}
 
 	public String getAddress1() {
@@ -64,7 +64,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setAddress1(String address1) {
-		this.address1 = address1;
+		this.address1 = sanitize(address1);
 	}
 
 	public String getAddress2() {
@@ -72,7 +72,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setAddress2(String address2) {
-		this.address2 = address2;
+		this.address2 = sanitize(address2);
 	}
 
 	public String getCity() {
@@ -80,7 +80,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.city = sanitize(city);
 	}
 
 	public String getState() {
@@ -88,15 +88,15 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setState(String state) {
-		this.state = state;
+		this.state = sanitize(state);
 	}
 
-	public String getZipcode() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zip = zipcode;
+	public void setZip(String zip) {
+		this.zip = sanitize(zip);
 	}
 
 	public long getCash() {
@@ -104,7 +104,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setCash(long cash) {
-		this.cash = cash;
+		this.cash = Long.parseLong(sanitize(Long.toString(cash)));
 	}
 
 	public String getType() {
@@ -112,7 +112,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type = sanitize(type);
 	}
 
 	public List<String> getValidationErrors() {
@@ -135,6 +135,21 @@ public class CreateCustomerForm  extends FormBean {
 		
 		if (!password.equals(confirmPassword))
 			errors.add("Password and Confirm password is not the same.");
+		
+		if (address1 == null || address1.trim().length() == 0)
+			errors.add("Address1 is required.");
+		
+		if (address2 == null || address2.trim().length() == 0)
+			errors.add("Address2 is required.");
+		
+		if (city == null || city.trim().length() == 0)
+			errors.add("City is required.");
+		
+		if (state == null || state.trim().length() == 0)
+			errors.add("State is required.");
+		
+		if (cash < 0)
+			errors.add("Cash is required and it should be positive.");
 		
 		if (type == null)
 			errors.add("Button is required.");

@@ -64,15 +64,15 @@ public class CreateCustomerAction extends Action {
 				newUser.setAddress2(form.getAddress2());
 				newUser.setCity(form.getCity());
 				newUser.setState(form.getState());
-				newUser.setZipcode(form.getZipcode());
-				newUser.setCash(0);
+				newUser.setZipcode(form.getZip());
+				newUser.setCash(form.getCash());
 
 				customerDAO.create(newUser);
 
 				request.removeAttribute("form");
 				request.setAttribute("message", "Customer account is created successfully.");
 
-				return "employeeHome.jsp";
+				return "success-customer.jsp";
 			} else {
 				return "createCustomer.jsp";
 			}
