@@ -8,14 +8,14 @@ import org.mybeans.form.FormBean;
 public class ViewCustomerTransactionForm extends FormBean {
     private String firstName;
     private String lastName;
-    private int customerId = Integer.MIN_VALUE;
+    private int customerId;
 
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = sanitize(firstName);
     }
 
     public String getLastName() {
@@ -23,30 +23,23 @@ public class ViewCustomerTransactionForm extends FormBean {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = sanitize(lastName);
     }
 
     public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
     public List<String> getValidationErrors() {
         List<String> errors = new ArrayList<String>();
-
-        if (firstName == null || firstName.trim().length() == 0)
-            errors.add("Customer first name is required");
-        if (lastName == null || lastName.trim().length() == 0)
-            errors.add("Customer last name is required");
-        if (customerId == Integer.MIN_VALUE)
-            errors.add("Customer Id is required");
 
         if (errors.size() > 0)
             return errors;
         
         return errors;
+    }
+    
+    private String sanitize (String s) {
+            return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
     }
 }

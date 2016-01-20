@@ -35,14 +35,16 @@ public class ViewCustomerTransactionAction extends Action {
                 request.setAttribute("errors", errors);
                 HttpSession session = request.getSession();
                 try {
+                        
                         ViewCustomerTransactionForm form = formBeanFactory.create(request);
+                        
                         if (!form.isPresent() || errors.size() != 0) {
                                 return "viewCustomerTransaction.jsp";
                         }
 
                         if (session.getAttribute("user") == null) {
                                 return "login.do";
-                        }
+                        }                 
 
                         int customer_Id = form.getCustomerId();
 
