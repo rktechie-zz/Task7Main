@@ -1,51 +1,4 @@
-<html lang="en">
-
-<head>
-
-  <title>Customer_Login</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/jquery-2.2.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css">
-
-</head>
-
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
-    <nav class="navbar navbar-default navbar-fixed-top">
-    
-        <div class="container">
-            
-            <div class="navbar-header">
-          
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> 
-                </button>
-                
-                <a class="navbar-brand" href="#">Logo</a>
-        
-            </div>
-            
-            <div class="collapse navbar-collapse" id="myNavbar">
-            
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#viewAccount">VIEW ACCOUNT</a></li>
-                    <li><a href="#dashBoard">DASHBOARD</a></li>
-                    <li><a href="#contact">NEED HELP</a></li>
-                    <li><a href="logout.do">LOG OUT</a></li>
-                </ul>
-                
-            </div>
-            
-      </div>
-    </nav>
+<jsp:include page="template-top-customer.jsp" />
     
     <div id="viewAccount" class="container-fluid text-center">
     
@@ -172,7 +125,7 @@
             <span class="glyphicon glyphicon-chevron-up"></span>            
         </a>
         
-        <p>©2016 Carnegie Financial Services (CFS) by MSIT-eBusiness Team 6</p> 
+        <p>Â©2016 Carnegie Financial Services (CFS) by MSIT-eBusiness Team 6</p> 
     </footer>
     
     <script>

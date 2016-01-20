@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
+
+<title>Customer</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<title>Carnegie Financial Services</title>
-</head>
-<body>
+<!-- Bootstrap -->
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="style.css">
+
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top">
