@@ -27,7 +27,7 @@
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-eye-open logo-small slideanim"></span>
 				<h4>
-					<a href="viewCustomerAccount.do">VIEW CUSTOMER ACCOUNT</a>
+					<a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a>
 				</h4>
 				<p>This is VIEW CUSTOMER ACCOUNT</p>
 			</div>
