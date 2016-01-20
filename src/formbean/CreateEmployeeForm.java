@@ -74,7 +74,7 @@ public class CreateEmployeeForm extends FormBean {
 			errors.add("Password is required.");
 		if (confirmPassword == null || confirmPassword.trim().length() == 0)
 			errors.add("Confirm password is required.");
-		if (!password.equals(confirmPassword))
+		if (password !=null && confirmPassword != null && !password.equals(confirmPassword))
 			errors.add("Password and Confirm password are not same.");
 		if (type == null)
 			errors.add("Button is required");

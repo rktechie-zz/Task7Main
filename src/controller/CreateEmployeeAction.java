@@ -59,13 +59,12 @@ public class CreateEmployeeAction extends Action{
 				newUser.setFirstName(form.getFirstName());
 				newUser.setLastName(form.getLastName());
 				newUser.setPassword(form.getPassword());
-
 				employeeDAO.create(newUser);
 
 				request.setAttribute("message", "Employee account for " +form.getUserName()+ " was created successfully.");
 				request.removeAttribute("form");
 
-				return "success.jsp";
+				return "success-employee.jsp";
 			} else {
 				return "createEmployee.jsp";
 			}

@@ -64,7 +64,7 @@ public class CreateCustomerAction extends Action {
 				newUser.setAddress2(form.getAddress2());
 				newUser.setCity(form.getCity());
 				newUser.setState(form.getState());
-				newUser.setZipcode(form.getZipcode());
+				newUser.setZipcode(form.getZip());
 				newUser.setCash(form.getCash());
 
 				customerDAO.create(newUser);
@@ -72,7 +72,7 @@ public class CreateCustomerAction extends Action {
 				request.removeAttribute("form");
 				request.setAttribute("message", "Customer account is created successfully.");
 
-				return "success.jsp";
+				return "success-customer.jsp";
 			} else {
 				return "createCustomer.jsp";
 			}

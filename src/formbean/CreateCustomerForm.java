@@ -91,12 +91,12 @@ public class CreateCustomerForm  extends FormBean {
 		this.state = sanitize(state);
 	}
 
-	public String getZipcode() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zip = sanitize(zipcode);
+	public void setZip(String zip) {
+		this.zip = sanitize(zip);
 	}
 
 	public long getCash() {
@@ -135,6 +135,21 @@ public class CreateCustomerForm  extends FormBean {
 		
 		if (!password.equals(confirmPassword))
 			errors.add("Password and Confirm password is not the same.");
+		
+		if (address1 == null || address1.trim().length() == 0)
+			errors.add("Address1 is required.");
+		
+		if (address2 == null || address2.trim().length() == 0)
+			errors.add("Address2 is required.");
+		
+		if (city == null || city.trim().length() == 0)
+			errors.add("City is required.");
+		
+		if (state == null || state.trim().length() == 0)
+			errors.add("State is required.");
+		
+		if (cash < 0)
+			errors.add("Cash is required and it should be positive.");
 		
 		if (type == null)
 			errors.add("Button is required.");
