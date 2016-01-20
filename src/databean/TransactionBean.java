@@ -27,7 +27,8 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
                 this.customerId= customer_id;
         }
 
-        public void setTransactionId(int v) {
+
+		public void setTransactionId(int v) {
                 transactionId = v;
         }
 

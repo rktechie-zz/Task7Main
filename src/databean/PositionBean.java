@@ -2,15 +2,21 @@ package databean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("userName,fundId")
+@PrimaryKey("customerId,fundId")
 public class PositionBean {
-	private String userName;
+	private String customerId;
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
 	private int fundId;
 	private long shares;
 
-	public void setUserName(String v) {
-		userName = v;
-	}
+
 
 	public void setFundId(int v) {
 		fundId = v;
@@ -20,9 +26,7 @@ public class PositionBean {
 		shares = v;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
+
 
 	public int getFundId() {
 		return fundId;

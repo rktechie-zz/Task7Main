@@ -2,33 +2,28 @@ package databean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("fundId,priceDate")
+@PrimaryKey("fundId,executeDate")
 public class FundPriceHistoryBean {
 	private int fundId;
-	private String priceDate;
-	private long price;
+	private String executeDate;
 
-	public void setFundId(int v) {
-		fundId = v;
+	public String getExecuteDate() {
+		return executeDate;
 	}
 
-	public void setPriceDate(String v) {
-		priceDate = v;
-	}
-
-	public void setPrice(long v) {
-		price = v;
+	public void setExecuteDate(String executeDate) {
+		this.executeDate = executeDate;
 	}
 
 	public int getFundId() {
 		return fundId;
 	}
 
-	public String getPriceDate() {
-		return priceDate;
+	public void setFundId(int fundId) {
+		this.fundId = fundId;
 	}
+	
 
-	public long getPrice() {
-		return price;
-	}
+
+	
 }
