@@ -1,4 +1,6 @@
-<jsp:include page="template-top-customer.jsp" />
+<jsp:include page="template-top-employee.jsp" />
+
+<br><br><br>
 
 <div class="jumbotron text-center">
 	<h1>&nbsp</h1>
