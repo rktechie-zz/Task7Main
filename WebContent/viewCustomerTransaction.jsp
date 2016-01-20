@@ -9,16 +9,6 @@
 			<div class="col-md-6">
 				<table class="table table-bordered">
 					<tbody>
-						<tr>
-							<td class="col-md-4 text-right">Customer First Name:</td>
-							<td class="col-md-8 text-left"><input type="text"
-								class="form-control" id="customerFirstName" placeholder="Enter customer first name">
-						</tr>
-                        <tr>
-                            <td class="col-md-4 text-right">Customer Last Name:</td>
-                            <td class="col-md-8 text-left"><input type="text"
-                                class="form-control" id="customerLastName" placeholder="Enter customer last name">
-                        </tr>
                         <tr>
                             <td class="col-md-6 text-right">Customer User Name:</td>
                             <td class="col-md-8 text-left"><input type="text"
