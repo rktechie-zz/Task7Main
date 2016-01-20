@@ -27,13 +27,13 @@
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-piggy-bank logo-small slideanim"></span>
                 <h4><a href="">BUY FUND</a></h4>
-                <p>This is...</p>
+                <p>This is BUY FUND</p>
             </div>
             
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-send logo-small slideanim"></span>
                 <h4><a href="">SELL FUND</a></h4>
-                <p>This is...</p>
+                <p>This is SELL FUND</p>
             </div>
             
             </div>
@@ -44,14 +44,14 @@
             
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-credit-card logo-small slideanim"></span>
-                <h4><a href="">REQUEST CHECK</a></h4>
-                <p>This is...</p>
+                <h4><a href="requestCheck.do">REQUEST CHECK</a></h4>
+                <p>This is REQUEST CHECK</p>
             </div>
             
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-transfer logo-small slideanim"></span>
-                <h4><a href="">TRANSACTION HISTORY</a></h4>
-                <p>This is...</p>
+                <h4><a href="transactionHistory.do">TRANSACTION HISTORY</a></h4>
+                <p>This is TRANSACTION HISTORY</p>
             </div>
             
             </div>
@@ -63,13 +63,13 @@
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-stats logo-small slideanim"></span>
                 <h4><a href="">RESEARCH FUND</a></h4>
-                <p>This is...</p>
+                <p>This is RESEARCH FUND</p>
             </div>
             
             <div class="col-sm-6">
                 <span class="glyphicon glyphicon-lock logo-small slideanim"></span>
                 <h4><a href="">MANAGE PASSWORD</a></h4>
-                <p>This is...</p>
+                <p>This is MANAGE PASSWORD</p>
             </div>
             
             </div>           
@@ -125,16 +125,13 @@
             <span class="glyphicon glyphicon-chevron-up"></span>            
         </a>
         
-        <p>Â©2016 Carnegie Financial Services (CFS) by MSIT-eBusiness Team 6</p> 
+        <p>©2016 Carnegie Financial Services (CFS) by MSIT-eBusiness Team 6</p> 
     </footer>
     
     <script>
     $(document).ready(function(){
         // Add smooth scrolling to all links in navbar + footer link
         $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-        // Prevent default anchor click behavior
-        event.preventDefault();
 
         // Store hash
         var hash = this.hash;
