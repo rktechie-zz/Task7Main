@@ -6,6 +6,15 @@ import org.genericdao.PrimaryKey;
 public class FundPriceHistoryBean {
 	private int fundId;
 	private String executeDate;
+	private long price;
+
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
 
 	public String getExecuteDate() {
 		return executeDate;
