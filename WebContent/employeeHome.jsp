@@ -127,6 +127,14 @@
 				</h4>
 				<p>This is CHANGE EMPLOYEE PASSWORD</p>
 		</div>
+        
+        <div class="col-sm-4">
+                <span class="glyphicon glyphicon-eye-open logo-small slideanim"></span>
+                <h4>
+                    <a href="viewCustomerTransaction.do">VIEW CUSTOMER TRANSACTION HISTORY</a>
+                </h4>
+                <p>This is VIEW CUSTOMER TRANSACTION HISTORY</p>
+         </div>
 
 	</div>
     
@@ -204,9 +212,6 @@
 					// Add smooth scrolling to all links in navbar + footer link
 					$(".navbar a, footer a[href='#myPage']").on('click',
 							function(event) {
-
-								// Prevent default anchor click behavior
-								event.preventDefault();
 
 								// Store hash
 								var hash = this.hash;

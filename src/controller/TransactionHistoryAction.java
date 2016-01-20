@@ -39,7 +39,7 @@ public class TransactionHistoryAction extends Action {
                         int customer_Id = user.getCustomerId();
                         
                         String sql = "select executeDate as executeDate, transactionType as transactionType, "
-                                        + "fundId as fundId, shares as shares, price as sharePrice, amount as amount " 
+                                        + "transaction.fundId as fundId, shares as shares, price as sharePrice, amount as amount ," 
                                         + "customer_id as customer_id, transactionId as transactionId" 
                                         + "from transaction, fund_price_history where customer_id=?";
                         
