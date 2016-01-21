@@ -16,14 +16,17 @@ import formbean.LoginForm;
 import model.CustomerDAO;
 import model.EmployeeDAO;
 import model.Model;
+import model.TransactionDAO;
 
 public class LoginAction extends Action {
 	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
 
 	private EmployeeDAO employeeDAO;
 	private CustomerDAO customerDAO;
+	private Model model;
 
 	public LoginAction(Model model) {
+		this.model = model;
 		employeeDAO = model.getEmployeeDAO();
 		customerDAO = model.getCustomerDAO();
 	}
@@ -89,6 +92,8 @@ public class LoginAction extends Action {
 					errors.add("Incorrect password.");
 					return "index.jsp";
 				}
+				String lastDay = getLastDay(user);
+				request.setAttribute("lastDay", lastDay == null ? "No recent transactions" : lastDay);
 				session.setAttribute("user", user);
 
 				return "customerHome.do";
@@ -103,5 +108,12 @@ public class LoginAction extends Action {
 			errors.add(e.getMessage());
 			return "index.jsp";
 		}
+	}
+	
+	private String getLastDay(CustomerBean customer) throws RollbackException{
+		TransactionDAO transactionDAO;
+		transactionDAO = model.getTransactionDAO();
+		String lastDay = transactionDAO.getLastDate(customer);
+		return lastDay;
 	}
 }
