@@ -171,7 +171,7 @@ public class TransitionDayAction extends Action {
 									shares = (long) (amount / price * 1000);
 									
 									PositionBean pb = new PositionBean();
-									pb.setCustomerId(String.valueOf(tb.getCustomerId()));
+									pb.setCustomerId(tb.getCustomerId());
 									pb.setFundId(tb.getFundId());
 									pb.setShares(shares);
 									positionDAO.create(pb);

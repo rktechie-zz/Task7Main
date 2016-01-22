@@ -42,8 +42,6 @@ public class DepositCheckForm extends FormBean {
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-		System.out.println(userName);
-		System.out.println(depositAmount);
 		
 		try {
 			Double.parseDouble(depositAmount);
@@ -52,7 +50,7 @@ public class DepositCheckForm extends FormBean {
 			return errors;
 		}
 
-		if (Long.parseLong(depositAmount) <= 0) {
+		if (Double.parseDouble(depositAmount) <= 0) {
 			errors.add("The amount of request should be positive");
 		}
 

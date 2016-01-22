@@ -66,9 +66,8 @@ public class DepositCheckAction extends Action {
 			tBean.setTransactionType("1");
 			tBean.setAmount(l);
 			tBean.setUserName(customerBean.getUserName());
-			
 			transactionDAO.create(tBean);
-			
+			request.removeAttribute("form");
 			return "success-employee.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block

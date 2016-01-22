@@ -34,13 +34,13 @@ public class RequestCheckForm extends FormBean {
 		List<String> errors = new ArrayList<String>();
 
 		try {
-			Long.parseLong(requestAmount);
+			Double.parseDouble(requestAmount);
 		} catch (NumberFormatException e1) {
-			errors.add("Amount should be an Integer");
+			errors.add("Neither the amount is a number or the amount is too large");
 			return errors;
 		}
 
-		if (Long.parseLong(requestAmount) <= 0) {
+		if (Double.parseDouble(requestAmount) <= 0) {
 			errors.add("The amount of request should be a positive");
 		}
 

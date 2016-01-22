@@ -32,9 +32,14 @@ public class BuyFundForm extends FormBean{
 			errors.add("Fund name is required");
 		if (amount == null || !amount.matches(".*\\d.*")) 
 			errors.add("Ammount should be numeric");
-		if (amount != null && Long.parseLong(amount) < 0)
-			errors.add("Amount should not be negetive");
-		
+		if (amount != null) {
+			if (amount.length() == 0) {
+				errors.add("You should put the number of amount");
+			} else if (Long.parseLong(amount) < 0){
+				errors.add("Amount should not be negetive");
+			}
+		}
+
 		if (errors.size() > 0)
 			return errors;
 		
