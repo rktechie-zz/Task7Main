@@ -1,10 +1,16 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import databean.FundPriceHistoryBean;
 
@@ -19,4 +25,48 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 		if(fundPriceHistory.length == 0) return null;
 		return fundPriceHistory[fundPriceHistory.length-1];
 	}
+	
+	public String getLatestTradingDayDateString () throws RollbackException, ParseException {
+		String date = null;
+		try {
+			Transaction.begin();
+			
+			FundPriceHistoryBean[] fb = match();
+			if (fb != null && fb.length != 0) {
+				Arrays.sort(fb);
+				date = fb[fb.length - 1].getExecuteDate();
+			}
+			
+
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+		return date;
+	}
+	
+	public Date getLatestTradingDayDate () throws RollbackException, ParseException {
+
+		Date date = null;
+		try {
+			Transaction.begin();
+
+			FundPriceHistoryBean[] fb = match();
+
+			if (fb != null && fb.length != 0) {
+				Arrays.sort(fb);
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				dateFormat.setLenient(false);
+				date = dateFormat.parse(fb[fb.length - 1].getPriceDate());
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		return date;
+	}
+	
 }

@@ -15,8 +15,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar"
-	data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -54,3 +53,4 @@
 			</div>
 		</div>
 	</div>
+
