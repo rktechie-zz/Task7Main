@@ -7,15 +7,10 @@ import org.mybeans.form.FormBean;
 
 public class SellFundForm extends FormBean{
 	private String 	name;
-	private String 	amount;
 	private String 	shares;
 	
 	public String getName() {
 		return name;
-	}
-
-	public String getAmount() {
-		return amount;
 	}
 
 	public String getShares() {
@@ -24,10 +19,6 @@ public class SellFundForm extends FormBean{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setAmount(String amount) {
-		this.amount = amount;
 	}
 
 	public void setShares(String shares) {
@@ -41,7 +32,7 @@ public class SellFundForm extends FormBean{
 			errors.add("Fund name is required");
 		if (shares == null || !shares.matches(".*\\d.*"))
 			errors.add("Shares should be numeric");
-		if (Long.parseLong(shares) < 0)
+		if (shares != null && Long.parseLong(shares) < 0)
 			errors.add("Shares should not be negetive");
 		
 		if (errors.size() > 0)
