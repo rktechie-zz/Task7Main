@@ -1,8 +1,7 @@
 <jsp:include page="template-top-customer.jsp" />
-<jsp:include page="error.jsp" />
 
     <br><br><br><br><br><br><br><br><br>
-
+	<jsp:include page="error.jsp" />
 	<form action="buyFund.do" method="POST">
 		<div class="row">
 			<div class="col-md-6">

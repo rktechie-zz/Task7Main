@@ -54,18 +54,18 @@ public class SellFundAction extends Action{
 		HttpSession session = request.getSession();
 
 		try {
-			SellFundForm transanctionForm = formBeanFactory.create(request);
-			request.setAttribute("form", transanctionForm);
+			SellFundForm sellFundForm = formBeanFactory.create(request);
+			request.setAttribute("form", sellFundForm);
 
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
 
-			if (!transanctionForm.isPresent()) {
+			if (!sellFundForm.isPresent()) {
 				return "sellFund.jsp";
 			}
 
-			errors.addAll(transanctionForm.getValidationErrors());
+			errors.addAll(sellFundForm.getValidationErrors());
 			if (errors.size() != 0) {
 				return "sellFund.jsp";
 			}
@@ -77,7 +77,11 @@ public class SellFundAction extends Action{
 			long curCash = customerBean.getCash() / 100;
 			
 			//Get the fund ID of the fund name in form
-			FundBean fundBean = fundDAO.read(transanctionForm.getName());
+			FundBean fundBean = fundDAO.read(sellFundForm.getName());
+			if (fundBean == null) {
+				errors.add("Fund does not exist");
+				return "buyFund.jsp";
+			}
 			int fundId = fundBean.getFundId();
 			// How to determine whether this customer own this fund or not
 			if (positionDAO.read(customerId, fundId)==null) {
@@ -94,7 +98,7 @@ public class SellFundAction extends Action{
 			Long latestPrice = priceBean.getPrice() / 100;
 			
 			//Calculate shares
-			Long shares = Long.parseLong(transanctionForm.getShares());
+			Long shares = Long.parseLong(sellFundForm.getShares());
 			Long amount = shares * latestPrice * 100;
 			
 			//Create a transaction bean
