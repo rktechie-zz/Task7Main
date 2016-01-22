@@ -30,7 +30,7 @@
 				<tbody>
 					<tr>
 						<td>Address:</td>
-						<td colspan="2">${user.getAddress1() }${user.getAddress2() }</td>
+						<td colspan="2">${user.getAddress1() } ${user.getAddress2() }</td>
 
 					</tr>
 					<tr>
@@ -39,13 +39,13 @@
 
 					</tr>
 					<tr>
-						<td>Last trading date:</td>
+						<td>Last Trading Date:</td>
 						<td colspan="2">${lastDay}</td>
 
 					</tr>
 					<tr>
-						<td>Last Posted Balance:</td>
-						<td align="center"><b>$ ${user.getCash()/100}</b></td>
+						<td>Available Balance:</td>
+						<td align="center"><b>$ ${avai_cash}</b></td>
 						<td width="30%">&nbsp;</td>
 					</tr>
 				</tbody>

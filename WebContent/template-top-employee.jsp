@@ -36,7 +36,7 @@
 													ACCOUNT</a></li>
 											<li><a href="changePassword.do">RESET CUSTOMER
 													PASSWORD</a></li>
-											<li><a href="viewCustomerAccount.do">VIEW CUSTOMER
+											<li><a href="viewCustomer.do">VIEW CUSTOMER
 													ACCOUNT</a></li>
 										</ul></li>
 									<li class="dropdown"><a class="dropdown-toggle"
