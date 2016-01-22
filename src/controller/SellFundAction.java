@@ -100,7 +100,7 @@ public class SellFundAction extends Action{
 			//Calculate shares
 			Long shares = Long.parseLong(sellFundForm.getShares()) / 1000;
 			//Determine whether customer has this many shares
-			if (position.getShares() < shares) {
+			if (position.getShares() > shares) {
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
