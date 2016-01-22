@@ -1,4 +1,4 @@
-<jsp:include page="template-top-customer.jsp" />
+<jsp:include page="template-top-employee.jsp" />
 
 	<div id="dashBoard" class="container-fluid text-center">
 		<h2>DASHBOARD</h2>

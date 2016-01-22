@@ -114,6 +114,7 @@ public class LoginAction extends Action {
 		TransactionDAO transactionDAO;
 		transactionDAO = model.getTransactionDAO();
 		String lastDay = transactionDAO.getLastDate(customer);
+		System.out.println(lastDay);
 		return lastDay;
 	}
 }
