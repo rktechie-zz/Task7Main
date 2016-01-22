@@ -39,12 +39,8 @@ public class SellFundForm extends FormBean{
 
 		if (name == null || name.trim().length() == 0)
 			errors.add("Fund name is required");
-//		if (!amount.matches(".*\\d.*")) 
-//			errors.add("Ammount should be numeric");
-		if (!shares.matches(".*\\d.*"))
+		if (shares == null || !shares.matches(".*\\d.*"))
 			errors.add("Shares should be numeric");
-//		if (Long.parseLong(amount) < 0)
-//			errors.add("Amount should not be negetive");
 		if (Long.parseLong(shares) < 0)
 			errors.add("Shares should not be negetive");
 		

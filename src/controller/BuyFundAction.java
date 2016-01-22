@@ -41,7 +41,7 @@ public class BuyFundAction extends Action{
 
 	@Override
 	public String getName() {
-		return "sellFund.do";
+		return "buyFund.do";
 	}
 
 	@Override
@@ -59,12 +59,12 @@ public class BuyFundAction extends Action{
 			}
 
 			if (!buyFundForm.isPresent()) {
-				return "transaction.jsp";
+				return "buyFund.jsp";
 			}
 
 			errors.addAll(buyFundForm.getValidationErrors());
 			if (errors.size() != 0) {
-				return "transaction.jsp";
+				return "buyFund.jsp";
 			}
 			
 			//Current customer and the customer ID
@@ -78,7 +78,7 @@ public class BuyFundAction extends Action{
 			FundBean fundBean = fundDAO.read(buyFundForm.getName());
 			if (fundBean == null) {
 				errors.add("Fund does not exist");
-				return "transaction.jsp";
+				return "buyFund.jsp";
 			}
 			int fundId = fundBean.getFundId();
 			
@@ -90,13 +90,13 @@ public class BuyFundAction extends Action{
 			Long amount = Long.parseLong(buyFundForm.getAmount()) * 100;
 			if (amount > curCash) {
 				errors.add("Your balance is not enough!");
-				return "transaction.jsp";
+				return "buyFund.jsp";
 			}
 			//Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money!");
-				return "transaction.jsp";
+				return "buyFund.jsp";
 			}
 			Long shares = amount / latestPrice;
 			
@@ -112,10 +112,10 @@ public class BuyFundAction extends Action{
 			return "success-customer.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "buyFund.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "buyFund.jsp";
 		}
 	}
 }

@@ -44,7 +44,7 @@ public class SellFundAction extends Action{
 
 	@Override
 	public String getName() {
-		return "buyFund.do";
+		return "sellFund.do";
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class SellFundAction extends Action{
 			}
 
 			if (!transanctionForm.isPresent()) {
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 
 			errors.addAll(transanctionForm.getValidationErrors());
 			if (errors.size() != 0) {
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			
 			//Current customer and the customer ID
@@ -82,14 +82,14 @@ public class SellFundAction extends Action{
 			// How to determine whether this customer own this fund or not
 			if (positionDAO.read(customerId, fundId)==null) {
 				errors.add("You do not own this fund!");
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			
 			//Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
 				errors.add("Fund doesn't exist");
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			Long latestPrice = priceBean.getPrice() / 100;
 			
@@ -109,10 +109,10 @@ public class SellFundAction extends Action{
 			return "success-customer.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "sellFund.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "sellFund.jsp";
 		}
 	}
 
