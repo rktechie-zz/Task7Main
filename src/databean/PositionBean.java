@@ -16,8 +16,6 @@ public class PositionBean {
 	private int fundId;
 	private long shares;
 
-
-
 	public void setFundId(int v) {
 		fundId = v;
 	}
