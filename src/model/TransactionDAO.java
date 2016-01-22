@@ -46,6 +46,8 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			if (tbs != null) {
 				for (TransactionBean t : tbs) {
 					switch(Integer.parseInt(t.getTransactionType())) {
+					case TransactionBean.SELL_FUND:
+						amount += t.getAmount() / 100.00;
 					case TransactionBean.BUY_FUND:
 						amount -= t.getAmount() / 100.00;
 						break;
