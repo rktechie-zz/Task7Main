@@ -1,8 +1,8 @@
 <jsp:include page="template-top-customer.jsp" />
-<jsp:include page="error.jsp" />
 <h1>&nbsp</h1>
 <h1>&nbsp</h1>
 <form class="form-horizontal" role="form" action="requestCheck.do" method="POST">
+<jsp:include page="error.jsp" />
 <div class="form-group">
 		<label class="control-label col-sm-2" for="requestAmount">Amount:</label>
 		<div class="col-sm-4">
