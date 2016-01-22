@@ -1,31 +1,28 @@
 <jsp:include page="template-top-employee.jsp" />
-	
-    <br><br><br><br><br><br><br><br><br>
-    
+<h1>&nbsp</h1>
+<h1>&nbsp</h1>
+	<form class="form-horizontal" role="form" action="depositCheck.do" method="POST">
 	<jsp:include page="error.jsp" />
-	<form action="depositCheck.do" method="POST">
-		<div class="row">
-			<div class="col-md-6">
-				<table class="table table-bordered">
-						<tr>
-							<td class="col-md-2 text-left">User Name:</td>
-							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" name="userName" placeholder="User Name">
-						</tr>
-						<tr>
-							<td class="col-md-2 text-left">Amount:</td>
-							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" name="depositAmount"
-								placeholder="Amount in two decimal places">
-						</tr>
-						<tr>
-							<td></td>
-							<td><button type="submit" name="action" class="btn btn-success pull-left">Deposit
-									Money</button></td>
-						</tr>
-				</table>
-			</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="userName">User
+			Name:</label>
+		<div class="col-sm-4">
+			<input type="text" class="form-control" id="userName"
+				name="userName" placeholder="User Name" value="${form.userName}">
 		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="depositAmount">Amount:</label>
+		<div class="col-sm-4">
+			<input type="text" class="form-control" id="depositAmount"
+				name="depositAmount" placeholder="Dollar in two decimal places" value="${form.depositAmount}">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-4">
+			<button type="submit" id="action" name="action" value="Deposit Money"
+				class="btn btn-success pull-left">Deposit Money</button>
+		</div>
+	</div>
 	</form>
-
 <jsp:include page="template-bottom.jsp" />

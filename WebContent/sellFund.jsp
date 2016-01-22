@@ -1,9 +1,8 @@
-<jsp:include page="template-top-customer.jsp" />
-
-    <br><br><br><br><br><br><br><br><br>
-    
-	<jsp:include page="error.jsp" />
-		<form action="sellFund.do" method="POST">
+<jsp:include page="template-top-employee.jsp" />
+<jsp:include page="error.jsp" />
+<h1>&nbsp</h1>
+<h1>&nbsp</h1>
+	<form class="form-horizontal" role="form" action="sellFund.do" method="POST">
 		<div class="row">
 			<div class="col-md-6">
 				<table class="table table-bordered">
