@@ -71,7 +71,7 @@ public class BuyFundAction extends Action{
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
-			long curCash = customerBean.getCash();
+			long curCash = customerBean.getCash() / 100;
 			
 			
 			//Get the fund ID of the fund name in form
