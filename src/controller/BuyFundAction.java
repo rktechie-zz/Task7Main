@@ -20,21 +20,22 @@ import databean.CustomerBean;
 import databean.FundBean;
 import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
-import formbean.TransactionForm;
+import formbean.BuyFundForm;
+import formbean.SellFundForm;
 
 public class BuyFundAction extends Action{
-	private FormBeanFactory<TransactionForm> formBeanFactory = FormBeanFactory
-			.getInstance(TransactionForm.class);
+	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory
+			.getInstance(BuyFundForm.class);
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private CustomerDAO cumtomerDAO;
+	private CustomerDAO customerDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 
 	public BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		cumtomerDAO = model.getCustomerDAO();
+		customerDAO = model.getCustomerDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 	}
 
@@ -50,29 +51,35 @@ public class BuyFundAction extends Action{
 		HttpSession session = request.getSession();
 
 		try {
-			TransactionForm transanctionForm = formBeanFactory.create(request);
-			request.setAttribute("form", transanctionForm);
+			BuyFundForm buyFundForm = formBeanFactory.create(request);
+			request.setAttribute("form", buyFundForm);
 
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
 
-			if (!transanctionForm.isPresent()) {
+			if (!buyFundForm.isPresent()) {
 				return "transaction.jsp";
 			}
 
-			errors.addAll(transanctionForm.getValidationErrors());
+			errors.addAll(buyFundForm.getValidationErrors());
 			if (errors.size() != 0) {
 				return "transaction.jsp";
 			}
 			
 			//Current customer and the customer ID
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
-			long curCash = customerBean.getCash();
+			long curCash = customerBean.getCash() / 100;
+			
 			
 			//Get the fund ID of the fund name in form
-			FundBean fundBean = fundDAO.read(transanctionForm.getName());
+			FundBean fundBean = fundDAO.read(buyFundForm.getName());
+			if (fundBean == null) {
+				errors.add("Fund does not exist");
+				return "transaction.jsp";
+			}
 			int fundId = fundBean.getFundId();
 			
 			//Get the price of this fund of the latest day
@@ -80,9 +87,15 @@ public class BuyFundAction extends Action{
 			Long latestPrice = priceBean.getPrice();
 			
 			//Calculate shares
-			Long amount = Long.parseLong(transanctionForm.getAmount());
+			Long amount = Long.parseLong(buyFundForm.getAmount()) * 100;
 			if (amount > curCash) {
 				errors.add("Your balance is not enough!");
+				return "transaction.jsp";
+			}
+			//Check valid balance
+			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
+			if (amount > validBalance) {
+				errors.add("You do not have enough money!");
 				return "transaction.jsp";
 			}
 			Long shares = amount / latestPrice;
