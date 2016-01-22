@@ -31,7 +31,8 @@
 						class="icon-bar"></span>
 				</button>
 
-				<a class="navbar-brand" href="#">CFS</a>
+				<a href="login.do" class="pull-left"><img src="images/logo.png"
+					style="max-width: 100px"></a>
 
 			</div>
 

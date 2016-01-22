@@ -69,7 +69,6 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
 		String action = getActionName(servletPath);
-		//System.out.println("You have requested: "+ action);
 		if (session.getAttribute("user") == null) {
 
 			return Action.perform("login.do", request);
