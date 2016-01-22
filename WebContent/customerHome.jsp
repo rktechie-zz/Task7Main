@@ -1,165 +1,111 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-customer.jsp" />
-    
-    <div id="viewAccount" class="container-fluid text-center">
-    
-        <h2>VIEW ACCOUNT</h2>
-        <h4>How Is It Going?</h4>
-        <br><br>
-        
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-success">My Name:</li>
-            <li class="list-group-item list-group-item-success">My Address:</li>
-            <li class="list-group-item list-group-item-warning">Last Trading Date:</li>
-            <li class="list-group-item list-group-item-danger">Cash Balance:</li>
-            <li class="list-group-item list-group-item-info">Fund Owned:</li>
-        </ul>         
-            
-    </div>
-    
-    <div id="dashBoard" class="container-fluid text-center">
-    
-        <h2>DASHBOARD</h2>
-        <h4>What Can I Do?</h4>
-        <br><br>
-        
-            <div class="row">
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-piggy-bank logo-small slideanim"></span>
-                <h4><a href="">BUY FUND</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-send logo-small slideanim"></span>
-                <h4><a href="">SELL FUND</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            </div>
-        
-            <br><br>
-            
-            <div class="row">
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-credit-card logo-small slideanim"></span>
-                <h4><a href="">REQUEST CHECK</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-transfer logo-small slideanim"></span>
-                <h4><a href="">TRANSACTION HISTORY</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            </div>
-            
-            <br><br>
-            
-            <div class="row">
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-stats logo-small slideanim"></span>
-                <h4><a href="">RESEARCH FUND</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            <div class="col-sm-6">
-                <span class="glyphicon glyphicon-lock logo-small slideanim"></span>
-                <h4><a href="">MANAGE PASSWORD</a></h4>
-                <p>This is...</p>
-            </div>
-            
-            </div>           
-            
-    </div>
 
-    <!-- Container ("Contact Us" Section) -->
-    <div id="contact" class="contact slideanim">
-        <div class="container-fluid">
-        
-            <h2 class="text-center">Need Help?</h2>
-            <br/><br/>
-          
-            <div class="row">
-                <div class="col-sm-5">
-                    <p>Contact us and we'll get back to you within 24 hours.</p>
-                    <p><span class="glyphicon glyphicon-map-marker"></span> Pittsburgh, PA, US</p>
-                    <p><span class="glyphicon glyphicon-phone"></span> +01 412-268-707X</p>
-                    <p><span class="glyphicon glyphicon-envelope"></span> mutualfund@carnegiefinancial.com</p> 
-                </div>
-                
-                <div class="col-sm-7">
-                    <div class="row">
-                    
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-                        </div>
-                    
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-                        </div>
-                   
-                   </div>
-              
-                   <textarea class="form-control" id="problem" name="problem" placeholder="Problem" rows="5"></textarea><br>
-              
-                   <div class="row">
-                        
-                        <div class="col-sm-12 form-group">
-                            <button class="btn btn-default pull-right" type="submit">Send</button>
-                        </div>
-                   </div>
-                    
-               </div>           
-            </div>
-        </div>
-                
-    </div>
-    
-    <footer class="container-fluid text-center">
-    
-        <a href="#myPage" title="To Top">        
-            <span class="glyphicon glyphicon-chevron-up"></span>            
-        </a>
-        
-        <p>Â©2016 Carnegie Financial Services (CFS) by MSIT-eBusiness Team 6</p> 
-    </footer>
-    
-    <script>
-    $(document).ready(function(){
-        // Add smooth scrolling to all links in navbar + footer link
-        $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+<jsp:include page="error.jsp" />
 
-        // Store hash
-        var hash = this.hash;
+<br><br><br><br><br><br>
+<div class="col-lg-6">
+	<h3>Customer information:</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<td>Account User Name:</td>
+					<td colspan="2">${user.getUserName()}</td>
+				</tr>
+				<tr>
+					<td width="40%">Customer Name:</td>
+					<td colspan="2">${user.getFirstName()}</td>
 
-        // Using jQuery's animate() method to add smooth page scroll
-        // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 900, function(){
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Address:</td>
+					<td colspan="2">${user.getAddress1() }${user.getAddress2() }</td>
 
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            window.location.hash = hash;
-            });
-        });
-        
-      $(window).scroll(function() {
-          $(".slideanim").each(function(){
-            var pos = $(this).offset().top;
+				</tr>
+				<tr>
+					<td>City, State:</td>
+					<td colspan="2">${user.getCity() },${user.getState()}.</td>
 
-            var winTop = $(window).scrollTop();
-              if (pos < winTop + 600) {
-                $(this).addClass("slide");
-              }
-          });
-        });
-    })
-    </script>
+				</tr>
+				<tr>
+					<td>Last trading date:</td>
+					<td colspan="2">${lastDay}</td>
 
-</body>
+				</tr>
+				<tr>
+					<td>Last Posted Balance:</td>
+					<td align="right"><b>$ ${user.getCash()/100}</b></td>
+					<td width="30%">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
-</html>
+	<h3>Funds owned:</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<td width="40%"><b>Fund Name</b></td>
+					<td align="right"><b>Shares</b></td>
+					<td align="right"><b>Value</b></td>
+				</tr>
+			</thead>
+			<tbody>
+
+				<c:choose>
+
+					<c:when test="${(empty positionInfoList)}"></c:when>
+					<c:otherwise>
+						<c:forEach var="u" items="${positionInfoList}">
+							<tr>
+								<td>${ u.getName() }</td>
+								<td align="right">${ u.getShares() }</td>
+								<td align="right">${u.getTotal()}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+	</div>
+
+	<h3>Transaction history</h3>
+	<table class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Transaction Date (mm/dd/yyyy)</th>
+				<th>Operation</th>
+				<th>Fund Name</th>
+				<th>Shares</th>
+				<th>Share Price</th>
+				<th>Total Amount</th>
+
+			</tr>
+		</thead>
+		<!-- Create for each loop to fill table -->
+		<tbody>
+			<c:choose>
+				<c:when test="${ (empty transactionList) }"></c:when>
+				<c:otherwise>
+					<c:forEach var="u" items="${ transactionList }">
+						<tr>
+							<td>${ u.date }</td>
+							<td>${ u.operation }</td>
+							<td>${ u.fund }</td>
+							<td align="right">${ u.totShares }</td>
+							<td align="right">${ u.price }</td>
+							<td align="right">${ u.total }</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
+	</table>
+</div>
+
+<jsp:include page="template-bottom.jsp" />

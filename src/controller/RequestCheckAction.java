@@ -50,23 +50,26 @@ public class RequestCheckAction extends Action {
 
 			CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
 
-			TransactionBean[] arr = transactionDAO.match(MatchArg.and(MatchArg.equals("customerId", user.getCustomerId()),
-					MatchArg.equals("executeDate", null)));
+			TransactionBean[] arr = transactionDAO.match(MatchArg.and ( MatchArg.equals("customerId", user.getCustomerId()),
+					MatchArg.equals("executeDate", "")));
 
 			long amount = 0;
 			for (TransactionBean bean : arr) {
 				amount += bean.getAmount();
 			}
-			String s = String.format("%.2s", form.getRequestAmount());
-			amount += Long.parseLong(s);
+			String s = form.getRequestAmount();
+			double d = Double.parseDouble(s);
+			d = d * 100.0;
+			long l = (long) d;
+			amount += l;
 			if (user.getCash() < amount) {
 				errors.add("Balance is not enough to proceed the request");
 				return "requestCheck.jsp";
 			} 
 			TransactionBean tBean = new TransactionBean();
-			tBean.setCustomer_id(user.getCustomerId());
-			tBean.setTransactionType("Request Check");
-			tBean.setAmount(Long.parseLong(s));
+			tBean.setCustomerId(user.getCustomerId());
+
+			tBean.setAmount(l);
 			transactionDAO.create(tBean);
 			return "success-customer.jsp";
 			

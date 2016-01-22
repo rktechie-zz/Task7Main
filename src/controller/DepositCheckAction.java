@@ -52,17 +52,21 @@ public class DepositCheckAction extends Action {
 				return "depositCheck.jsp";
 			}
 			
-			String s = String.format("%.2s", depisitCheckForm.getDepositAmount());
+			String s =  depisitCheckForm.getDepositAmount();
 			CustomerBean customerBean = customerDAO.read(depisitCheckForm.getUserName());
-			//System.out.println(customerBean.getUserName());
+			double d = Double.parseDouble(s);
+			d = d * 100.0;
+			long l = (long) d;
 			if (customerBean == null) {
 				errors.add("No such user!");
 				return "depositCheck.jsp";
 			}
 			TransactionBean tBean = new TransactionBean();
-			tBean.setCustomer_id(customerBean.getCustomerId());
-			tBean.setTransactionType("Deposit Check");
-			tBean.setAmount(Long.parseLong(s));
+			tBean.setCustomerId(customerBean.getCustomerId());
+
+			tBean.setTransactionType("1");
+			tBean.setAmount(l);
+
 			transactionDAO.create(tBean);
 			return "success-employee.jsp";
 		} catch (RollbackException e) {

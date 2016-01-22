@@ -6,40 +6,29 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class ViewCustomerTransactionForm extends FormBean {
-    private String firstName;
-    private String lastName;
-    private int customerId;
+        private String userName;
 
-    public String getFirstName() {
-        return firstName;
-    }
+        public String getUserName() {
+                return userName;
+        }
 
-    public void setFirstName(String firstName) {
-        this.firstName = sanitize(firstName);
-    }
+        public void setUserName(String userName) {
+                this.userName = sanitize(userName);
+        }
 
-    public String getLastName() {
-        return lastName;
-    }
+        public List<String> getValidationErrors() {
+                List<String> errors = new ArrayList<String>();
+                
+                if (userName == null || userName.trim().length() == 0)
+                        errors.add("User name is required.");
 
-    public void setLastName(String lastName) {
-        this.lastName = sanitize(lastName);
-    }
+                if (errors.size() > 0)
+                        return errors;
 
-    public int getCustomerId() {
-        return customerId;
-    }
+                return errors;
+        }
 
-    public List<String> getValidationErrors() {
-        List<String> errors = new ArrayList<String>();
-
-        if (errors.size() > 0)
-            return errors;
-        
-        return errors;
-    }
-    
-    private String sanitize (String s) {
-            return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
-    }
+        private String sanitize(String s) {
+                return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+        }
 }

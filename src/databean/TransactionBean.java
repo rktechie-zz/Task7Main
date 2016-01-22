@@ -5,7 +5,11 @@ import org.genericdao.PrimaryKey;
 @PrimaryKey("transactionId")
 public class TransactionBean /* implements Comparable<TransactionBean> */ {
 
-        private int customer_id;
+        private int customerId;
+		public final static int BUY_FUND = 8;
+		public final static int SELL_FUND = 4;
+		public final static int REQUEST_CHECK = 2;
+		public final static int DEPOSIT_CHECK = 1;
 
         private int transactionId;
         private String userName;
@@ -15,15 +19,16 @@ public class TransactionBean /* implements Comparable<TransactionBean> */ {
         private String transactionType;
         private long amount;
 
-        public int getCustomer_id() {
-                return customer_id;
+        public int getCustomerId() {
+                return customerId;
         }
 
-        public void setCustomer_id(int customer_id) {
-                this.customer_id = customer_id;
+        public void setCustomerId(int customer_id) {
+                this.customerId= customer_id;
         }
 
-        public void setTransactionId(int v) {
+
+		public void setTransactionId(int v) {
                 transactionId = v;
         }
 

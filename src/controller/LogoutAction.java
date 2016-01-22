@@ -18,6 +18,6 @@ public class LogoutAction extends Action{
 		HttpSession session = request.getSession(false);
 		session.setAttribute("user", null);
 	
-		return "login.jsp";
+		return "index.jsp";
 	}
 }
