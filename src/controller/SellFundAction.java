@@ -31,14 +31,12 @@ public class SellFundAction extends Action{
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private CustomerDAO customerDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
 
 	public SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		customerDAO = model.getCustomerDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		positionDAO = model.getPositionDAO();
 	}
@@ -100,7 +98,7 @@ public class SellFundAction extends Action{
 			Long latestPrice = priceBean.getPrice() / 100;
 			
 			//Calculate shares
-			Long shares = Long.parseLong(sellFundForm.getShares());
+			Long shares = Long.parseLong(sellFundForm.getShares()) / 1000;
 			//Determine whether customer has this many shares
 			if (position.getShares() < shares) {
 				errors.add("You do not have this many shares!");
