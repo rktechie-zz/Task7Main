@@ -13,7 +13,6 @@
 				<h4>
 					<a href="createEmployee.do">CREATE EMPLOYEE ACCOUNT</a>
 				</h4>
-				<p>This is CREATE EMPLOYEE ACCOUNT</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -21,7 +20,6 @@
 				<h4>
 					<a href="createCustomer.do">CREATE CUSTOMER ACCOUNT</a>
 				</h4>
-				<p>This is CREATE CUSTOMER ACCOUNT</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -29,7 +27,6 @@
 				<h4>
 					<a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a>
 				</h4>
-				<p>This is VIEW CUSTOMER ACCOUNT</p>
 			</div>
 		</div>
 
@@ -42,7 +39,6 @@
 				<h4>
 					<a href="createFund.do">CREATE FUND</a>
 				</h4>
-				<p>This is CREATE FUND</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -50,7 +46,6 @@
 				<h4>
 					<a href="transitionDay.do">TRANSITION DAY</a>
 				</h4>
-				<p>This is TRANSITION DAY</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -58,7 +53,6 @@
 				<h4>
 					<a href="depositCheck.do">DEPOSIT CHECK</a>
 				</h4>
-				<p>This is DEPOSIT CHECK</p>
 			</div>
 
 		</div>
@@ -70,7 +64,6 @@
 				<h4>
 					<a href="reset.do">RESET CUSTOMER PASSWORD</a>
 				</h4>
-				<p>This is RESET CUSTOMER PASSWORD</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -78,7 +71,6 @@
 				<h4>
 					<a href="changePassword.do">CHANGE EMPLOYEE PASSWORD</a>
 				</h4>
-				<p>This is CHANGE EMPLOYEE PASSWORD</p>
 			</div>
 
 			<div class="col-sm-4">
@@ -87,14 +79,13 @@
 					<a href="viewCustomerTransaction.do">VIEW CUSTOMER TRANSACTION
 						HISTORY</a>
 				</h4>
-				<p>This is VIEW CUSTOMER TRANSACTION HISTORY</p>
 			</div>
 
 		</div>
 
 	</div>
 </div>
-
+<br> <br>
 <jsp:include page="template-bottom.jsp" />
 <script src="js/custom.js"></script>
 
