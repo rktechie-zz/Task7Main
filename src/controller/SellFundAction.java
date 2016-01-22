@@ -20,6 +20,7 @@ import org.mybeans.form.FormBeanFactory;
 import databean.CustomerBean;
 import databean.FundBean;
 import databean.FundPriceHistoryBean;
+import databean.PositionBean;
 import databean.TransactionBean;
 import formbean.CreateFundForm;
 import formbean.SellFundForm;
@@ -84,7 +85,8 @@ public class SellFundAction extends Action{
 			}
 			int fundId = fundBean.getFundId();
 			// How to determine whether this customer own this fund or not
-			if (positionDAO.read(customerId, fundId)==null) {
+			PositionBean position = positionDAO.read(customerId, fundId);
+			if (position == null) {
 				errors.add("You do not own this fund!");
 				return "sellFund.jsp";
 			}
@@ -99,6 +101,11 @@ public class SellFundAction extends Action{
 			
 			//Calculate shares
 			Long shares = Long.parseLong(sellFundForm.getShares());
+			//Determine whether customer has this many shares
+			if (position.getShares() < shares) {
+				errors.add("You do not have this many shares!");
+				return "sellFund.jsp";
+			}
 			Long amount = shares * latestPrice * 100;
 			
 			//Create a transaction bean

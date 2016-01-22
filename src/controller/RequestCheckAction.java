@@ -64,7 +64,9 @@ public class RequestCheckAction extends Action {
 			tBean.setCustomerId(user.getCustomerId());
 			tBean.setTransactionType("2");
 			tBean.setAmount(l);
+			tBean.setUserName(user.getUserName());
 			transactionDAO.create(tBean);
+			
 			return "success-customer.jsp";
 			
 		} catch (RollbackException e) {
