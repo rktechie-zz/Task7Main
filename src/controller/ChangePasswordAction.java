@@ -28,7 +28,7 @@ public class ChangePasswordAction extends Action{
 	}
 
 	public String getName() {
-		return "cutomerChangePassword.do";
+		return "changePassword.do";
 	}
 	
 	public String perform(HttpServletRequest request) {
@@ -43,20 +43,20 @@ public class ChangePasswordAction extends Action{
 				CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
 
 				if (!changePasswordForm.isPresent()) {
-					return "customerChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 
 				errors.addAll(changePasswordForm.getValidationErrors());
 				
 				if (errors.size() > 0) {
-					return "customerChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 				
 				if (!changePasswordForm.getCurrentPassword().equals(customerDAO.read(user.getUserName()).getPassword())) {
 					errors.add("Original password entered is incorrect.");
 				}
 				if (errors.size() > 0) {
-					return "customerChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 
 				user.setPassword(changePasswordForm.getNewPassword());
@@ -64,18 +64,18 @@ public class ChangePasswordAction extends Action{
 				
 				request.setAttribute("msg", "Password is updated successfully.");
 
-				return "customerConfirmationPage.jsp";
+				return "success-customer.jsp";
 			} else if (request.getSession().getAttribute("user") instanceof EmployeeBean) {
 				EmployeeBean user = (EmployeeBean) request.getSession().getAttribute("user");
 				
 				if (!changePasswordForm.isPresent()) {
-					return "employeeChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 
 				errors.addAll(changePasswordForm.getValidationErrors());
 				
 				if (errors.size() > 0) {
-					return "employeeChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 				
 				if (!changePasswordForm.getCurrentPassword().equals(employeeDAO.read(user.getUserName()).getPassword())) {
@@ -83,7 +83,7 @@ public class ChangePasswordAction extends Action{
 				}
 				
 				if (errors.size() > 0) {
-					return "employeeChangePassword.jsp";
+					return "changePassword.jsp";
 				}
 
 				user.setPassword(changePasswordForm.getNewPassword());
@@ -91,7 +91,7 @@ public class ChangePasswordAction extends Action{
 				
 				request.setAttribute("msg", "Password is updated successfully.");
 				
-				return "employeeCustomerPage.do";
+				return "success-employee.jsp";
 			} else {
 				return "index.html";
 			}

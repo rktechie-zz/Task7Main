@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
-public class CreateCustomerForm  extends FormBean {
+public class CreateCustomerForm extends FormBean {
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -16,7 +16,7 @@ public class CreateCustomerForm  extends FormBean {
 	private String city;
 	private String state;
 	private String zip;
-	private long cash;
+	private String cash;
 	private String type;
 
 	public String getFirstName() {
@@ -24,6 +24,7 @@ public class CreateCustomerForm  extends FormBean {
 	}
 
 	public void setFirstName(String firstName) {
+		System.out.println("Set name : " + firstName);
 		this.firstName = sanitize(firstName);
 	}
 
@@ -99,12 +100,12 @@ public class CreateCustomerForm  extends FormBean {
 		this.zip = sanitize(zip);
 	}
 
-	public long getCash() {
+	public String getCash() {
 		return cash;
 	}
 
-	public void setCash(long cash) {
-		this.cash = Long.parseLong(sanitize(Long.toString(cash)));
+	public void setCash(String cash) {
+		this.cash = sanitize(cash);
 	}
 
 	public String getType() {
@@ -117,43 +118,43 @@ public class CreateCustomerForm  extends FormBean {
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
-		
+
 		if (userName == null || userName.trim().length() == 0)
 			errors.add("User Name is required.");
-		
+
 		if (firstName == null || firstName.trim().length() == 0)
 			errors.add("First Name is required.");
-		
+
 		if (lastName == null || lastName.trim().length() == 0)
 			errors.add("Last Name is required.");
-		
+
 		if (password == null || password.trim().length() == 0)
 			errors.add("Password is required.");
-		
+
 		if (confirmPassword == null || confirmPassword.trim().length() == 0)
 			errors.add("Confirm password is required.");
-		
+
 		if (!password.equals(confirmPassword))
 			errors.add("Password and Confirm password is not the same.");
-		
+
 		if (address1 == null || address1.trim().length() == 0)
 			errors.add("Address1 is required.");
-		
+
 		if (address2 == null || address2.trim().length() == 0)
 			errors.add("Address2 is required.");
-		
+
 		if (city == null || city.trim().length() == 0)
 			errors.add("City is required.");
-		
+
 		if (state == null || state.trim().length() == 0)
 			errors.add("State is required.");
-		
-		if (cash < 0)
+
+		if (cash == null || cash.trim().length() == 0 || cash.charAt(0) == '-')
 			errors.add("Cash is required and it should be positive.");
-		
+
 		if (type == null)
 			errors.add("Button is required.");
-		
+
 		return errors;
 	}
 

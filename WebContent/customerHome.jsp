@@ -12,20 +12,19 @@
 			<h2 class="page-header">Welcome ${user.getFirstName()}</h2>
 		</div>
 	</div>
-
-	<div class="row col-lg-6">
-		<h3>Customer information:</h3>
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<thead>
-					<tr>
-						<td>Account User Name:</td>
-						<td colspan="2">${user.getUserName()}</td>
-
-					</tr>
-					<tr>
-						<td width="40%">Customer Name:</td>
-						<td colspan="2">${user.getFirstName()}</td>
+<br><br><br><br><br><br>
+<div class="col-lg-6">
+	<h3>Customer information:</h3>
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<td>Account User Name:</td>
+					<td colspan="2">${user.getUserName()}</td>
+				</tr>
+				<tr>
+					<td width="40%">Customer Name:</td>
+					<td colspan="2">${user.getFirstName()}</td>
 
 					</tr>
 				</thead>

@@ -76,7 +76,7 @@
 		<div class="col-sm-4">
 				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
 				<h4>
-					<a href="employeeChangePassword.do">CHANGE EMPLOYEE PASSWORD</a>
+					<a href="changePassword.do">CHANGE EMPLOYEE PASSWORD</a>
 				</h4>
 				<p>This is CHANGE EMPLOYEE PASSWORD</p>
 		</div>
