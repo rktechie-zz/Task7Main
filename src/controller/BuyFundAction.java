@@ -29,13 +29,11 @@ public class BuyFundAction extends Action{
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private CustomerDAO customerDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 
 	public BuyFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		customerDAO = model.getCustomerDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 	}
 
@@ -73,7 +71,6 @@ public class BuyFundAction extends Action{
 			int customerId = customerBean.getCustomerId();
 			long curCash = customerBean.getCash() / 100;
 			
-			
 			//Get the fund ID of the fund name in form
 			FundBean fundBean = fundDAO.read(buyFundForm.getName());
 			if (fundBean == null) {
@@ -81,21 +78,20 @@ public class BuyFundAction extends Action{
 				return "buyFund.jsp";
 			}
 			int fundId = fundBean.getFundId();
-			
+
 			//Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
-				errors.add("This fund does not have price yet, not able to buy.");
+				errors.add("This fund does not have price yet, not able to buy");
 				return "buyFund.jsp";
 			}
 			Long latestPrice = priceBean.getPrice();
 			
 			//Calculate shares
-			Long amount = Long.parseLong(buyFundForm.getAmount()) * 100;
-//			if (amount > curCash) {
-//				errors.add("Your balance is not enough!");
-//				return "buyFund.jsp";
-//			}
+			Long amount = Long.parseLong(buyFundForm.getAmount());
+//			System.out.println("Current Cash:" + curCash);
+//			System.out.println("User Name:" + userName);
+//			System.out.println("Amount value:" + amount);
 			//Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
 			if (amount > validBalance) {
@@ -103,16 +99,16 @@ public class BuyFundAction extends Action{
 				return "buyFund.jsp";
 			}
 			Long shares = amount / latestPrice;
-			
+
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setUserName(customerBean.getUserName());
-			transactionBean.setAmount(amount);
+			transactionBean.setAmount(amount * 100);
 			transactionBean.setShares(shares);
 			transactionBean.setTransactionType("8");
-
 			transactionDAO.create(transactionBean);
+
 			return "success-customer.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
