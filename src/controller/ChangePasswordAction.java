@@ -43,20 +43,20 @@ public class ChangePasswordAction extends Action{
 				CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
 
 				if (!changePasswordForm.isPresent()) {
-					return "changePassword.jsp";
+					return "customerChangePassword.jsp";
 				}
 
 				errors.addAll(changePasswordForm.getValidationErrors());
 				
 				if (errors.size() > 0) {
-					return "changePassword.jsp";
+					return "customerChangePassword.jsp";
 				}
 				
 				if (!changePasswordForm.getCurrentPassword().equals(customerDAO.read(user.getUserName()).getPassword())) {
 					errors.add("Original password entered is incorrect.");
 				}
 				if (errors.size() > 0) {
-					return "changePassword.jsp";
+					return "customerChangePassword.jsp";
 				}
 
 				user.setPassword(changePasswordForm.getNewPassword());
@@ -69,13 +69,13 @@ public class ChangePasswordAction extends Action{
 				EmployeeBean user = (EmployeeBean) request.getSession().getAttribute("user");
 				
 				if (!changePasswordForm.isPresent()) {
-					return "changePassword.jsp";
+					return "employeeChangePassword.jsp";
 				}
 
 				errors.addAll(changePasswordForm.getValidationErrors());
 				
 				if (errors.size() > 0) {
-					return "changePassword.jsp";
+					return "employeeChangePassword.jsp";
 				}
 				
 				if (!changePasswordForm.getCurrentPassword().equals(employeeDAO.read(user.getUserName()).getPassword())) {
@@ -83,7 +83,7 @@ public class ChangePasswordAction extends Action{
 				}
 				
 				if (errors.size() > 0) {
-					return "changePassword.jsp";
+					return "employeeChangePassword.jsp";
 				}
 
 				user.setPassword(changePasswordForm.getNewPassword());
