@@ -84,14 +84,18 @@ public class BuyFundAction extends Action{
 			
 			//Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
+			if (priceBean == null) {
+				errors.add("This fund does not have price yet, not able to buy.");
+				return "buyFund.jsp";
+			}
 			Long latestPrice = priceBean.getPrice();
 			
 			//Calculate shares
 			Long amount = Long.parseLong(buyFundForm.getAmount()) * 100;
-			if (amount > curCash) {
-				errors.add("Your balance is not enough!");
-				return "buyFund.jsp";
-			}
+//			if (amount > curCash) {
+//				errors.add("Your balance is not enough!");
+//				return "buyFund.jsp";
+//			}
 			//Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
 			if (amount > validBalance) {
