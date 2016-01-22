@@ -105,7 +105,7 @@ public class BuyFundAction extends Action{
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setUserName(customerBean.getUserName());
 			transactionBean.setAmount(amount * 100);
-			transactionBean.setShares(shares);
+			transactionBean.setShares(shares * 1000);
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 

@@ -106,14 +106,14 @@ public class SellFundAction extends Action{
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
-			Long amount = shares * latestPrice * 100;
+			Long amount = shares * latestPrice;
 			
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setUserName(userName);
-			transactionBean.setAmount(amount);
-			transactionBean.setShares(shares);
+			transactionBean.setAmount(amount * 100);
+			transactionBean.setShares(shares * 1000);
 			transactionBean.setTransactionType("4");
 			
 			transactionDAO.create(transactionBean);
