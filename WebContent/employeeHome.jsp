@@ -49,7 +49,7 @@
 			<div class="col-sm-4">
 				<span class="glyphicon glyphicon-list-alt logo-small slideanim"></span>
 				<h4>
-					<a href="">TRANSITION DAY</a>
+					<a href="transitionDay.do">TRANSITION DAY</a>
 				</h4>
 				<p>This is TRANSITION DAY</p>
 			</div>
