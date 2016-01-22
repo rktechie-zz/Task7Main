@@ -75,14 +75,25 @@ public class BuyFundAction extends Action{
 			FundBean fundBean = fundDAO.read(transanctionForm.getName());
 			int fundId = fundBean.getFundId();
 			
-			//Get the price of this fund
-			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.read(fundId);
+			//Get the price of this fund of the latest day
+			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
+			Long latestPrice = priceBean.getPrice();
 			
+			//Calculate shares
+			Long amount = Long.parseLong(transanctionForm.getAmount());
+			if (amount > curCash) {
+				errors.add("Your balance is not enough!");
+				return "transaction.jsp";
+			}
+			Long shares = amount / latestPrice;
 			
-			
+			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
-			transactionBean.setAmount(Long.parseLong(transanctionForm.getAmount()));
-			transactionBean.setShares(Long.parseLong(transanctionForm.getShares()));
+			transactionBean.setCustomerId(customerId);
+			transactionBean.setUserName(customerBean.getUserName());
+			transactionBean.setAmount(amount);
+			transactionBean.setShares(shares);
+			transactionBean.setTransactionType("8");
 
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";

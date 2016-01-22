@@ -58,7 +58,10 @@ public class RequestCheckAction extends Action {
 				amount += bean.getAmount();
 			}
 			String s = form.getRequestAmount();
-			amount += Long.parseLong(s);
+			double d = Double.parseDouble(s);
+			d = d * 100.0;
+			long l = (long) d;
+			amount += l;
 			if (user.getCash() < amount) {
 				errors.add("Balance is not enough to proceed the request");
 				return "requestCheck.jsp";
@@ -66,7 +69,7 @@ public class RequestCheckAction extends Action {
 			TransactionBean tBean = new TransactionBean();
 			tBean.setCustomerId(user.getCustomerId());
 
-			tBean.setAmount(Long.parseLong(s));
+			tBean.setAmount(l);
 			transactionDAO.create(tBean);
 			return "success-customer.jsp";
 			
