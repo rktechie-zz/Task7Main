@@ -60,9 +60,6 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 					case TransactionBean.DEPOSIT_CHECK:
 						amount += t.getAmount() / 100.00;
 						break;
-					case TransactionBean.SELL_FUND:
-						amount += t.getAmount() / 100.00;
-						break;
 					default:
 						break;
 					}
