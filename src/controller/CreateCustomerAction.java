@@ -54,7 +54,8 @@ public class CreateCustomerAction extends Action {
 					errors.add("This username already exists. Please select a new username.");
 					return "createCustomer.jsp";
 				}
-
+				double cash = Double.parseDouble(form.getCash()) * 100.0;
+				
 				CustomerBean newUser = new CustomerBean();
 				newUser.setUserName(form.getUserName());
 				newUser.setLastName(form.getLastName());
@@ -65,7 +66,7 @@ public class CreateCustomerAction extends Action {
 				newUser.setCity(form.getCity());
 				newUser.setState(form.getState());
 				newUser.setZipcode(form.getZip());
-				newUser.setCash(Long.parseLong(form.getCash()));
+				newUser.setCash((long)(cash));
 
 				customerDAO.create(newUser);
 
@@ -77,7 +78,7 @@ public class CreateCustomerAction extends Action {
 				return "createCustomer.jsp";
 			}
 		} catch (NumberFormatException e) {
-			errors.add("The number is too long.");
+			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
 			return "createCustomer.jsp";
 		}catch (RollbackException e) {
 			errors.add(e.getMessage());
