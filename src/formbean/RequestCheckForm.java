@@ -40,7 +40,7 @@ public class RequestCheckForm extends FormBean {
 			return errors;
 		}
 
-		if (Long.parseLong(requestAmount) <= 0) {
+		if (Double.parseDouble(requestAmount) <= 0) {
 			errors.add("The amount of request should be a positive");
 		}
 
