@@ -1,9 +1,4 @@
 <jsp:include page="template-top-employee.jsp" />
-<br>
-<br>
-<br>
-<br>
-<br>
 <jsp:include page="error.jsp" />
 <h1>&nbsp</h1>
 <h1>&nbsp</h1>
