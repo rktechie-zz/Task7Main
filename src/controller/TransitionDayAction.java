@@ -31,11 +31,11 @@ import model.TransactionDAO;
 
 public class TransitionDayAction extends Action {
 
-	private 	CustomerDAO 		customerDAO;
-	private 	FundDAO				fundDAO;
-	private	TransactionDAO	transactionDAO;
-	private 	FundPriceHistoryDAO	fundPriceHistoryDAO;
-	private 	PositionDAO			positionDAO;
+	private CustomerDAO customerDAO;
+	private FundDAO fundDAO;
+	private TransactionDAO transactionDAO;
+	private FundPriceHistoryDAO fundPriceHistoryDAO;
+	private PositionDAO positionDAO;
 
 	public TransitionDayAction(Model model) {
 		customerDAO = model.getCustomerDAO();
@@ -60,50 +60,52 @@ public class TransitionDayAction extends Action {
 			if (session.getAttribute("user") != null && session.getAttribute("user") instanceof EmployeeBean) {
 				TransitionDayForm form = new TransitionDayForm(request);
 				request.setAttribute("form", form);
-				
+
 				// read all customers into list
-				FundBean[] fundList =  fundDAO.match();
+				FundBean[] fundList = fundDAO.match();
 				request.setAttribute("fundList", fundList);
-				
-				NumberFormat formatter = new DecimalFormat("#0.00");     		
+
+				NumberFormat formatter = new DecimalFormat("#0.00");
 				HashMap<Integer, String> price_map = new HashMap<Integer, String>();
-				String lastTradingDay = fundPriceHistoryDAO.getLatestTradingDayDateString ();
+				System.out.println("Checkpoint");
+				String lastTradingDay = fundPriceHistoryDAO.getLatestTradingDayDateString();
+				
 				for (FundBean fb : fundList) {
 					if (lastTradingDay == null) {
-						price_map.put(fb.getFundId(),"N/A");
+						price_map.put(fb.getFundId(), "NEW");
 						continue;
 					}
-					FundPriceHistoryBean tmp = fundPriceHistoryDAO.read(fb.getFundId() ,lastTradingDay);
+					FundPriceHistoryBean tmp = fundPriceHistoryDAO.read(fb.getFundId(), lastTradingDay);
 					if (tmp == null) {
-						price_map.put(fb.getFundId(),"N/A");
+						price_map.put(fb.getFundId(), "NEW");
 					} else {
-						price_map.put(fb.getFundId(),  formatter.format(tmp.getPrice() / 100.0 ));
+						price_map.put(fb.getFundId(), formatter.format(tmp.getPrice() / 100.0));
 					}
 				}
 				request.setAttribute("price_map", price_map);
-				
+
 				// check date
-	        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	        	SimpleDateFormat inputDate = new  SimpleDateFormat("yyyy-MM-dd");
-	        	dateFormat.setLenient(false);
-	        	inputDate.setLenient(false);
-	        	
-	        	Date lastFundDay = fundPriceHistoryDAO.getLatestTradingDayDate();
-	        	Date lastTranDay = transactionDAO.getLatestDate();
-	        	Date lastDay = null;
-	        	if (lastFundDay != null && lastTranDay != null) {
-	        		lastDay = lastFundDay.compareTo(lastTranDay) <= 0 ? lastTranDay : lastFundDay;
-	        	} else {
-	        		lastDay = lastFundDay == null ? lastTranDay : lastFundDay;
-	        	}
-	        	request.setAttribute("lastDay", lastDay == null ? "" : inputDate.format(lastDay));
-				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				SimpleDateFormat inputDate = new SimpleDateFormat("yyyy-MM-dd");
+				dateFormat.setLenient(false);
+				inputDate.setLenient(false);
+
+				Date lastFundDay = fundPriceHistoryDAO.getLatestTradingDayDate();
+				Date lastTranDay = transactionDAO.getLatestDate();
+				Date lastDay = null;
+				if (lastFundDay != null && lastTranDay != null) {
+					lastDay = lastFundDay.compareTo(lastTranDay) <= 0 ? lastTranDay : lastFundDay;
+				} else {
+					lastDay = lastFundDay == null ? lastTranDay : lastFundDay;
+				}
+				request.setAttribute("lastDay", lastDay == null ? "Not Available" : inputDate.format(lastDay));
+
 				// If no params were passed, return with no errors so that the
 				// form will be presented (we assume for the first time).
 				if (!form.isPresent()) {
 					return "transitionDay.jsp";
 				}
-				
+
 				// Any validation errors?
 				HashMap<String, String> map = new HashMap<String, String>();
 				for (FundBean fb : fundList) {
@@ -114,100 +116,100 @@ public class TransitionDayAction extends Action {
 				if (errors.size() != 0) {
 					return "transitionDay.jsp";
 				}
-				
+
 				Date date = inputDate.parse(form.getDate());
-	        	
-	        	if (lastDay != null && date.compareTo(lastDay) <= 0) {
-	        		errors.add("The input date has to be greater than the last trading day");
-	        	}
-	        		        	
+
+				if (lastDay != null && date.compareTo(lastDay) <= 0) {
+					errors.add("The input date has to be greater than the last trading day");
+				}
+
 				if (errors.size() != 0) {
 					return "transitionDay.jsp";
 				}
-				
+
 				String today = dateFormat.format(date);
-				
+
 				try {
 					Transaction.begin();
-					
+
 					// update prices
-					for (FundBean fb : fundList) {			
+					for (FundBean fb : fundList) {
 						FundPriceHistoryBean fndPriceHistBean = new FundPriceHistoryBean();
 						fndPriceHistBean.setFundId(fb.getFundId());
 						fndPriceHistBean.setExecuteDate(today);
-						fndPriceHistBean.setPrice( (long)(Double.parseDouble(request.getParameter("fund_" + fb.getFundId())) * 100) );
+						fndPriceHistBean.setPrice(
+								(long) (Double.parseDouble(request.getParameter("fund_" + fb.getFundId())) * 100));
 						fundPriceHistoryDAO.create(fndPriceHistBean);
 					}
-	
-					
+
 					// process pending transactions
-					for (TransactionBean tb : transactionDAO.match(MatchArg.equals("executeDate", null))){
+					for (TransactionBean tb : transactionDAO.match(MatchArg.equals("executeDate", null))) {
 						CustomerBean cb = customerDAO.read(tb.getUserName());
 						int transType = Integer.parseInt(tb.getTransactionType());
-						switch(transType) {
-							case TransactionBean.SELL_FUND:
-								if (positionDAO.read(tb.getUserName(), tb.getFundId()) != null) {
-									PositionBean pb = positionDAO.read(tb.getUserName(), tb.getFundId());
+						switch (transType) {
+						case TransactionBean.SELL_FUND:
+							if (positionDAO.read(tb.getUserName(), tb.getFundId()) != null) {
+								PositionBean pb = positionDAO.read(tb.getUserName(), tb.getFundId());
 
-									if (pb.getShares() - tb.getShares()== 0) {
-										positionDAO.delete(tb.getUserName(), tb.getFundId());
-									} else {
-										pb.setShares(pb.getShares() - tb.getShares());
-										positionDAO.update(pb);
-									}
-									
-									double price = fundPriceHistoryDAO.read(tb.getFundId() ,  today).getPrice() / 100.0;
-									long amount = (long) (price * tb.getShares() / 1000 * 100);
-									cb.setCash(cb.getCash() +  amount);
-									customerDAO.update(cb);
-									tb.setAmount(amount);
-								}
-								break;
-							case TransactionBean.BUY_FUND:						
-								long shares = 0;
-								double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice()  / 100.0 ;
-								if (positionDAO.read(tb.getUserName() , tb.getFundId()) == null) {
-									double amount = tb.getAmount() / 100.00;
-									shares = (long) (amount / price * 1000);
-									
-									PositionBean pb = new PositionBean();
-									pb.setCustomerId(String.valueOf(tb.getCustomerId()));
-									pb.setFundId(tb.getFundId());
-									pb.setShares(shares);
-									positionDAO.create(pb);
-									
+								if (pb.getShares() - tb.getShares() == 0) {
+									positionDAO.delete(tb.getUserName(), tb.getFundId());
 								} else {
-									double amount = tb.getAmount() / 100.00;
-									
-									shares = (long) (amount / price * 1000);
-									
-									PositionBean pb = positionDAO.read(tb.getUserName(),  tb.getFundId());
-									pb.setShares(shares + pb.getShares());
+									pb.setShares(pb.getShares() - tb.getShares());
 									positionDAO.update(pb);
 								}
-							
-								tb.setAmount((long)(shares / 1000.0 * price * 100));
-								tb.setShares(shares);
-										
-								cb.setCash(cb.getCash() -  tb.getAmount());
+
+								double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
+								long amount = (long) (price * tb.getShares() / 1000 * 100);
+								cb.setCash(cb.getCash() + amount);
 								customerDAO.update(cb);
-								break;
-							case TransactionBean.REQUEST_CHECK:
-								cb.setCash(cb.getCash() -  tb.getAmount());
-								customerDAO.update(cb);
-								break;
-							case TransactionBean.DEPOSIT_CHECK:
-								cb.setCash(cb.getCash() +  tb.getAmount());
-								customerDAO.update(cb);
-								break;	
-							default:
-								break;
+								tb.setAmount(amount);
+							}
+							break;
+						case TransactionBean.BUY_FUND:
+							long shares = 0;
+							double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
+							if (positionDAO.read(tb.getUserName(), tb.getFundId()) == null) {
+								double amount = tb.getAmount() / 100.00;
+								shares = (long) (amount / price * 1000);
+
+								PositionBean pb = new PositionBean();
+								pb.setCustomerId(String.valueOf(tb.getCustomerId()));
+								pb.setFundId(tb.getFundId());
+								pb.setShares(shares);
+								positionDAO.create(pb);
+
+							} else {
+								double amount = tb.getAmount() / 100.00;
+
+								shares = (long) (amount / price * 1000);
+
+								PositionBean pb = positionDAO.read(tb.getUserName(), tb.getFundId());
+								pb.setShares(shares + pb.getShares());
+								positionDAO.update(pb);
+							}
+
+							tb.setAmount((long) (shares / 1000.0 * price * 100));
+							tb.setShares(shares);
+
+							cb.setCash(cb.getCash() - tb.getAmount());
+							customerDAO.update(cb);
+							break;
+						case TransactionBean.REQUEST_CHECK:
+							cb.setCash(cb.getCash() - tb.getAmount());
+							customerDAO.update(cb);
+							break;
+						case TransactionBean.DEPOSIT_CHECK:
+							cb.setCash(cb.getCash() + tb.getAmount());
+							customerDAO.update(cb);
+							break;
+						default:
+							break;
 						}
-						
+
 						tb.setExecuteDate(today);
 						transactionDAO.update(tb);
 					}
-					
+
 					Transaction.commit();
 				} finally {
 					if (Transaction.isActive()) {
@@ -215,9 +217,9 @@ public class TransitionDayAction extends Action {
 					}
 				}
 
-				if (errors.size() > 0) 
-					return "transitionDay.jsp";	
-				
+				if (errors.size() > 0)
+					return "transitionDay.jsp";
+
 				return "success-employee.jsp";
 			} else {
 				// logout and re-login

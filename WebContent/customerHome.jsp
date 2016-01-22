@@ -12,7 +12,6 @@
 			<h2 class="page-header">Welcome ${user.getFirstName()}</h2>
 		</div>
 	</div>
-<br><br><br><br><br><br>
 <div class="col-lg-6">
 	<h3>Customer information:</h3>
 	<div class="table-responsive">
@@ -24,7 +23,7 @@
 				</tr>
 				<tr>
 					<td width="40%">Customer Name:</td>
-					<td colspan="2">${user.getFirstName()}</td>
+					<td colspan="2">${user.getFirstName()} ${user.getLastName()}</td>
 
 					</tr>
 				</thead>
@@ -36,7 +35,7 @@
 					</tr>
 					<tr>
 						<td>City, State:</td>
-						<td colspan="2">${user.getCity() },${user.getState()}.</td>
+						<td colspan="2">${user.getCity() }, ${user.getState()} - ${user.getZipcode()}</td>
 
 					</tr>
 					<tr>
@@ -46,7 +45,7 @@
 					</tr>
 					<tr>
 						<td>Last Posted Balance:</td>
-						<td align="right"><b>$ ${user.getCash()/100}</b></td>
+						<td align="center"><b>$ ${user.getCash()/100}</b></td>
 						<td width="30%">&nbsp;</td>
 					</tr>
 				</tbody>

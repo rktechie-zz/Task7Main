@@ -52,7 +52,7 @@ public class CreateFundAction extends Action{
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-
+			System.out.println("Checkpoint");
 			FundBean fundBean = new FundBean();
 			fundBean.setName(createFundForm.getName());
 			fundBean.setSymbol(createFundForm.getSymbol());
