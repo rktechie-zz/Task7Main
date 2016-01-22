@@ -9,12 +9,12 @@
 						<tr>
 							<td class="col-md-2 text-left">Buy Fund :</td>
 							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" name="name" placeholder="Fund Name">
+								class="form-control" name="name" placeholder="Put Fund Name here">
 						</tr>
 						<tr>
 							<td class="col-md-2 text-left">Buy Amount:</td>
 							<td class="col-md-4 text-left"><input type="text"
-								class="form-control" name="amount" placeholder="Fund Symbol">
+								class="form-control" name="amount" placeholder="Put Amount Here">
 						</tr>
 						<tr>
 							<td></td>
