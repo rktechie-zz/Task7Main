@@ -50,7 +50,7 @@ public class LoginForm extends FormBean {
 		if (password == null || password.trim().length() == 0){
 			errors.add("Password is required");
 		}
-		System.out.println("name in errors:" + userNm);
+		//System.out.println("name in errors:" + userNm);
 		if (userNm == null || userNm.trim().length() == 0){
 			errors.add("Username is required");
 		}

@@ -54,7 +54,9 @@ public class DepositCheckAction extends Action {
 			
 			String s =  depisitCheckForm.getDepositAmount();
 			CustomerBean customerBean = customerDAO.read(depisitCheckForm.getUserName());
-			//System.out.println(customerBean.getUserName());
+			double d = Double.parseDouble(s);
+			d = d * 100.0;
+			long l = (long) d;
 			if (customerBean == null) {
 				errors.add("No such user!");
 				return "depositCheck.jsp";
@@ -63,7 +65,7 @@ public class DepositCheckAction extends Action {
 			tBean.setCustomerId(customerBean.getCustomerId());
 
 			tBean.setTransactionType("1");
-			tBean.setAmount(Long.parseLong(s) + customerBean.getCash());
+			tBean.setAmount(l);
 
 			transactionDAO.create(tBean);
 			return "success-employee.jsp";

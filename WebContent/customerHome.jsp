@@ -4,7 +4,6 @@
 
 <jsp:include page="error.jsp" />
 
-
 <br><br><br><br><br><br>
 <div class="col-lg-6">
 	<h3>Customer information:</h3>
@@ -14,7 +13,6 @@
 				<tr>
 					<td>Account User Name:</td>
 					<td colspan="2">${user.getUserName()}</td>
-
 				</tr>
 				<tr>
 					<td width="40%">Customer Name:</td>

@@ -1,4 +1,4 @@
-<jsp:include page="template-top-customer.jsp" />
+<jsp:include page="template-top-employee.jsp" />
 
 	<div id="dashBoard" class="container-fluid text-center">
 		<h2>DASHBOARD</h2>
@@ -68,7 +68,7 @@
 		<div class="col-sm-4">
 				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
 				<h4>
-					<a href="">RESET CUSTOMER PASSWORD</a>
+					<a href="reset.do">RESET CUSTOMER PASSWORD</a>
 				</h4>
 				<p>This is RESET CUSTOMER PASSWORD</p>
 		</div>
@@ -76,7 +76,7 @@
 		<div class="col-sm-4">
 				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
 				<h4>
-					<a href="employeeChangePassword.do">CHANGE EMPLOYEE PASSWORD</a>
+					<a href="changePassword.do">CHANGE EMPLOYEE PASSWORD</a>
 				</h4>
 				<p>This is CHANGE EMPLOYEE PASSWORD</p>
 		</div>
