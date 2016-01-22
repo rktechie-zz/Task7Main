@@ -54,7 +54,9 @@ public class RequestCheckAction extends Action {
 			d = d * 100.00;
 			long l = (long) d;
 			d = l / 100.00;
-			if (d < transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00)) {
+			System.out.println("d: " + d);
+			System.out.println("balance: " + transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00));
+			if (d > transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00)) {
 				errors.add("Balance is not enough to proceed the request");
 				return "requestCheck.jsp";
 			} 
