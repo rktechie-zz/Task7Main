@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
@@ -54,7 +53,7 @@ public class RequestCheckAction extends Action {
 			d = d * 100.00;
 			long l = (long) d;
 			d = l / 100.00;
-			if (d < transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00)) {
+			if (d > transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00)) {
 				errors.add("Balance is not enough to proceed the request");
 				return "requestCheck.jsp";
 			} 
@@ -62,7 +61,9 @@ public class RequestCheckAction extends Action {
 			tBean.setCustomerId(user.getCustomerId());
 			tBean.setTransactionType("2");
 			tBean.setAmount(l);
+			tBean.setUserName(user.getUserName());
 			transactionDAO.create(tBean);
+			request.removeAttribute("form");
 			return "success-customer.jsp";
 			
 		} catch (RollbackException e) {

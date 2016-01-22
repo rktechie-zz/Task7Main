@@ -4,12 +4,15 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("customerId,fundId")
 public class PositionBean {
-	private String customerId;
-	public String getCustomerId() {
+	private int customerId;
+	
+
+
+	public int getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 
