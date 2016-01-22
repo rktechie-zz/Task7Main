@@ -42,13 +42,13 @@ public class ResetCustPassAction extends Action {
 			if (request.getSession().getAttribute("user") instanceof EmployeeBean) {
 
 				ResetCustPassForm form = formBeanFactory.create(request);
-				System.out.println("======================");
-				System.out.println(form.getCustomer1());
-				System.out.println(form.getCustomer2());
-				System.out.println(form.getCustomer());
-				System.out.println(form.getNewPass());
-				System.out.println(form.getConfPass());
-				System.out.println(form.getAction());
+//				System.out.println("======================");
+//				System.out.println(form.getCustomer1());
+//				System.out.println(form.getCustomer2());
+//				System.out.println(form.getCustomer());
+//				System.out.println(form.getNewPass());
+//				System.out.println(form.getConfPass());
+//				System.out.println(form.getAction());
 //				request.setAttribute("form", form);
 //
 //				request.setAttribute("customer", request.getParameter("customer"));
