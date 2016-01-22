@@ -67,7 +67,7 @@ public class TransitionDayAction extends Action {
 
 				NumberFormat formatter = new DecimalFormat("#0.00");
 				HashMap<Integer, String> price_map = new HashMap<Integer, String>();
-				System.out.println("Checkpoint");
+				
 				String lastTradingDay = fundPriceHistoryDAO.getLatestTradingDayDateString();
 				
 				for (FundBean fb : fundList) {
@@ -102,6 +102,7 @@ public class TransitionDayAction extends Action {
 
 				// If no params were passed, return with no errors so that the
 				// form will be presented (we assume for the first time).
+				
 				if (!form.isPresent()) {
 					return "transitionDay.jsp";
 				}
@@ -114,6 +115,7 @@ public class TransitionDayAction extends Action {
 				errors.addAll(form.getValidationErrors(map));
 
 				if (errors.size() != 0) {
+					
 					return "transitionDay.jsp";
 				}
 
@@ -126,7 +128,7 @@ public class TransitionDayAction extends Action {
 				if (errors.size() != 0) {
 					return "transitionDay.jsp";
 				}
-
+				
 				String today = dateFormat.format(date);
 
 				try {
@@ -141,11 +143,12 @@ public class TransitionDayAction extends Action {
 								(long) (Double.parseDouble(request.getParameter("fund_" + fb.getFundId())) * 100));
 						fundPriceHistoryDAO.create(fndPriceHistBean);
 					}
-
+					
 					// process pending transactions
 					for (TransactionBean tb : transactionDAO.match(MatchArg.equals("executeDate", null))) {
 						CustomerBean cb = customerDAO.read(tb.getUserName());
 						int transType = Integer.parseInt(tb.getTransactionType());
+						
 						switch (transType) {
 						case TransactionBean.SELL_FUND:
 							if (positionDAO.read(tb.getUserName(), tb.getFundId()) != null) {
@@ -167,17 +170,23 @@ public class TransitionDayAction extends Action {
 							}
 							break;
 						case TransactionBean.BUY_FUND:
+							System.out.println("Checkpoint");
 							long shares = 0;
 							double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
+							System.out.println("Checkpoint1");
 							if (positionDAO.read(tb.getUserName(), tb.getFundId()) == null) {
 								double amount = tb.getAmount() / 100.00;
 								shares = (long) (amount / price * 1000);
 
 								PositionBean pb = new PositionBean();
+								
 								pb.setCustomerId(tb.getCustomerId());
+								System.out.println("Checkpoint2");
 								pb.setFundId(tb.getFundId());
 								pb.setShares(shares);
+								System.out.println("Checkpoint3");
 								positionDAO.create(pb);
+								System.out.println("Checkpoint4");
 
 							} else {
 								double amount = tb.getAmount() / 100.00;
