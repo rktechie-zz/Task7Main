@@ -8,7 +8,6 @@ import org.mybeans.form.FormBean;
 public class BuyFundForm extends FormBean{
 	private String 	name;
 	private String 	amount;
-	private String 	shares;
 	
 	public String getName() {
 		return name;
@@ -16,10 +15,6 @@ public class BuyFundForm extends FormBean{
 
 	public String getAmount() {
 		return amount;
-	}
-
-	public String getShares() {
-		return shares;
 	}
 
 	public void setName(String name) {
@@ -30,10 +25,6 @@ public class BuyFundForm extends FormBean{
 		this.amount = amount;
 	}
 
-	public void setShares(String shares) {
-		this.shares = shares;
-	}
-
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
@@ -41,7 +32,7 @@ public class BuyFundForm extends FormBean{
 			errors.add("Fund name is required");
 		if (amount == null || !amount.matches(".*\\d.*")) 
 			errors.add("Ammount should be numeric");
-		if (Long.parseLong(amount) < 0)
+		if (amount != null && Long.parseLong(amount) < 0)
 			errors.add("Amount should not be negetive");
 		
 		if (errors.size() > 0)
