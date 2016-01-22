@@ -68,7 +68,7 @@
 		<div class="col-sm-4">
 				<span class="glyphicon glyphicon-lock logo-small slideanim"></span>
 				<h4>
-					<a href="">RESET CUSTOMER PASSWORD</a>
+					<a href="reset.do">RESET CUSTOMER PASSWORD</a>
 				</h4>
 				<p>This is RESET CUSTOMER PASSWORD</p>
 		</div>
