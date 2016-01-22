@@ -20,6 +20,7 @@ import org.mybeans.form.FormBeanFactory;
 import databean.CustomerBean;
 import databean.FundBean;
 import databean.FundPriceHistoryBean;
+import databean.PositionBean;
 import databean.TransactionBean;
 import formbean.CreateFundForm;
 import formbean.SellFundForm;
@@ -44,7 +45,7 @@ public class SellFundAction extends Action{
 
 	@Override
 	public String getName() {
-		return "buyFund.do";
+		return "sellFund.do";
 	}
 
 	@Override
@@ -54,20 +55,20 @@ public class SellFundAction extends Action{
 		HttpSession session = request.getSession();
 
 		try {
-			SellFundForm transanctionForm = formBeanFactory.create(request);
-			request.setAttribute("form", transanctionForm);
+			SellFundForm sellFundForm = formBeanFactory.create(request);
+			request.setAttribute("form", sellFundForm);
 
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
 
-			if (!transanctionForm.isPresent()) {
-				return "transaction.jsp";
+			if (!sellFundForm.isPresent()) {
+				return "sellFund.jsp";
 			}
 
-			errors.addAll(transanctionForm.getValidationErrors());
+			errors.addAll(sellFundForm.getValidationErrors());
 			if (errors.size() != 0) {
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			
 			//Current customer and the customer ID
@@ -77,24 +78,34 @@ public class SellFundAction extends Action{
 			long curCash = customerBean.getCash() / 100;
 			
 			//Get the fund ID of the fund name in form
-			FundBean fundBean = fundDAO.read(transanctionForm.getName());
+			FundBean fundBean = fundDAO.read(sellFundForm.getName());
+			if (fundBean == null) {
+				errors.add("Fund does not exist");
+				return "buyFund.jsp";
+			}
 			int fundId = fundBean.getFundId();
 			// How to determine whether this customer own this fund or not
-			if (positionDAO.read(customerId, fundId)==null) {
+			PositionBean position = positionDAO.read(customerId, fundId);
+			if (position == null) {
 				errors.add("You do not own this fund!");
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			
 			//Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
 				errors.add("Fund doesn't exist");
-				return "transaction.jsp";
+				return "sellFund.jsp";
 			}
 			Long latestPrice = priceBean.getPrice() / 100;
 			
 			//Calculate shares
-			Long shares = Long.parseLong(transanctionForm.getShares());
+			Long shares = Long.parseLong(sellFundForm.getShares());
+			//Determine whether customer has this many shares
+			if (position.getShares() < shares) {
+				errors.add("You do not have this many shares!");
+				return "sellFund.jsp";
+			}
 			Long amount = shares * latestPrice * 100;
 			
 			//Create a transaction bean
@@ -109,10 +120,10 @@ public class SellFundAction extends Action{
 			return "success-customer.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "sellFund.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "createFund.jsp";
+			return "sellFund.jsp";
 		}
 	}
 

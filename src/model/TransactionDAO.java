@@ -1,6 +1,9 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
@@ -57,7 +60,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 						break;
 					case TransactionBean.DEPOSIT_CHECK:
 						amount += t.getAmount() / 100.00;
-						break;	
+						break;
 					default:
 						break;
 					}
@@ -70,6 +73,27 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		}
 		
 		return amount;
+	}
+	
+	public Date getLatestDate () throws RollbackException, ParseException {
+		Date date = null;
+		try {
+			Transaction.begin();
+		
+			TransactionBean[] t =  match(MatchArg.notEquals("executeDate", null));
+			if (t != null && t.length != 0) {
+				Arrays.sort(t);
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				dateFormat.setLenient(false);
+				date = dateFormat.parse(t[t.length - 1].getExecuteDate());
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		return date;
 	}
 	
 }

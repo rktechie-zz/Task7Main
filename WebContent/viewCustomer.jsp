@@ -19,7 +19,7 @@
 
 <jsp:include page="error.jsp" />
 
-<div class="col-lg-6">
+<div class="col-lg-12">
 	<form action="viewCustomer.do" method="POST">
 		<div class="form-group">
 			<label>Choose an account by UserName:</label> <select

@@ -4,10 +4,11 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("customerId,fundId")
 public class PositionBean {
+
 	private int customerId;
-	
-
-
+	private int fundId;
+	private long shares;
+		
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -16,9 +17,6 @@ public class PositionBean {
 		this.customerId = customerId;
 	}
 
-	private int fundId;
-	private long shares;
-
 	public void setFundId(int v) {
 		fundId = v;
 	}
@@ -26,8 +24,6 @@ public class PositionBean {
 	public void setShares(long v) {
 		shares = v;
 	}
-
-
 
 	public int getFundId() {
 		return fundId;

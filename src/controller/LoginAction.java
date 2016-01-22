@@ -66,7 +66,7 @@ public class LoginAction extends Action {
 			}
 			if (loginForm.isEmployee()) {
 				EmployeeBean user = employeeDAO.read(loginForm.getUserName());
-				System.out.println(user);
+				//System.out.println(user);
 				if (user == null) {
 					//System.out.println("FOrm not read");
 					errors.add("Incorrect Username: Username not found.");
@@ -93,9 +93,15 @@ public class LoginAction extends Action {
 					return "index.jsp";
 				}
 				String lastDay = getLastDay(user);
-				request.setAttribute("lastDay", lastDay == null ? "No recent transactions" : lastDay);
+				if(lastDay == null){
+					String s = "No recent transactions";
+					//System.out.println("checkpoint");
+					session.setAttribute("lastDay", s);
+				}
+				else request.setAttribute("lastDay", lastDay);
+				
 				session.setAttribute("user", user);
-
+				//System.out.println(session.getAttribute("lastDay"));
 				return "customerHome.do";
 			} else {
 				return "index.jsp";
