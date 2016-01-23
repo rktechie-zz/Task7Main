@@ -95,7 +95,7 @@ public class SellFundAction extends Action{
 				errors.add("Fund doesn't exist");
 				return "sellFund.jsp";
 			}
-			Long latestPrice = priceBean.getPrice() / 100;
+			Double latestPrice = (double) (priceBean.getPrice() / 100);
 			
 			//Calculate shares
 			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()) * 1000l);
@@ -104,7 +104,7 @@ public class SellFundAction extends Action{
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
-			Double amount = (double) (shares * latestPrice);
+			Double amount = (double) (shares * latestPrice / 1000);
 			
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
