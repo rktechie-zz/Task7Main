@@ -98,21 +98,21 @@ public class SellFundAction extends Action{
 			Long latestPrice = priceBean.getPrice() / 100;
 			
 			//Calculate shares
-			Long shares = Long.parseLong(sellFundForm.getShares()) / 1000;
+			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()) * 1000l);
 			//Determine whether customer has this many shares
 			if (position.getShares() > shares) {
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
-			Long amount = shares * latestPrice;
+			Double amount = (double) (shares * latestPrice);
 			
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
-			transactionBean.setAmount(amount * 100);
-			transactionBean.setShares(shares * 1000);
+			transactionBean.setAmount((long)(amount * 100));
+			transactionBean.setShares(shares);
 			transactionBean.setTransactionType("4");
 			
 			transactionDAO.create(transactionBean);

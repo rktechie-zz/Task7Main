@@ -88,7 +88,7 @@ public class BuyFundAction extends Action{
 			Long latestPrice = priceBean.getPrice();
 			
 			//Calculate shares
-			Long amount = Long.parseLong(buyFundForm.getAmount());
+			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()) * 100l);
 //			System.out.println("Current Cash:" + curCash);
 //			System.out.println("User Name:" + userName);
 //			System.out.println("Amount value:" + amount);
@@ -98,15 +98,15 @@ public class BuyFundAction extends Action{
 				errors.add("You do not have enough money!");
 				return "buyFund.jsp";
 			}
-			Long shares = amount / latestPrice;
+			Double shares = (double) (amount / latestPrice);
 
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
-			transactionBean.setAmount(amount * 100);
-			transactionBean.setShares(shares * 1000);
+			transactionBean.setAmount(amount);
+			transactionBean.setShares((long)(shares * 1000));
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 
