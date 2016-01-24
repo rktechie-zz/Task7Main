@@ -34,7 +34,6 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
-		
 		return date;
 	}
 	
