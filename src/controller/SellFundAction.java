@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerDAO;
 import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
@@ -22,7 +21,6 @@ import databean.FundBean;
 import databean.FundPriceHistoryBean;
 import databean.PositionBean;
 import databean.TransactionBean;
-import formbean.CreateFundForm;
 import formbean.SellFundForm;
 
 public class SellFundAction extends Action{
@@ -73,7 +71,6 @@ public class SellFundAction extends Action{
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
-			long curCash = customerBean.getCash() / 100;
 			
 			//Get the fund ID of the fund name in form
 			FundBean fundBean = fundDAO.read(sellFundForm.getName());
