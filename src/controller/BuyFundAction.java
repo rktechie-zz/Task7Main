@@ -83,7 +83,7 @@ public class BuyFundAction extends Action{
 				errors.add("This fund does not have price yet, not able to buy");
 				return "buyFund.jsp";
 			}
-			Double latestPrice = (double) priceBean.getPrice();
+			Double latestPrice = (double) priceBean.getPrice() / 100;
 			
 			//Calculate shares
 			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
