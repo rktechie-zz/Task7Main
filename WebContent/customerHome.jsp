@@ -48,6 +48,11 @@
 
 					</tr>
 					<tr>
+						<td>Lash trading day:</td>
+						<td colspan="2">${lastDay}</td>
+
+					</tr>
+					<tr>
 						<td>Available Balance:</td>
 						<td><b>$ ${avai_cash}</b></td>
 
