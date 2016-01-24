@@ -12,12 +12,10 @@
 			<h2 class="page-header">Welcome ${user.getFirstName()}</h2>
 		</div>
 	</div>
-<br><br><br><br><br><br>
 <div class="col-lg-6">
 	<h3>Customer information:</h3>
 	<div class="table-responsive">
 		<table class="table table-hover table-striped">
-			<thead>
 				<tr>
 					<td>Account User Name:</td>
 					<td colspan="2">${user.getUserName()}</td>
@@ -27,26 +25,30 @@
 					<td colspan="2">${user.getFirstName()}</td>
 
 					</tr>
-				</thead>
 				<tbody>
 					<tr>
 						<td>Address:</td>
-						<td colspan="2">${user.getAddress1() }${user.getAddress2() }</td>
+						<td colspan="2">${user.getAddress1() } ${user.getAddress2() }</td>
 
 					</tr>
 					<tr>
-						<td>City, State:</td>
-						<td colspan="2">${user.getCity() },${user.getState()}.</td>
+						<td>City:</td>
+						<td colspan="2">${user.getCity() }</td>
 
 					</tr>
 					<tr>
-						<td>Last trading date:</td>
-						<td colspan="2">${lastDay}</td>
+						<td>State:</td>
+						<td colspan="2">${user.getState()}</td>
+
+					</tr>
+					<tr>
+						<td>Zip:</td>
+						<td colspan="2">${user.getZipcode()}</td>
 
 					</tr>
 					<tr>
 						<td>Last Posted Balance:</td>
-						<td align="right"><b>$ ${user.getCash()/100}</b></td>
+						<td><b>$ ${user.getCash()/100}</b></td>
 						<td width="30%">&nbsp;</td>
 					</tr>
 				</tbody>
