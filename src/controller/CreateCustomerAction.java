@@ -74,7 +74,7 @@ public class CreateCustomerAction extends Action {
 				request.removeAttribute("form");
 				request.setAttribute("message", "Customer account is created successfully.");
 
-				return "success-customer.jsp";
+				return "success-employee.jsp";
 			} else {
 				return "createCustomer.jsp";
 			}

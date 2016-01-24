@@ -23,9 +23,8 @@ import databean.PositionBean;
 import databean.TransactionBean;
 import formbean.SellFundForm;
 
-public class SellFundAction extends Action{
-	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory
-			.getInstance(SellFundForm.class);
+public class SellFundAction extends Action {
+	private FormBeanFactory<SellFundForm> formBeanFactory = FormBeanFactory.getInstance(SellFundForm.class);
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
@@ -66,13 +65,13 @@ public class SellFundAction extends Action{
 			if (errors.size() != 0) {
 				return "sellFund.jsp";
 			}
-			
-			//Current customer and the customer ID
+
+			// Current customer and the customer ID
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
-			
-			//Get the fund ID of the fund name in form
+
+			// Get the fund ID of the fund name in form
 			FundBean fundBean = fundDAO.read(sellFundForm.getName());
 			if (fundBean == null) {
 				errors.add("Fund does not exist");
@@ -85,35 +84,38 @@ public class SellFundAction extends Action{
 				errors.add("You do not own this fund!");
 				return "sellFund.jsp";
 			}
-			
-			//Get the price of this fund of the latest day
+
+			// Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
 				errors.add("Fund doesn't exist");
 				return "sellFund.jsp";
 			}
 			Double latestPrice = (double) (priceBean.getPrice() / 100);
-			
-			//Calculate shares
+
+			// Calculate shares
 			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()));
-			//Determine whether customer has this many shares
+			// Determine whether customer has this many shares
 			if (position.getShares() / 1000 < shares) {
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
 			Double amount = (double) (shares * latestPrice);
-			
-			//Create a transaction bean
+
+			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
-			transactionBean.setAmount((long)(amount * 100));
+			transactionBean.setAmount((long) (amount * 100));
 			transactionBean.setShares(shares * 1000l);
 			transactionBean.setTransactionType("4");
-			
+
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";
+		} catch (NumberFormatException e) {
+			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
+			return "sellFund.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "sellFund.jsp";

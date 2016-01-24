@@ -21,9 +21,8 @@ import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import formbean.BuyFundForm;
 
-public class BuyFundAction extends Action{
-	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory
-			.getInstance(BuyFundForm.class);
+public class BuyFundAction extends Action {
+	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory.getInstance(BuyFundForm.class);
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
@@ -62,14 +61,14 @@ public class BuyFundAction extends Action{
 			if (errors.size() != 0) {
 				return "buyFund.jsp";
 			}
-			
-			//Current customer and the customer ID
+
+			// Current customer and the customer ID
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
 			long curCash = customerBean.getCash() / 100;
-			
-			//Get the fund ID of the fund name in form
+
+			// Get the fund ID of the fund name in form
 			FundBean fundBean = fundDAO.read(buyFundForm.getName());
 			if (fundBean == null) {
 				errors.add("Fund does not exist");
@@ -77,20 +76,20 @@ public class BuyFundAction extends Action{
 			}
 			int fundId = fundBean.getFundId();
 
-			//Get the price of this fund of the latest day
+			// Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
 				errors.add("This fund does not have price yet, not able to buy");
 				return "buyFund.jsp";
 			}
 			Double latestPrice = (double) priceBean.getPrice() / 100;
-			
-			//Calculate shares
+
+			// Calculate shares
 			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
-//			System.out.println("Current Cash:" + curCash);
-//			System.out.println("User Name:" + userName);
-//			System.out.println("Amount value:" + amount);
-			//Check valid balance
+			// System.out.println("Current Cash:" + curCash);
+			// System.out.println("User Name:" + userName);
+			// System.out.println("Amount value:" + amount);
+			// Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money!");
@@ -98,17 +97,20 @@ public class BuyFundAction extends Action{
 			}
 			Double shares = (double) (amount / latestPrice);
 
-			//Create a transaction bean
+			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
 			transactionBean.setAmount(amount * 100l);
-			transactionBean.setShares((long)(shares * 1000));
+			transactionBean.setShares((long) (shares * 1000));
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 
 			return "success-customer.jsp";
+		} catch (NumberFormatException e) {
+			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
+			return "buyFund.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "buyFund.jsp";
