@@ -86,10 +86,7 @@ public class BuyFundAction extends Action {
 
 			// Calculate shares
 			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
-			// System.out.println("Current Cash:" + curCash);
-			// System.out.println("User Name:" + userName);
-			// System.out.println("Amount value:" + amount);
-			// Check valid balance
+			//Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money!");

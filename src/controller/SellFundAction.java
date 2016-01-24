@@ -84,8 +84,9 @@ public class SellFundAction extends Action {
 				errors.add("You do not own this fund!");
 				return "sellFund.jsp";
 			}
-
-			// Get the price of this fund of the latest day
+			long curShares = position.getShares() / 1000;
+			
+			//Get the price of this fund of the latest day
 			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
 			if (priceBean == null) {
 				errors.add("Fund doesn't exist");
@@ -95,11 +96,18 @@ public class SellFundAction extends Action {
 
 			// Calculate shares
 			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()));
-			// Determine whether customer has this many shares
-			if (position.getShares() / 1000 < shares) {
-				errors.add("You do not have this many shares!");
+			//Check valid balance
+			Long validShares = (long) transactionDAO.getValidShares(fundId, curShares);
+			if (shares > validShares) {
+				errors.add("You do not have enough shares!");
 				return "sellFund.jsp";
 			}
+			
+			//Determine whether customer has this many shares
+//			if (position.getShares() / 1000 < shares) {
+//				errors.add("You do not have this many shares!");
+//				return "sellFund.jsp";
+//			}
 			Double amount = (double) (shares * latestPrice);
 
 			// Create a transaction bean
