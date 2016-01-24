@@ -16,7 +16,7 @@
 	<h3>Customer information:</h3>
 	<div class="table-responsive">
 		<table class="table table-hover table-striped">
-			<thead>
+		<tbody>
 				<tr>
 					<td>Account User Name:</td>
 					<td colspan="2">${user.getUserName()}</td>
@@ -26,27 +26,36 @@
 					<td colspan="2">${user.getFirstName()} ${user.getLastName()}</td>
 
 					</tr>
-				</thead>
-				<tbody>
+				
 					<tr>
 						<td>Address:</td>
 						<td colspan="2">${user.getAddress1() } ${user.getAddress2() }</td>
 
 					</tr>
 					<tr>
-						<td>City, State:</td>
-						<td colspan="2">${user.getCity() }, ${user.getState()} - ${user.getZipcode()}</td>
+						<td>City:</td>
+						<td colspan="2">${user.getCity() }</td>
 
 					</tr>
 					<tr>
-						<td>Last Trading Date:</td>
+						<td>State:</td>
+						<td colspan="2">${user.getState()}</td>
+
+					</tr>
+					<tr>
+						<td>Zip:</td>
+						<td colspan="2">${user.getZipcode()}</td>
+
+					</tr>
+					<tr>
+						<td>Lash trading day:</td>
 						<td colspan="2">${lastDay}</td>
 
 					</tr>
 					<tr>
 						<td>Available Balance:</td>
-						<td align="center"><b>$ ${avai_cash}</b></td>
-						<td width="30%">&nbsp;</td>
+						<td><b>$ ${avai_cash}</b></td>
+
 					</tr>
 				</tbody>
 			</table>

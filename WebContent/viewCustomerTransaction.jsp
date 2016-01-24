@@ -1,28 +1,23 @@
 <jsp:include page="template-top-employee.jsp" />
+<jsp:include page="error.jsp" />
+<h1>&nbsp</h1>
+<h1>&nbsp</h1>
 
-<br><br><br>
-
-<div class="jumbotron text-center">
-	<h1>&nbsp</h1>
-	<form action="viewCustomerTransaction.do" method="POST">
-		<div class="row">
-			<div class="col-md-6">
-				<table class="table table-bordered">
-					<tbody>
-                        <tr>
-                            <td class="col-md-6 text-right">Customer User Name:</td>
-                            <td class="col-md-8 text-left"><input type="text"
-                                class="form-control" id="customerLastName" placeholder="Enter customer user name">
-                        </tr>
-						<tr>
-							<td></td>
-							<td><button type="submit" class="btn btn-success pull-left">View Transaction</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</form>
-</div>
+<form class="form-horizontal" role="form" action="viewCustomerTransaction.do" method="POST">
+    <jsp:include page="error.jsp" />
+    <div class="form-group">
+        <label class="control-label col-sm-2">Customer User Name:</label>
+        <div class="col-sm-4">
+                    <input type="text" class="form-control" id="userName" name="userName"
+                placeholder="Enter customer user name here" value="${form.userName}">
+        </div>
+    </div>
+        <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" id="action" name="action" value="viewCustomerTransaction"
+                class="btn btn-success pull-left">View Transaction</button>
+        </div>
+    </div>
+</form>
 
 <jsp:include page="template-bottom.jsp" />

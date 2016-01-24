@@ -4,7 +4,7 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transactionId")
 public class TransactionShareBean /* implements Comparable<TransactionBean> */ {       
-        private int customeId;
+        private int customerId;
         private int transactionId;
         private int fundId;
         private String executeDate;
@@ -15,10 +15,10 @@ public class TransactionShareBean /* implements Comparable<TransactionBean> */ {
         
 
         public int getCustomeId() {
-			return customeId;
+			return customerId;
 		}
 		public void setCustomeId(int customeId) {
-			this.customeId = customeId;
+			this.customerId = customeId;
 		}
 		public int getTransactionId() {
                 return transactionId;

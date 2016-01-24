@@ -1,16 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <jsp:include page="template-top-employee.jsp" />
+<jsp:include page="error.jsp" />>
 
 <div id="viewTransactionHistory" class="container-fluid text-center">
      <br><br><br><br>
     <ul class="list-group">
         <li class="list-group-item list-group-item-success">Customer
-            First Name: {$customer.firstName}</li>
+            First Name: ${customer.firstName}</li>
          <li class="list-group-item list-group-item-success">Customer
-            Last Name: {$customer.lastName}</li>
+            Last Name: ${customer.lastName}</li>
         <li class="list-group-item list-group-item-warning">Customer
-            Id: {$customer.customerId}</li>
+            Id: ${customer.customerId}</li>
     </ul>
 </div>
 
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="tran" items="${transactions}">   
+            <c:forEach var="tran" items="${transactionShares}">   
                 <tr>
                     <th>${tran.executeDate}</th>
                     <th>${tran.transactionType}</th>
