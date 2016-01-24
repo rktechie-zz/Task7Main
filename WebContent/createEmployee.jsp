@@ -1,7 +1,7 @@
 <jsp:include page="template-top-employee.jsp" />
 <jsp:include page="error.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
+<h3>&nbspCreate Employee :</h3>
 <form class="form-horizontal" role="form" action="createEmployee.do"
 	method="POST">
 	<div class="form-group">
