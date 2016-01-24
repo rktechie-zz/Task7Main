@@ -74,7 +74,7 @@ public class Controller extends HttpServlet {
 			return Action.perform("login.do", request);
 		}
 
-		if (action.equals("welcome")) {
+		if (action.equals("start")) {
 			if (session.getAttribute("user") instanceof CustomerBean)
 				return Action.perform("customerMain.do", request);
 			else

@@ -47,6 +47,18 @@ public class LoginAction extends Action {
 
 		if (session.getAttribute("user") != null) {
 			if (session.getAttribute("user") instanceof EmployeeBean) {
+				EmployeeBean tmp = (EmployeeBean)session.getAttribute("user");
+				try {
+					EmployeeBean tmp1 = employeeDAO.read(tmp.getUserName());
+					if(tmp1.getCookie() != tmp.getCookie()) {
+						errors.add("User is already logged in!");
+						return "logUserOut.jsp";
+					}
+				} catch (RollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "index.jsp";
+				}
 				return "employeeHome.do";
 			} else if (session.getAttribute("user") instanceof CustomerBean) {
 				 
@@ -56,6 +68,10 @@ public class LoginAction extends Action {
 					
 					if (user == null) {
 						return "index.jsp";
+					}
+					if(user.getCookie() != tmp.getCookie()) {
+						errors.add("User is already logged in!");
+						return "logUserOut.jsp";
 					}
 					
 					session.setAttribute("user", user);
@@ -106,8 +122,15 @@ public class LoginAction extends Action {
 					errors.add("Incorrect password.");
 					return "index.jsp";
 				}
+				EmployeeBean eb = employeeDAO.read(loginForm.getUserName());
+				if(eb.getCookie() != null) {
+					errors.add("User is already logged in!");
+					return "logUserOut.jsp";
+				}
+				user.setCookie(session.getId());
+				employeeDAO.update(user);
 				session.setAttribute("user", user);
-
+				
 				return "employeeHome.do";
 			} else if (loginForm.isCustomer()) {
 				CustomerBean user = customerDAO.read(loginForm.getUserName());
@@ -133,6 +156,15 @@ public class LoginAction extends Action {
 				String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
 				//System.out.println(s);
 				session.setAttribute("avai_cash",s);
+				
+				CustomerBean cb = customerDAO.read(loginForm.getUserName());
+				if(cb.getCookie() != null) {
+					errors.add("User is already logged in!");
+					return "logUserOut.jsp";
+				}
+				
+				user.setCookie(session.getId());
+				customerDAO.update(user);
 				return "customerHome.do";
 			} else {
 				return "index.jsp";
