@@ -23,5 +23,10 @@
 				class="btn btn-success pull-left">Buy Fund</button>
 		</div>
 	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-4">
+
+		</div>
+	</div>
 </form>	
 <jsp:include page="template-bottom.jsp" />
