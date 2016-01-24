@@ -75,7 +75,7 @@ public class SellFundAction extends Action {
 			FundBean fundBean = fundDAO.read(sellFundForm.getName());
 			if (fundBean == null) {
 				errors.add("Fund does not exist");
-				return "buyFund.jsp";
+				return "sellFund.jsp";
 			}
 			int fundId = fundBean.getFundId();
 			// How to determine whether this customer own this fund or not
