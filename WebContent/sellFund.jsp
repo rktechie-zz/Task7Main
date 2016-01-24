@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-customer.jsp" />
 <h1>&nbsp</h1>
 <h1>&nbsp</h1>
@@ -44,4 +46,35 @@
 		</div>
 	</div>
 </form>
+<div class="container-fluid">
+	<div class="row">
+		<h3>Funds owned:</h3>
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<td width="40%"><b>Fund Name</b></td>
+						<td align="right"><b>Shares</b></td>
+						<td align="right"><b>Value</b></td>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+						<c:if test="${!(empty positionInfoList)}">
+
+							<c:forEach var="u" items="${positionInfoList}">
+								<tr>
+									<td>${ u.getName() }</td>
+									<td align="right">${ u.getShares() }</td>
+									<td align="right">${u.getTotal()}</td>
+								</tr>
+							</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		</div>
+
 <jsp:include page="template-bottom.jsp" />

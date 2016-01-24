@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
 
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
@@ -20,6 +22,7 @@ import databean.CustomerBean;
 import databean.FundBean;
 import databean.FundPriceHistoryBean;
 import databean.PositionBean;
+import databean.PositionInfo;
 import databean.TransactionBean;
 import formbean.SellFundForm;
 
@@ -31,12 +34,14 @@ public class SellFundAction extends Action{
 	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
+	private FundPriceHistoryDAO historyDAO;
 
 	public SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		positionDAO = model.getPositionDAO();
+		historyDAO = model.getFundPriceHistoryDAO();
 	}
 
 	@Override
@@ -57,6 +62,35 @@ public class SellFundAction extends Action{
 			if (session.getAttribute("user") == null) {
 				return "login.do";
 			}
+			DecimalFormat df3 = new DecimalFormat("#,##0.000");
+			DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
+			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			//PositionBean[] fundList = positionDAO.match(MatchArg.equals("customerId",customerBean.getCustomerId()));
+			//request.setAttribute("fundList",fundList);
+			System.out.println(customerBean.getCustomerId());
+
+			PositionBean[] positionList = positionDAO.match(MatchArg.equals("customerId",customerBean.getCustomerId()));
+			
+			if(positionList != null) {
+				System.out.println("position list not null");
+				List<PositionInfo> positionInfoList = new ArrayList<PositionInfo>();
+				for(PositionBean a: positionList) {
+					double shares = ((double)(a.getShares())/1000.0);
+
+					double price = ((double)(historyDAO.getLatestFundPrice(a.getFundId()).getPrice() / 100.0));
+					double value = shares * price;
+					String name=fundDAO.read(a.getFundId()).getName();
+
+					String sharesString = df3.format(shares);
+					String priceString = df2.format(price);
+					String valueString = df2.format(value);
+
+					PositionInfo aInfo = new PositionInfo(name,sharesString,priceString,"$" + valueString);
+					System.out.println("shares:" + aInfo.getShares());
+					positionInfoList.add(aInfo);
+				}
+				session.setAttribute("positionInfoList",positionInfoList);
+			}
 
 			if (!sellFundForm.isPresent()) {
 				return "sellFund.jsp";
@@ -68,7 +102,7 @@ public class SellFundAction extends Action{
 			}
 			
 			//Current customer and the customer ID
-			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
 			
@@ -114,7 +148,10 @@ public class SellFundAction extends Action{
 			
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";
-		} catch (RollbackException e) {
+			
+		}
+		 
+			catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "sellFund.jsp";
 		} catch (FormBeanException e) {
