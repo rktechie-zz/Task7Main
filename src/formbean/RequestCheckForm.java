@@ -27,7 +27,7 @@ public class RequestCheckForm extends FormBean {
 	}
 
 	public void setRequestAmount(String requestAmount) {
-		this.requestAmount = requestAmount;
+		this.requestAmount = sanitize(requestAmount);
 	}
 
 	public List<String> getValidationErrors() {
@@ -48,6 +48,10 @@ public class RequestCheckForm extends FormBean {
 			return errors;
 
 		return errors;
+	}
+	
+	private String sanitize(String s) {
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 
 }
