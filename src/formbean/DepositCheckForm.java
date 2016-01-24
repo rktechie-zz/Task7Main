@@ -10,8 +10,6 @@ public class DepositCheckForm extends FormBean {
 	private String depositAmount;
 	private String action;
 
-
-
 	public String getDepositAmount() {
 		return depositAmount;
 	}

@@ -37,7 +37,7 @@
 													ACCOUNT</a></li>
 											<li><a href="changePassword.do">RESET CUSTOMER
 													PASSWORD</a></li>
-											<li><a href="viewCustomerAccount.do">VIEW CUSTOMER
+											<li><a href="viewCustomer.do">VIEW CUSTOMER
 													ACCOUNT</a></li>
 										</ul></li>
 									<li class="dropdown"><a class="dropdown-toggle"
@@ -48,8 +48,7 @@
 											<li><a href="createFund.do">CREATE FUND</a></li>
 											<li><a href="transitionDay.do">TRANSITION DAY</a></li>
 										</ul></li>
-									<li><a href="createEmployee.do">CREATE EMPLOYEE
-											ACCOUNT</a></li>
+									<li><a href="createEmployee.do">CREATE EMPLOYEE											ACCOUNT</a></li>
 									<li><a href="logout.do" class="pull-right">LOG OUT</a></li>
 								</ul>
 							</div>

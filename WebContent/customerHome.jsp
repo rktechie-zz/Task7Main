@@ -16,16 +16,17 @@
 	<h3>Customer information:</h3>
 	<div class="table-responsive">
 		<table class="table table-hover table-striped">
+		<tbody>
 				<tr>
 					<td>Account User Name:</td>
 					<td colspan="2">${user.getUserName()}</td>
 				</tr>
 				<tr>
 					<td width="40%">Customer Name:</td>
-					<td colspan="2">${user.getFirstName()}</td>
+					<td colspan="2">${user.getFirstName()} ${user.getLastName()}</td>
 
 					</tr>
-				<tbody>
+				
 					<tr>
 						<td>Address:</td>
 						<td colspan="2">${user.getAddress1() } ${user.getAddress2() }</td>
@@ -47,9 +48,9 @@
 
 					</tr>
 					<tr>
-						<td>Last Posted Balance:</td>
-						<td><b>$ ${user.getCash()/100}</b></td>
-						<td width="30%">&nbsp;</td>
+						<td>Available Balance:</td>
+						<td><b>$ ${avai_cash}</b></td>
+
 					</tr>
 				</tbody>
 			</table>

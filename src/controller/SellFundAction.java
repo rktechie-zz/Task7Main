@@ -31,14 +31,12 @@ public class SellFundAction extends Action{
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private CustomerDAO customerDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
 
 	public SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		customerDAO = model.getCustomerDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		positionDAO = model.getPositionDAO();
 	}
@@ -97,22 +95,23 @@ public class SellFundAction extends Action{
 				errors.add("Fund doesn't exist");
 				return "sellFund.jsp";
 			}
-			Long latestPrice = priceBean.getPrice() / 100;
+			Double latestPrice = (double) (priceBean.getPrice() / 100);
 			
 			//Calculate shares
-			Long shares = Long.parseLong(sellFundForm.getShares());
+			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()) * 1000l);
 			//Determine whether customer has this many shares
-			if (position.getShares() < shares) {
+			if (position.getShares() > shares) {
 				errors.add("You do not have this many shares!");
 				return "sellFund.jsp";
 			}
-			Long amount = shares * latestPrice * 100;
+			Double amount = (double) (shares * latestPrice / 1000);
 			
 			//Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
+			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
-			transactionBean.setAmount(amount);
+			transactionBean.setAmount((long)(amount * 100));
 			transactionBean.setShares(shares);
 			transactionBean.setTransactionType("4");
 			

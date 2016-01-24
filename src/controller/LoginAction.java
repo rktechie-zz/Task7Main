@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +24,15 @@ public class LoginAction extends Action {
 
 	private EmployeeDAO employeeDAO;
 	private CustomerDAO customerDAO;
+	private TransactionDAO transactionDAO;
 	private Model model;
+	DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
 
 	public LoginAction(Model model) {
 		this.model = model;
 		employeeDAO = model.getEmployeeDAO();
 		customerDAO = model.getCustomerDAO();
+		transactionDAO = model.getTransactionDAO();
 	}
 
 	public String getName() {
@@ -45,7 +49,32 @@ public class LoginAction extends Action {
 			if (session.getAttribute("user") instanceof EmployeeBean) {
 				return "employeeHome.do";
 			} else if (session.getAttribute("user") instanceof CustomerBean) {
-				return "customerHome.do";
+				 
+				try {
+					CustomerBean tmp = (CustomerBean)session.getAttribute("user");
+					CustomerBean user = customerDAO.read(tmp.getUserName());
+					
+					if (user == null) {
+						return "index.jsp";
+					}
+					
+					session.setAttribute("user", user);
+					String lastDay = getLastDay(user);
+					if(lastDay == null){
+						String s = "No recent transactions";
+						//System.out.println("checkpoint");
+						session.setAttribute("lastDay", s);
+					}
+					else session.setAttribute("lastDay", lastDay);
+					String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
+					System.out.println(s);
+					session.setAttribute("avai_cash",s);
+					return "customerHome.do";
+				} catch (RollbackException e) {
+					errors.add(e.getMessage());
+					return "index.jsp";
+				}
+				
 			}
 		}
 
@@ -57,7 +86,7 @@ public class LoginAction extends Action {
 			if (!loginForm.isPresent()) {
 				return "index.jsp";
 			}
-			
+			//System.out.println("checkpoint");
 			errors.addAll(loginForm.getValidationErrors());
 			//System.out.println(""+loginForm.getUserName());
 			if ( (errors.size() != 0)) {
@@ -98,10 +127,12 @@ public class LoginAction extends Action {
 					//System.out.println("checkpoint");
 					session.setAttribute("lastDay", s);
 				}
-				else request.setAttribute("lastDay", lastDay);
+				else session.setAttribute("lastDay", lastDay);
 				
 				session.setAttribute("user", user);
-				//System.out.println(session.getAttribute("lastDay"));
+				String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
+				//System.out.println(s);
+				session.setAttribute("avai_cash",s);
 				return "customerHome.do";
 			} else {
 				return "index.jsp";
@@ -120,7 +151,7 @@ public class LoginAction extends Action {
 		TransactionDAO transactionDAO;
 		transactionDAO = model.getTransactionDAO();
 		String lastDay = transactionDAO.getLastDate(customer);
-		System.out.println(lastDay);
+		//System.out.println(lastDay);
 		return lastDay;
 	}
 }

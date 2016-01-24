@@ -221,10 +221,10 @@ public class ViewCustomerAction extends Action {
 				request.setAttribute("cash",df2.format(customer.getCash() / 100.0));
 				request.setAttribute("avai_cash",df2.format(transactionDAO.getValidBalance(customer.getUserName(), customer.getCash() / 100.0)));
 				//System.out.println("checkpoint1");
-				PositionBean[] fundList = positionDAO.match(MatchArg.equals("customerId",String.valueOf(customer.getCustomerId())));
+				PositionBean[] fundList = positionDAO.match(MatchArg.equals("customerId",customer.getCustomerId()));
 				request.setAttribute("fundList",fundList);
 
-				PositionBean[] positionList = positionDAO.match(MatchArg.equals("customerId",String.valueOf(customer.getCustomerId())));
+				PositionBean[] positionList = positionDAO.match(MatchArg.equals("customerId",customer.getCustomerId()));
 				if(positionList != null) {
 					List<PositionInfo> positionInfoList = new ArrayList<PositionInfo>();
 					for(PositionBean a: positionList) {
