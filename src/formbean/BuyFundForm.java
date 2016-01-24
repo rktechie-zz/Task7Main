@@ -18,10 +18,12 @@ public class BuyFundForm extends FormBean{
 	}
 
 	public void setName(String name) {
+//		this.name = sanitize(name);
 		this.name = name;
 	}
 
 	public void setAmount(String amount) {
+//		this.amount = sanitize(amount);
 		this.amount = amount;
 	}
 
