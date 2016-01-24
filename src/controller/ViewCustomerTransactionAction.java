@@ -37,41 +37,55 @@ public class ViewCustomerTransactionAction extends Action {
         public String perform(HttpServletRequest request) {
                 List<String> errors = new ArrayList<String>();
                 request.setAttribute("errors", errors);
-                HttpSession session = request.getSession();
-                try {
                         
+                try {         
+                        HttpSession session = request.getSession();
                         ViewCustomerTransactionForm form = formBeanFactory.create(request);
+                        request.setAttribute("form", form);
                         
-                        if (!form.isPresent() || errors.size() != 0) {
+                        if (!form.isPresent()) {
+                                return "viewCustomerTransaction.jsp";
+                        }
+                        
+                        if (errors.size() != 0) {
+                                errors.add("Errors appear!");
                                 return "viewCustomerTransaction.jsp";
                         }
 
                         if (session.getAttribute("user") == null) {
+                                errors.add("User not log in.");
                                 return "login.do";
                         }
-                        
                         CustomerBean customer = customerDAO.read(form.getUserName());
-
-                        String sql = "select executeDate as executeDate, transactionType as transactionType, "
-                                        + "fundId as fundId, shares as shares, price as sharePrice, amount as amount " 
-                                        + "customer_id as customer_id, transactionId as transactionId" 
-                                        + "from transaction, fund_price_history where customer.id=?";
+                        
+                        if (customer == null) {
+                                errors.add("Customer does not exist.");
+                                return "viewCustomerTransaction.jsp";
+                        }
+                        
+                        String sql = "select transaction.executeDate as executeDate, transaction.transactionType as transactionType, "
+                                        + "transaction.fundId as fundId, transaction.shares as shares, fund_price_history.price as sharePrice, transaction.amount as amount," 
+                                        + "transaction.customerId as customerId, transaction.transactionId as transactionId" 
+                                        + "from transaction, fund_price_history where transaction.customerId=?";
                         
                         TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer.getCustomerId());
                         
-                        request.setAttribute("transactions", transactionShares);
-
                         if (transactionShares  == null) {
                                 errors.add("No transaction history to be viewed");
                                 return "failure-employee.jsp";
                         } else {
+                                request.setAttribute("transactions", transactionShares);
                                 return "transactionHistory_Employee.jsp";
                         }
                 } catch (RollbackException e) {
-                        errors.add("System roll back");
-                        return "error.jsp";
+                        errors.add("System roll back!");
+                        return "viewCustomerTransaction.jsp";
                 } catch (FormBeanException e1) {
-                        errors.add("Form data wrong");
+                        errors.add("Form data wrong!");
+                        return "viewCustomerTransaction.jsp";
+                } catch (Exception e2) {
+                        errors.add("Other errors!");
+                        e2.printStackTrace();
                         return "viewCustomerTransaction.jsp";
                 }
         }
