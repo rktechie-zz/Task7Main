@@ -76,7 +76,7 @@ public class SellFundAction extends Action{
 			FundBean fundBean = fundDAO.read(sellFundForm.getName());
 			if (fundBean == null) {
 				errors.add("Fund does not exist");
-				return "buyFund.jsp";
+				return "sellFund.jsp";
 			}
 			int fundId = fundBean.getFundId();
 			// How to determine whether this customer own this fund or not
@@ -105,11 +105,6 @@ public class SellFundAction extends Action{
 				return "sellFund.jsp";
 			}
 			
-			//Determine whether customer has this many shares
-//			if (position.getShares() / 1000 < shares) {
-//				errors.add("You do not have this many shares!");
-//				return "sellFund.jsp";
-//			}
 			Double amount = (double) (shares * latestPrice);
 			
 			//Create a transaction bean

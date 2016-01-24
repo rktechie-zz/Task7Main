@@ -18,13 +18,13 @@ public class SellFundForm extends FormBean{
 	}
 
 	public void setName(String name) {
-//		this.name = sanitize(name);
-		this.name = name;
+		this.name = sanitize(name);
+//		this.name = name;
 	}
 
 	public void setShares(String shares) {
-//		this.shares = sanitize(shares);
-		this.shares = shares;
+		this.shares = sanitize(shares);
+//		this.shares = shares;
 	}
 
 	public List<String> getValidationErrors() {
