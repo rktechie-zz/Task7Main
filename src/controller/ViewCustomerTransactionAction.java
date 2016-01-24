@@ -11,6 +11,7 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
+import databean.EmployeeBean;
 import databean.TransactionShareBean;
 import formbean.ViewCustomerTransactionForm;
 import model.CustomerDAO;
@@ -35,47 +36,47 @@ public class ViewCustomerTransactionAction extends Action {
 
         @Override
         public String perform(HttpServletRequest request) {
+                HttpSession session = request.getSession();
                 List<String> errors = new ArrayList<String>();
                 request.setAttribute("errors", errors);
                         
-                try {         
-                        HttpSession session = request.getSession();
-                        ViewCustomerTransactionForm form = formBeanFactory.create(request);
-                        request.setAttribute("form", form);
-                        
-                        if (!form.isPresent()) {
-                                return "viewCustomerTransaction.jsp";
-                        }
-                        
-                        if (errors.size() != 0) {
-                                errors.add("Errors appear!");
-                                return "viewCustomerTransaction.jsp";
-                        }
-
-                        if (session.getAttribute("user") == null) {
-                                errors.add("User not log in.");
-                                return "login.do";
-                        }
-                        CustomerBean customer = customerDAO.read(form.getUserName());
-                        
-                        if (customer == null) {
-                                errors.add("Customer does not exist.");
-                                return "viewCustomerTransaction.jsp";
-                        }
-                        
-                        String sql = "select transaction.executeDate as executeDate, transaction.transactionType as transactionType, "
-                                        + "transaction.fundId as fundId, transaction.shares as shares, fund_price_history.price as sharePrice, transaction.amount as amount," 
-                                        + "transaction.customerId as customerId, transaction.transactionId as transactionId" 
-                                        + "from transaction, fund_price_history where transaction.customerId=?";
-                        
-                        TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer.getCustomerId());
-                        
-                        if (transactionShares  == null) {
-                                errors.add("No transaction history to be viewed");
-                                return "failure-employee.jsp";
+                try {
+                        if (session.getAttribute("user") != null && session.getAttribute("user") instanceof EmployeeBean) {
+                                ViewCustomerTransactionForm form = formBeanFactory.create(request);
+                                request.setAttribute("form", form);
+                                
+                                if (!form.isPresent()) {
+                                        return "viewCustomerTransaction.jsp";
+                                }
+                                
+                                errors.addAll(form.getValidationErrors());
+                                
+                                if (errors.size() != 0) {
+                                        return "viewCustomerTransaction.jsp";
+                                }
+                                CustomerBean customer = customerDAO.read(form.getUserName());
+                                
+                                if (customer == null) {
+                                        errors.add("Customer does not exist.");
+                                        return "viewCustomerTransaction.jsp";
+                                }
+                                
+                                String sql = "select transaction.executeDate as executeDate, transaction.transactionType as transactionType, "
+                                                + "transaction.fundId as fundId, transaction.shares as shares, fund_price_history.price as sharePrice, transaction.amount as amount," 
+                                                + "transaction.customerId as customerId, transaction.transactionId as transactionId" 
+                                                + "from transaction, fund_price_history where transaction.customerId=?";
+                                
+                                TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer.getCustomerId());
+                                
+                                if (transactionShares  == null) {
+                                        errors.add("No transaction history to be viewed");
+                                        return "transactionHistory_Employee.jsp";
+                                } else {
+                                        request.setAttribute("transactions", transactionShares);
+                                        return "transactionHistory_Employee.jsp";
+                                }
                         } else {
-                                request.setAttribute("transactions", transactionShares);
-                                return "transactionHistory_Employee.jsp";
+                                return "login.do";
                         }
                 } catch (RollbackException e) {
                         errors.add("System roll back!");

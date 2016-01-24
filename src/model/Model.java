@@ -30,6 +30,7 @@ public class Model {
                         fundDAO = new FundDAO(pool, "Fund");
                         fundPriceHistoryDAO = new FundPriceHistoryDAO(pool, "Fund_Price_History");
                         transactionDAO = new TransactionDAO(pool, "Transaction");
+                        transactionShareDAO = new TransactionShareDAO(pool, "Transaction_Share");
                         positionDAO = new PositionDAO(pool, "Position");
 
                         EmployeeBean eb = employeeDAO.read("root");
