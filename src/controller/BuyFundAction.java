@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerDAO;
 import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
@@ -21,7 +20,6 @@ import databean.FundBean;
 import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import formbean.BuyFundForm;
-import formbean.SellFundForm;
 
 public class BuyFundAction extends Action{
 	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory
@@ -88,7 +86,7 @@ public class BuyFundAction extends Action{
 			Double latestPrice = (double) priceBean.getPrice();
 			
 			//Calculate shares
-			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()) * 100l);
+			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
 //			System.out.println("Current Cash:" + curCash);
 //			System.out.println("User Name:" + userName);
 //			System.out.println("Amount value:" + amount);
@@ -105,7 +103,7 @@ public class BuyFundAction extends Action{
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
-			transactionBean.setAmount(amount);
+			transactionBean.setAmount(amount * 100l);
 			transactionBean.setShares((long)(shares * 1000));
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
