@@ -151,13 +151,16 @@ public class TransitionDayAction extends Action {
 						
 						switch (transType) {
 						case TransactionBean.SELL_FUND:
-							if (positionDAO.read(tb.getUserName(), tb.getFundId()) != null) {
+							System.out.println("Checkpoint");
+							if (positionDAO.read(tb.getCustomerId(), tb.getFundId()) != null) {
+								System.out.println("Checkpoint1");
 								PositionBean pb = positionDAO.read(tb.getCustomerId(), tb.getFundId());
 
 								if (pb.getShares() - tb.getShares() == 0) {
 									positionDAO.delete(tb.getCustomerId(), tb.getFundId());
 
 								} else {
+									System.out.println("Checkpoint3");
 									pb.setShares(pb.getShares() - tb.getShares());
 									positionDAO.update(pb);
 								}
@@ -170,10 +173,10 @@ public class TransitionDayAction extends Action {
 							}
 							break;
 						case TransactionBean.BUY_FUND:
-							System.out.println("Checkpoint");
+							
 							long shares = 0;
 							double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
-							System.out.println("Checkpoint1");
+							
 							if (positionDAO.read(tb.getCustomerId(), tb.getFundId()) == null) {
 								double amount = tb.getAmount() / 100.00;
 								shares = (long) (amount / price * 1000);
@@ -181,16 +184,16 @@ public class TransitionDayAction extends Action {
 								PositionBean pb = new PositionBean();
 								
 								pb.setCustomerId(tb.getCustomerId());
-								System.out.println("Checkpoint2");
+								
 								pb.setFundId(tb.getFundId());
 								pb.setShares(shares);
-								System.out.println("Checkpoint3");
+								;
 								positionDAO.create(pb);
-								System.out.println("Checkpoint4");
+								
 
 							} else {
 								double amount = tb.getAmount() / 100.00;
-								System.out.println("Checkpoint5");
+								
 								shares = (long) (amount / price * 1000);
 
 								PositionBean pb = positionDAO.read(tb.getCustomerId(), tb.getFundId());
