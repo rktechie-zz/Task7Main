@@ -15,7 +15,7 @@ public class DepositCheckForm extends FormBean {
 	}
 
 	public void setDepositAmount(String depositAmount) {
-		this.depositAmount = depositAmount;
+		this.depositAmount = sanitize(depositAmount);
 	}
 
 	public String getUserName() {
@@ -23,7 +23,7 @@ public class DepositCheckForm extends FormBean {
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.userName = sanitize(userName);
 	}
 
 	public String getAction() {
@@ -56,6 +56,10 @@ public class DepositCheckForm extends FormBean {
 			return errors;
 
 		return errors;
+	}
+	
+	private String sanitize(String s) {
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 
 }

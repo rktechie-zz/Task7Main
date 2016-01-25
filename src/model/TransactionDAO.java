@@ -34,7 +34,6 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		} finally {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
-		
 		return date;
 	}
 	
@@ -73,6 +72,37 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		}
 		
 		return amount;
+	}
+	
+	public double getValidShares (int fundId, double shares) throws RollbackException {
+		TransactionBean[] tbs = null;
+		try {
+			Transaction.begin();
+			
+			// How to execute select * from table where transactionType IS NULL
+			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("fundId", fundId));
+			
+			if (tbs != null) {
+				for (TransactionBean t : tbs) {
+					switch(Integer.parseInt(t.getTransactionType())) {
+					case TransactionBean.SELL_FUND:
+						shares -= t.getShares() / 1000.00;
+						break;
+					case TransactionBean.BUY_FUND:
+						shares += t.getShares() / 1000.00;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		
+		return shares;
 	}
 	
 	public Date getLatestDate () throws RollbackException, ParseException {
