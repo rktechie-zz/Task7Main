@@ -6,27 +6,33 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
 import databean.EmployeeBean;
+import databean.FundPriceHistoryBean;
+import databean.TransactionBean;
 import databean.TransactionShareBean;
 import formbean.ViewCustomerTransactionForm;
 import model.CustomerDAO;
+import model.FundPriceHistoryDAO;
 import model.Model;
-import model.TransactionShareDAO;
+import model.TransactionDAO;
 
 public class ViewCustomerTransactionAction extends Action {
         private FormBeanFactory<ViewCustomerTransactionForm> formBeanFactory = FormBeanFactory
                         .getInstance(ViewCustomerTransactionForm.class);
-        private TransactionShareDAO transactionShareDAO;
+        private TransactionDAO transactionDAO;
         private CustomerDAO customerDAO;
+        private FundPriceHistoryDAO fundPriceHistoryDAO;
 
         public ViewCustomerTransactionAction(Model model) {
-                transactionShareDAO = model.getTransactionShareDAO();
+                transactionDAO = model.getTransactionDAO();
                 customerDAO = model.getCustomerDAO();
+                fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
         }
 
         @Override
@@ -55,24 +61,37 @@ public class ViewCustomerTransactionAction extends Action {
                                         return "viewCustomerTransaction.jsp";
                                 }
                                 CustomerBean customer = customerDAO.read(form.getUserName());
-                                
                                 if (customer == null) {
                                         errors.add("Customer does not exist.");
                                         return "viewCustomerTransaction.jsp";
                                 }
                                 
-                                String sql = "select transaction.executeDate as executeDate, transaction.transactionType as transactionType, "
-                                                + "transaction.fundId as fundId, transaction.shares as shares, fund_price_history.price as sharePrice, transaction.amount as amount," 
-                                                + "transaction.customerId as customerId, transaction.transactionId as transactionId" 
-                                                + "from transaction, fund_price_history where transaction.customerId=?";
+                                int customer_Id = customer.getCustomerId();
                                 
-                                TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer.getCustomerId());
+                                List<TransactionShareBean> transactionShares = new ArrayList<TransactionShareBean>();
+                                TransactionBean[] transactions = transactionDAO.match(MatchArg.equals("customerId", customer_Id));
+                                for (TransactionBean t : transactions) {
+                                        TransactionShareBean tShare = new TransactionShareBean();
+                                        tShare.setAmount(t.getAmount());
+                                        tShare.setCustomeId(t.getCustomerId());
+                                        tShare.setExecuteDate(t.getExecuteDate());
+                                        tShare.setFundId(t.getFundId());
+                                        tShare.setShares(t.getShares());
+                                        tShare.setTransactionId(t.getTransactionId());
+                                        tShare.setTransactionType(t.getTransactionType());
+                                        
+                                        int fund_Id = tShare.getFundId();
+                                        FundPriceHistoryBean f = fundPriceHistoryDAO.getLatestFundPrice(fund_Id);
+                                        tShare.setSharePrice(f.getPrice());           
+                                        transactionShares.add(tShare);
+                                }
                                 
-                                if (transactionShares  == null) {
+                                if (transactionShares.size() == 0) {
                                         errors.add("No transaction history to be viewed");
                                         return "transactionHistory_Employee.jsp";
                                 } else {
                                         request.setAttribute("transactions", transactionShares);
+                                        request.setAttribute("customer", customer);
                                         return "transactionHistory_Employee.jsp";
                                 }
                         } else {
@@ -80,6 +99,7 @@ public class ViewCustomerTransactionAction extends Action {
                         }
                 } catch (RollbackException e) {
                         errors.add("System roll back!");
+                        e.printStackTrace();
                         return "viewCustomerTransaction.jsp";
                 } catch (FormBeanException e1) {
                         errors.add("Form data wrong!");

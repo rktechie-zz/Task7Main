@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="tran" items="${transactionShares}">   
+            <c:forEach var="tran" items="${transactions}">   
                 <tr>
                     <th>${tran.executeDate}</th>
                     <th>${tran.transactionType}</th>
