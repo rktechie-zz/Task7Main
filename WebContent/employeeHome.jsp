@@ -86,9 +86,6 @@
 	</div>
 </div>
 <br> <br>
-<jsp:include page="template-bottom.jsp" />
+
 <script src="js/custom.js"></script>
-
-</body>
-
-</html>
+<jsp:include page="template-bottom.jsp" />

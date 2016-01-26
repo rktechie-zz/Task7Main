@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
-
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
+<!doctype html>
 <html lang="en">
 <head>
 
@@ -37,8 +38,7 @@
 													ACCOUNT</a></li>
 											<li><a href="changePassword.do">RESET CUSTOMER
 													PASSWORD</a></li>
-											<li><a href="viewCustomer.do">VIEW CUSTOMER
-													ACCOUNT</a></li>
+											<li><a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a></li>
 										</ul></li>
 									<li class="dropdown"><a class="dropdown-toggle"
 										data-toggle="dropdown" href="#">EMPLOYEE OPERATION <span
@@ -48,7 +48,8 @@
 											<li><a href="createFund.do">CREATE FUND</a></li>
 											<li><a href="transitionDay.do">TRANSITION DAY</a></li>
 										</ul></li>
-									<li><a href="createEmployee.do">CREATE EMPLOYEE											ACCOUNT</a></li>
+									<li><a href="createEmployee.do">CREATE EMPLOYEE
+											ACCOUNT</a></li>
 									<li><a href="logout.do" class="pull-right">LOG OUT</a></li>
 								</ul>
 							</div>
@@ -57,3 +58,4 @@
 				</div>
 			</div>
 		</div>
+	</div>

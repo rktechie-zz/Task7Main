@@ -44,20 +44,17 @@ public class LogUserOutAction extends Action{
 				return "logUserOut.jsp";
 			}
 			
-			System.out.println("Checkpoint0");
 			if (session.getAttribute("user") instanceof EmployeeBean) {
 				EmployeeBean tmp = (EmployeeBean)session.getAttribute("user");
 				EmployeeBean tmp1;
 				try {
 					tmp1 = employeeDAO.read(tmp.getUserName());
-					System.out.println("Checkpoint1");
 					
 				} catch (RollbackException e) {
 					return "logUserOut.jsp";
 				}
 				if(!tmp1.getPassword().equals(form.getPasswd())){
 					errors.add("Incorrect Password!");
-					System.out.println("Checkpoint2");
 					return "logUserOut.jsp";
 				}
 				tmp1.setCookie(null);
@@ -89,6 +86,7 @@ public class LogUserOutAction extends Action{
 				session.setAttribute("user", null);
 				return "index.jsp";
 			}
+			session.setAttribute("user", null);
 			return "index.jsp";
 		
 		
