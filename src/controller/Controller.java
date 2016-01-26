@@ -54,6 +54,7 @@ public class Controller extends HttpServlet {
         Action.add(new ViewCustomerAction(model));
         Action.add(new ResetCustPassAction(model));
         Action.add(new TransitionDayAction(model));
+        Action.add(new ResearchFundAction(model));
         Action.add(new LogUserOutAction(model));
         
         eDAO = model.getEmployeeDAO();

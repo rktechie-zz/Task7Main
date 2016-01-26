@@ -38,7 +38,10 @@
 													ACCOUNT</a></li>
 											<li><a href="changePassword.do">RESET CUSTOMER
 													PASSWORD</a></li>
-											<li><a href="viewCustomer.do">VIEW CUSTOMER ACCOUNT</a></li>
+											<li><a href="viewCustomer.do">VIEW CUSTOMER
+													ACCOUNT</a></li>
+											<li><a href="viewCustomerTransaction.do">VIEW CUSTOMER TRANSACTION HISTORY
+													</a></li>
 										</ul></li>
 									<li class="dropdown"><a class="dropdown-toggle"
 										data-toggle="dropdown" href="#">EMPLOYEE OPERATION <span
@@ -47,6 +50,7 @@
 											<li><a href="depositCheck.do">DEPOSIT CHECK</a></li>
 											<li><a href="createFund.do">CREATE FUND</a></li>
 											<li><a href="transitionDay.do">TRANSITION DAY</a></li>
+											<li><a href="changePassword.do">CHANGE EMPLOYEE PASSWORD</a></li>
 										</ul></li>
 									<li><a href="createEmployee.do">CREATE EMPLOYEE
 											ACCOUNT</a></li>

@@ -82,6 +82,7 @@ public class ViewCustomerTransactionAction extends Action {
                                         
                                         int fund_Id = tShare.getFundId();
                                         FundPriceHistoryBean f = fundPriceHistoryDAO.getLatestFundPrice(fund_Id);
+                                        System.out.println("Priceeeeeeeeeeeeeeee :" + f.getPrice());
                                         tShare.setSharePrice(f.getPrice());           
                                         transactionShares.add(tShare);
                                 }
