@@ -84,12 +84,12 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			
 			if (tbs != null) {
 				for (TransactionBean t : tbs) {
-					System.out.print("inside shares:" + shares);
+					System.out.println("inside shares:" + shares);
 					switch(Integer.parseInt(t.getTransactionType())) {
 					case TransactionBean.SELL_FUND:
 						shares -= t.getShares() / 1000.00;
-						System.out.print("I break out");
-						System.out.print("new inside shares:" + shares);
+						System.out.println("I break out");
+						System.out.println("new inside shares:" + shares);
 						break;
 //					case TransactionBean.BUY_FUND:
 //						shares += t.getShares() / 1000.00;

@@ -62,7 +62,7 @@ public class BuyFundAction extends Action {
 				for(FundBean a: fundList) {
 					String name = a.getName();
 					FundPriceHistoryBean historyBean = fundPriceHistoryDAO.getLatestFundPrice(a.getFundId());
-					if(historyBean.getPrice() != 0) {
+					if(historyBean != null) {
 						double price = ((double)(fundPriceHistoryDAO.getLatestFundPrice(a.getFundId()).getPrice() / 100.0));
 						String priceString = df.format(price);
 						FundInfoBean aInfo = new FundInfoBean(name, "$" + priceString);
