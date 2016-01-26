@@ -55,10 +55,6 @@ public class BuyFundAction extends Action {
 				return "login.do";
 			}
 
-			if (!buyFundForm.isPresent()) {
-				return "buyFund.jsp";
-			}
-
 			DecimalFormat df = new DecimalFormat("###,##0.00");
 			FundBean[] fundList = fundDAO.match();
 			if(fundList != null) {
@@ -66,15 +62,15 @@ public class BuyFundAction extends Action {
 				for(FundBean a: fundList) {
 					String name = a.getName();
 					double price = ((double)(fundPriceHistoryDAO.getLatestFundPrice(a.getFundId()).getPrice() / 100.0));
-
 					String priceString = df.format(price);
-
-					FundInfoBean aInfo = new FundInfoBean();
-					aInfo.setName(name);
-					aInfo.setPrice("$" + priceString);
+					FundInfoBean aInfo = new FundInfoBean(name, "$" + priceString);
 					fundInfoList.add(aInfo);
 				}
 				session.setAttribute("fundListInfoList", fundInfoList);
+			}
+			
+			if (!buyFundForm.isPresent()) {
+				return "buyFund.jsp";
 			}
 			
 			errors.addAll(buyFundForm.getValidationErrors());

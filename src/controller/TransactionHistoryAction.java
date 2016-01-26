@@ -6,20 +6,26 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
 import databean.CustomerBean;
+import databean.FundPriceHistoryBean;
+import databean.TransactionBean;
 import databean.TransactionShareBean;
+import model.FundPriceHistoryDAO;
 import model.Model;
-import model.TransactionShareDAO;
+import model.TransactionDAO;
 
 public class TransactionHistoryAction extends Action {
-        private TransactionShareDAO transactionShareDAO;
+        private TransactionDAO transactionDAO;
+        private FundPriceHistoryDAO fundPriceHistoryDAO;
 
         public TransactionHistoryAction(Model model) {
-                transactionShareDAO = model.getTransactionShareDAO();
+                transactionDAO = model.getTransactionDAO();
+                fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
         }
-
+        
         @Override
         public String getName() {
                 return "transactionHistory.do";
@@ -37,21 +43,26 @@ public class TransactionHistoryAction extends Action {
 
                                 int customer_Id = user.getCustomerId();
                                 
-                                System.out.println("wawawa0");
-                                
-                                String sql = "select transaction.executeDate as executeDate, transaction.transactionType as transactionType, "
-                                                + "transaction.fundId as fundId, transaction.shares as shares, fund_price_history.price as sharePrice, transaction.amount as amount," 
-                                                + "transaction.customerId as customerId, transaction.transactionId as transactionId" 
-                                                + "from transaction, fund_price_history where transaction.customerId=?";
-                                
-                                System.out.println("wawawa1");
-                                
-                                TransactionShareBean[] transactionShares = transactionShareDAO.executeQuery(sql, customer_Id);
-        
-                                System.out.println("wawawa2");
-                                
-                                if (transactionShares == null) {
-                                        System.out.println("wawawa3");
+                                List<TransactionShareBean> transactionShares = new ArrayList<TransactionShareBean>();
+                                TransactionBean[] transactions = transactionDAO.match(MatchArg.equals("customerId", customer_Id));
+                                for (TransactionBean t : transactions) {
+                                        TransactionShareBean tShare = new TransactionShareBean();
+                                        tShare.setAmount(t.getAmount());
+                                        tShare.setCustomeId(t.getCustomerId());
+                                        tShare.setExecuteDate(t.getExecuteDate());
+                                        tShare.setFundId(t.getFundId());
+                                        tShare.setShares(t.getShares());
+                                        tShare.setTransactionId(t.getTransactionId());
+                                        tShare.setTransactionType(t.getTransactionType());
+                                        
+                                        int fund_Id = tShare.getFundId();
+                                        FundPriceHistoryBean f = fundPriceHistoryDAO.getLatestFundPrice(fund_Id);
+                                        tShare.setSharePrice(f.getPrice());           
+                                        
+                                        transactionShares.add(tShare);
+                                }
+                                               
+                                if (transactionShares.size() == 0) {
                                         errors.add("No transaction history to be viewed");
                                         request.setAttribute("customer", user);
                                         return "transactionHistory_Customer.jsp";
@@ -65,6 +76,7 @@ public class TransactionHistoryAction extends Action {
                         }                  
                 } catch (RollbackException e) {
                         errors.add("System roll back!");
+                        e.printStackTrace();
                         return "transactionHistory_Customer.jsp";
                 } catch (Exception e2) {
                         errors.add("Other errors!");
