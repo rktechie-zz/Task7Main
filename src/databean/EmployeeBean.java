@@ -9,6 +9,16 @@ public class EmployeeBean {
 	private String userName;
 	private String password;
 
+	private String cookie;
+
+	public String getCookie() {
+		return cookie;
+	}
+
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
+	}
+
 	public void setUserName(String v) {
 		userName = v;
 	}

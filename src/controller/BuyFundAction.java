@@ -7,10 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import model.FundDAO;
-import model.FundPriceHistoryDAO;
-import model.Model;
-import model.TransactionDAO;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
@@ -22,6 +18,10 @@ import databean.FundInfoBean;
 import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import formbean.BuyFundForm;
+import model.FundDAO;
+import model.FundPriceHistoryDAO;
+import model.Model;
+import model.TransactionDAO;
 
 public class BuyFundAction extends Action {
 	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory.getInstance(BuyFundForm.class);

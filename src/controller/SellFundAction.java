@@ -43,7 +43,6 @@ public class SellFundAction extends Action {
 		historyDAO = model.getFundPriceHistoryDAO();
 	}
 
-	@Override
 	public String getName() {
 		return "sellFund.do";
 	}
@@ -126,7 +125,8 @@ public class SellFundAction extends Action {
 			Double latestPrice = (double) (priceBean.getPrice() / 100);
 
 			// Calculate shares
-			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()));
+			Double shares =  Double.parseDouble(sellFundForm.getShares());
+			System.out.println("shares get form the form:" + shares);
 			//Check valid balance
 			Long validShares = (long) transactionDAO.getValidShares(fundId, curShares);
 			if (shares > validShares) {
@@ -142,14 +142,12 @@ public class SellFundAction extends Action {
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
 			transactionBean.setAmount((long) (amount * 100));
-			transactionBean.setShares(shares * 1000l);
+			transactionBean.setShares((long) (shares * 1000l));
 			transactionBean.setTransactionType("4");
 
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";
 			
-		
-		 
 		} catch (NumberFormatException e) {
 			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
 			return "sellFund.jsp";
