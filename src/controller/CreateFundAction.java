@@ -48,11 +48,16 @@ public class CreateFundAction extends Action{
 				return "createFund.jsp";
 			}
 			
+			FundBean fundBeanExist = fundDAO.read(createFundForm.getName());
+			if (fundBeanExist != null) {
+				errors.add("Fund already exists!");
+				return "createFund.jsp";
+			}
+			
 			errors.addAll(createFundForm.getValidationErrors());
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-			System.out.println("Checkpoint");
 			FundBean fundBean = new FundBean();
 			fundBean.setName(createFundForm.getName());
 			fundBean.setSymbol(createFundForm.getSymbol());

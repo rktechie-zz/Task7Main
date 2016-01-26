@@ -15,6 +15,15 @@ public class CustomerBean {
 	private String state;
 	private String zipcode;
 	private long cash;
+	private String cookie;
+
+	public String getCookie() {
+		return cookie;
+	}
+
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
+	}
 
 	public int getCustomerId() {
 		return customerId;
