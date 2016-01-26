@@ -56,7 +56,7 @@
 
 		<p>We specialize in mutual fund investments.</p>
 
-		<form class="form-horizontal" role="form" method="POST">
+		<form class="form-horizontal" role="form" method="POST" action="login.do">
 
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="email">Username:</label>

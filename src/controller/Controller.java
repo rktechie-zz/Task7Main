@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.genericdao.RollbackException;
+
 import databean.CustomerBean;
+import databean.EmployeeBean;
+import model.CustomerDAO;
+import model.EmployeeDAO;
 import model.Model;
 
 /**
@@ -17,6 +24,8 @@ import model.Model;
  */
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CustomerDAO cDAO;
+	EmployeeDAO eDAO;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,6 +54,10 @@ public class Controller extends HttpServlet {
         Action.add(new ViewCustomerAction(model));
         Action.add(new ResetCustPassAction(model));
         Action.add(new TransitionDayAction(model));
+        Action.add(new LogUserOutAction(model));
+        
+        eDAO = model.getEmployeeDAO();
+        cDAO = model.getCustomerDAO();
 }
 
 	/**
@@ -53,6 +66,7 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String nextPage = performTheAction(request);
+		//System.out.println(nextPage);
 
 		sendToNextPage(nextPage, request, response);
 	}
@@ -69,6 +83,7 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
 		String action = getActionName(servletPath);
+		//System.out.println(action);
 		if (session.getAttribute("user") == null) {
 
 			return Action.perform("login.do", request);
@@ -80,7 +95,40 @@ public class Controller extends HttpServlet {
 			else
 				return Action.perform("employeeMain.do", request);
 		}
-
+		
+		if(session.getAttribute("user") != null && !action.equals("logUserOut.do") ){
+			if(session.getAttribute("user") instanceof CustomerBean){
+				CustomerBean cb = (CustomerBean) session.getAttribute("user");
+				CustomerBean tmp = cDAO.read(cb.getUserName());
+				if(!request.getCookies()[0].getValue().equals(tmp.getCookie())){
+					List<String> errors = new ArrayList<String>();
+					errors.add("Session Terminated!");
+					request.setAttribute("user", session.getAttribute("user"));
+					request.setAttribute("errors", errors);
+					session.setAttribute("user", null);
+					return "terminated.jsp";
+				}
+				
+			} else if(session.getAttribute("user") instanceof EmployeeBean){
+				EmployeeBean eb = (EmployeeBean) session.getAttribute("user");
+				EmployeeBean tmp;
+				//System.out.println(request.getCookies()[0].getValue());
+				try {
+					tmp = eDAO.read(eb.getUserName());
+					if(!request.getCookies()[0].getValue().equals(tmp.getCookie())){
+						List<String> errors = new ArrayList<String>();
+						errors.add("Session Terminated!");
+						request.setAttribute("user", session.getAttribute("user"));
+						request.setAttribute("errors", errors);
+						session.setAttribute("user", null);
+						return "terminated.jsp";
+					}
+				} catch (RollbackException e) {
+					e.printStackTrace();
+					return Action.perform("login.do", request);
+				}				
+			}			
+		}
 		return Action.perform(action, request);
 	}
 

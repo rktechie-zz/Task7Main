@@ -50,7 +50,11 @@ public class LoginAction extends Action {
 				EmployeeBean tmp = (EmployeeBean)session.getAttribute("user");
 				try {
 					EmployeeBean tmp1 = employeeDAO.read(tmp.getUserName());
-					if(tmp1.getCookie() != tmp.getCookie()) {
+					if(tmp1.getCookie() == null){
+						errors.add("Session Terminated. You have been logged out!");
+						return "logUserOut.jsp";
+					}
+					if(!tmp1.getCookie().equals(tmp.getCookie()) ) {
 						errors.add("User is already logged in!");
 						return "logUserOut.jsp";
 					}
@@ -69,7 +73,11 @@ public class LoginAction extends Action {
 					if (user == null) {
 						return "index.jsp";
 					}
-					if(user.getCookie() != tmp.getCookie()) {
+					if(user.getCookie() == null){
+						errors.add("Session Terminated. You have been logged out!");
+						return "logUserOut.jsp";
+					}
+					if(!user.getCookie().equals(tmp.getCookie()) ) {
 						errors.add("User is already logged in!");
 						return "logUserOut.jsp";
 					}
@@ -83,7 +91,7 @@ public class LoginAction extends Action {
 					}
 					else session.setAttribute("lastDay", lastDay);
 					String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
-					System.out.println(s);
+					//System.out.println(s);
 					session.setAttribute("avai_cash",s);
 					return "customerHome.do";
 				} catch (RollbackException e) {
@@ -122,9 +130,11 @@ public class LoginAction extends Action {
 					errors.add("Incorrect password.");
 					return "index.jsp";
 				}
+				
 				EmployeeBean eb = employeeDAO.read(loginForm.getUserName());
-				if(eb.getCookie() != null) {
-					errors.add("User is already logged in!");
+				//System.out.println(request.getCookies()[0].getValue());
+				if(eb.getCookie()!=null) {
+					session.setAttribute("user", user);
 					return "logUserOut.jsp";
 				}
 				user.setCookie(session.getId());
@@ -158,8 +168,9 @@ public class LoginAction extends Action {
 				session.setAttribute("avai_cash",s);
 				
 				CustomerBean cb = customerDAO.read(loginForm.getUserName());
-				if(cb.getCookie() != null) {
-					errors.add("User is already logged in!");
+				System.out.println(request.getCookies()[0].getValue());
+				if(cb.getCookie()!=null) {
+					session.setAttribute("user", user);
 					return "logUserOut.jsp";
 				}
 				
