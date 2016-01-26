@@ -44,6 +44,12 @@ public class LogUserOutAction extends Action{
 				return "logUserOut.jsp";
 			}
 			
+			errors.addAll(form.getValidationErrors());
+			
+			if (errors.size() != 0) {
+				return "logUserOut.jsp";
+			}
+			
 			if (session.getAttribute("user") instanceof EmployeeBean) {
 				EmployeeBean tmp = (EmployeeBean)session.getAttribute("user");
 				EmployeeBean tmp1;
