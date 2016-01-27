@@ -104,14 +104,14 @@ public class BuyFundAction extends Action {
 //			Double latestPrice = (double) priceBean.getPrice() / 100;
 
 			// Calculate shares
-			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
+			Double amount = Double.parseDouble(buyFundForm.getAmount());
 			// Can't acceed 10,000,000
 			if (amount >= 10000000) {
 				errors.add("Please enter a smaller amount. ");
 				return "buyFund.jsp";
 			}
 			//Check valid balance
-			Long validBalance = (long) transactionDAO.getValidBalanceNew(userName, curCash);
+			Double validBalance = transactionDAO.getValidBalanceNew(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money do proceed with the transaction. ");
 				return "buyFund.jsp";
@@ -123,9 +123,7 @@ public class BuyFundAction extends Action {
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
-			transactionBean.setAmount(amount * 100l);
-//			transactionBean.setShares((long) (shares * 1000));
-//			transactionBean.setShares((long) -1);
+			transactionBean.setAmount((long)(amount * 100l));
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 

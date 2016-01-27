@@ -31,14 +31,12 @@ public class SellFundAction extends Action {
 
 	private TransactionDAO transactionDAO;
 	private FundDAO fundDAO;
-	private FundPriceHistoryDAO fundPriceHistoryDAO;
 	private PositionDAO positionDAO;
 	private FundPriceHistoryDAO historyDAO;
 
 	public SellFundAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
-		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
 		positionDAO = model.getPositionDAO();
 		historyDAO = model.getFundPriceHistoryDAO();
 	}
@@ -145,7 +143,6 @@ public class SellFundAction extends Action {
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
-//			transactionBean.setAmount((long)-1);
 			transactionBean.setShares((long) (shares * 1000l));
 			transactionBean.setTransactionType("4");
 

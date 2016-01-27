@@ -13,11 +13,11 @@ import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
 import databean.EmployeeBean;
-import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import databean.TransactionShareBean;
 import formbean.ViewCustomerTransactionForm;
 import model.CustomerDAO;
+import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
 import model.TransactionDAO;
@@ -28,11 +28,13 @@ public class ViewCustomerTransactionAction extends Action {
         private TransactionDAO transactionDAO;
         private CustomerDAO customerDAO;
         private FundPriceHistoryDAO fundPriceHistoryDAO;
+        private FundDAO fundDAO;
 
         public ViewCustomerTransactionAction(Model model) {
                 transactionDAO = model.getTransactionDAO();
                 customerDAO = model.getCustomerDAO();
                 fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
+                fundDAO = model.getFundDAO();
         }
 
         @Override
@@ -66,15 +68,14 @@ public class ViewCustomerTransactionAction extends Action {
                                         return "viewCustomerTransaction.jsp";
                                 }
                                 
-                                int customer_Id = customer.getCustomerId();
+                                int customerId = customer.getCustomerId();
                                 
                                 List<TransactionShareBean> transactionShares = new ArrayList<TransactionShareBean>();
-                                TransactionBean[] transactions = transactionDAO.match(MatchArg.equals("customerId", customer_Id));
+                                TransactionBean[] transactions = transactionDAO.match(MatchArg.equals("customerId", customerId));
                                 for (TransactionBean t : transactions) {
                                         TransactionShareBean tShare = new TransactionShareBean();
                                         
                                         tShare.setTransactionId(t.getTransactionId());
-                                        tShare.setTransactionType(t.getTransactionType());
                                         tShare.setCustomeId(t.getCustomerId());
 
                                         if (t.getFundId() == 0) {
@@ -82,38 +83,49 @@ public class ViewCustomerTransactionAction extends Action {
                                                 tShare.setFundId(-1);
                                                 tShare.setShares(-1);
                                                 tShare.setSharePrice(-1);
+                                                if (t.getTransactionType().equals(2)) {
+                                                        tShare.setTransactionType("Request Check");
+                                                } else {
+                                                        tShare.setTransactionType("Deposit Check");
+                                                }
                                                 if (t.getExecuteDate() != null) {
                                                         tShare.setExecuteDate(t.getExecuteDate());
                                                 } else {
                                                         tShare.setExecuteDate("N/A");
                                                 }
                                         } else {
-                                                tShare.setFundId(t.getFundId());
-                                                int fund_Id = tShare.getFundId();
-                                                FundPriceHistoryBean f = fundPriceHistoryDAO
-                                                                .getLatestFundPrice(fund_Id);
-                                                tShare.setSharePrice(f.getPrice());
+                                                int fundId = tShare.getFundId();
+                                                tShare.setFundId(fundId);
+                                                String fundName = fundDAO.getFundName(fundId);
+                                                tShare.setFundName(fundName);
 
                                                 if (t.getTransactionId() == 8) {
                                                         if (t.getExecuteDate() == null ) {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setShares(-1);
                                                         } else {
-                                                                tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setShares(t.getShares());        
+                                                                String executeDate = t.getExecuteDate();
+                                                                tShare.setExecuteDate(executeDate);
+                                                                tShare.setShares(t.getShares() / 1000);
+                                                                long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
+                                                                tShare.setSharePrice(sharePrice / 100);      
                                                         }
                                                         tShare.setAmount(t.getAmount());
                                                 }
                                                 
-                                                if (t.getTransactionId() == 4) {
+                                                if (t.getTransactionType().equals(4)) {
+                                                        tShare.setTransactionType("Sell Fund");
                                                         if (t.getExecuteDate() == null ) {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setAmount(-1);
                                                         } else {
-                                                                tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setAmount(t.getAmount());                                                     
+                                                                String executeDate = t.getExecuteDate();
+                                                                tShare.setExecuteDate(executeDate);
+                                                                tShare.setAmount(t.getAmount() / 100);
+                                                                long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
+                                                                tShare.setSharePrice(sharePrice / 100);
                                                         }
-                                                        tShare.setShares(t.getShares());
+                                                        tShare.setShares(t.getShares() / 1000);
                                                 }
                                         }                                             
                                         transactionShares.add(tShare);
