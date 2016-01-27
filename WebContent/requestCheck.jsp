@@ -2,10 +2,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-customer.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
-<h3>&nbsp&nbspRequest Check: </h3>
+<h3>&nbsp&nbspRequest Check: <h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: You can request no more than $1,000,000</h4></h3>
 <br>
-<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: You can request no more than $1,000,000</h4>
+
 <form class="form-horizontal" role="form" action="requestCheck.do"
 	method="POST">
 	<div class="form-group">
