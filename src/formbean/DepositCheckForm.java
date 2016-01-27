@@ -44,7 +44,8 @@ public class DepositCheckForm extends FormBean {
 		try {
 			Double.parseDouble(depositAmount);
 		} catch (NumberFormatException e1) {
-			errors.add("The amount should be a number");
+			errors.add("Amount entered is not a valid Dollar amount. ");
+
 			return errors;
 		}
 		
@@ -53,6 +54,11 @@ public class DepositCheckForm extends FormBean {
 		}
 		
 
+		if (Double.parseDouble(depositAmount) > 1000000) {
+			errors.add("Please enter an amount less than $ 1,000,000. ");
+			return errors;
+		}
+		
 		if (Double.parseDouble(depositAmount) <= 0) {
 			errors.add("The amount of request should be positive. ");
 		}
