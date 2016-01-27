@@ -44,12 +44,12 @@ public class DepositCheckForm extends FormBean {
 		try {
 			Double.parseDouble(depositAmount);
 		} catch (NumberFormatException e1) {
-			errors.add("Neither the amount is a number or the amount is too large");
+			errors.add("Either the amount is a number or the amount is too large. ");
 			return errors;
 		}
 
 		if (Double.parseDouble(depositAmount) <= 0) {
-			errors.add("The amount of request should be positive");
+			errors.add("The amount of request should be positive. ");
 		}
 
 		if (errors.size() > 0)

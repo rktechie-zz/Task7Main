@@ -25,7 +25,7 @@ public class TransactionHistoryAction extends Action {
                 transactionDAO = model.getTransactionDAO();
                 fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
         }
-        
+
         @Override
         public String getName() {
                 return "transactionHistory.do";
@@ -38,30 +38,64 @@ public class TransactionHistoryAction extends Action {
                 request.setAttribute("errors", errors);
 
                 try {
-                        if (session.getAttribute("user") != null && session.getAttribute("user") instanceof CustomerBean) {
+                        if (session.getAttribute("user") != null
+                                        && session.getAttribute("user") instanceof CustomerBean) {
                                 CustomerBean user = (CustomerBean) request.getSession().getAttribute("user");
 
                                 int customer_Id = user.getCustomerId();
-                                
+
                                 List<TransactionShareBean> transactionShares = new ArrayList<TransactionShareBean>();
-                                TransactionBean[] transactions = transactionDAO.match(MatchArg.equals("customerId", customer_Id));
+                                TransactionBean[] transactions = transactionDAO
+                                                .match(MatchArg.equals("customerId", customer_Id));
                                 for (TransactionBean t : transactions) {
                                         TransactionShareBean tShare = new TransactionShareBean();
-                                        tShare.setAmount(t.getAmount());
-                                        tShare.setCustomeId(t.getCustomerId());
-                                        tShare.setExecuteDate(t.getExecuteDate());
-                                        tShare.setFundId(t.getFundId());
-                                        tShare.setShares(t.getShares());
+
                                         tShare.setTransactionId(t.getTransactionId());
                                         tShare.setTransactionType(t.getTransactionType());
-                                        
-                                        int fund_Id = tShare.getFundId();
-                                        FundPriceHistoryBean f = fundPriceHistoryDAO.getLatestFundPrice(fund_Id);
-                                        tShare.setSharePrice(f.getPrice());           
-                                        
+                                        tShare.setCustomeId(t.getCustomerId());
+
+                                        if (t.getFundId() == 0) {
+                                                tShare.setAmount(t.getAmount());
+                                                tShare.setFundId(-1);
+                                                tShare.setShares(-1);
+                                                tShare.setSharePrice(-1);
+                                                if (t.getExecuteDate() != null) {
+                                                        tShare.setExecuteDate(t.getExecuteDate());
+                                                } else {
+                                                        tShare.setExecuteDate("N/A");
+                                                }
+                                        } else {
+                                                tShare.setFundId(t.getFundId());
+                                                int fund_Id = tShare.getFundId();
+                                                FundPriceHistoryBean f = fundPriceHistoryDAO
+                                                                .getLatestFundPrice(fund_Id);
+                                                tShare.setSharePrice(f.getPrice());
+
+                                                if (t.getTransactionId() == 8) {
+                                                        if (t.getExecuteDate() == null ) {
+                                                                tShare.setExecuteDate("N/A");
+                                                                tShare.setShares(-1);
+                                                        } else {
+                                                                tShare.setExecuteDate(t.getExecuteDate());
+                                                                tShare.setShares(t.getShares());       
+                                                        }
+                                                        tShare.setAmount(t.getAmount());
+                                                }
+                                                
+                                                if (t.getTransactionId() == 4) {
+                                                        if (t.getExecuteDate() == null ) {
+                                                                tShare.setExecuteDate("N/A");
+                                                                tShare.setAmount(-1);
+                                                        } else {
+                                                                tShare.setExecuteDate(t.getExecuteDate());
+                                                                tShare.setAmount(t.getAmount());                                                     
+                                                        }
+                                                        tShare.setShares(t.getShares());
+                                                }
+                                        }
                                         transactionShares.add(tShare);
                                 }
-                                               
+
                                 if (transactionShares.size() == 0) {
                                         errors.add("No transaction history to be viewed");
                                         request.setAttribute("customer", user);
@@ -73,7 +107,7 @@ public class TransactionHistoryAction extends Action {
                                 }
                         } else {
                                 return "login.do";
-                        }                  
+                        }
                 } catch (RollbackException e) {
                         errors.add("System roll back!");
                         e.printStackTrace();

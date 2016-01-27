@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="template-top-customer.jsp" />
 <jsp:include page="error.jsp" />
 
@@ -11,7 +13,7 @@
          <li class="list-group-item list-group-item-success">Customer
             Last Name: ${customer.lastName}</li>
         <li class="list-group-item list-group-item-warning">Customer
-            Id: ${customer.customerId}</li>
+            User Name: ${customer.userName}</li>
     </ul>
 </div>
 
@@ -34,10 +36,40 @@
                 <tr>
                     <th>${tran.executeDate}</th>
                     <th>${tran.transactionType}</th>
-                    <th>${tran.fundId}</th>
-                    <th>${tran.shares}</th>
-                    <th>${tran.sharePrice}</th>
-                    <th>${tran.amount}</th>
+                    <c:choose>
+                        <c:when test="${tran.fundId == -1}">
+                        <th>N/A</th>
+                        </c:when>
+                        <c:otherwise>
+                        <th>${tran.fundId}</th>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${tran.shares == -1}">
+                        <th>N/A</th>
+                        </c:when>
+                        <c:otherwise>
+                        <th>${tran.shares}</th>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${tran.sharePrice == -1}">
+                        <th>N/A</th>
+                        </c:when>
+                        <c:otherwise>
+                        <th><fmt:setLocale value="en_US"/>
+                        <fmt:formatNumber value="${tran.sharePrice}" type="currency"/></th>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${tran.amount == -1}">
+                        <th>N/A</th>
+                        </c:when>
+                        <c:otherwise>
+                        <th><fmt:setLocale value="en_US"/>
+                        <fmt:formatNumber value="${tran.amount}" type="currency"/></th>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
              </c:forEach>   
         </tbody>

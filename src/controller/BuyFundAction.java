@@ -61,10 +61,13 @@ public class BuyFundAction extends Action {
 				List<FundInfoBean> fundInfoList = new ArrayList<FundInfoBean>();
 				for(FundBean a: fundList) {
 					String name = a.getName();
-					double price = ((double)(fundPriceHistoryDAO.getLatestFundPrice(a.getFundId()).getPrice() / 100.0));
-					String priceString = df.format(price);
-					FundInfoBean aInfo = new FundInfoBean(name, "$" + priceString);
-					fundInfoList.add(aInfo);
+					FundPriceHistoryBean historyBean = fundPriceHistoryDAO.getLatestFundPrice(a.getFundId());
+					if(historyBean != null) {
+						double price = ((double)(fundPriceHistoryDAO.getLatestFundPrice(a.getFundId()).getPrice() / 100.0));
+						String priceString = df.format(price);
+						FundInfoBean aInfo = new FundInfoBean(name, "$" + priceString);
+						fundInfoList.add(aInfo);
+					}
 				}
 				session.setAttribute("fundListInfoList", fundInfoList);
 			}
@@ -93,22 +96,27 @@ public class BuyFundAction extends Action {
 			int fundId = fundBean.getFundId();
 
 			// Get the price of this fund of the latest day
-			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
-			if (priceBean == null) {
-				errors.add("This fund does not have price yet, not able to buy");
-				return "buyFund.jsp";
-			}
-			Double latestPrice = (double) priceBean.getPrice() / 100;
+//			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
+//			if (priceBean == null) {
+//				errors.add("This fund does not have price yet, not able to buy");
+//				return "buyFund.jsp";
+//			}
+//			Double latestPrice = (double) priceBean.getPrice() / 100;
 
 			// Calculate shares
 			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
+			// Can't acceed 10,000,000
+			if (amount >= 10000000) {
+				errors.add("Even you are rich, you can not spend more than 1 million!");
+				return "buyFund.jsp";
+			}
 			//Check valid balance
-			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
+			Long validBalance = (long) transactionDAO.getValidBalanceNew(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money!");
 				return "buyFund.jsp";
 			}
-			Double shares = (double) (amount / latestPrice);
+//			Double shares = (double) (amount / latestPrice);
 
 			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
@@ -116,7 +124,8 @@ public class BuyFundAction extends Action {
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
 			transactionBean.setAmount(amount * 100l);
-			transactionBean.setShares((long) (shares * 1000));
+//			transactionBean.setShares((long) (shares * 1000));
+//			transactionBean.setShares((long) -1);
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 

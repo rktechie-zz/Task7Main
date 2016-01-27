@@ -1,5 +1,4 @@
 <jsp:include page="template-top-employee.jsp" />
-<jsp:include page="error.jsp" />
 <h1>&nbsp</h1>
 <h3>&nbspCreate Customer :</h3>
 <form class="form-horizontal" role="form" action="createCustomer.do"
@@ -94,6 +93,7 @@
 				class="btn btn-success pull-left">Create Account</button>
 		</div>
 	</div>
+	<jsp:include page="error.jsp" />
 </form>
 
 

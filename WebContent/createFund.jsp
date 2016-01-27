@@ -1,10 +1,9 @@
 <jsp:include page="template-top-employee.jsp" />
-<jsp:include page="error.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
+<h3>&nbspCreate Fund :</h3>
+<br>
 <form class="form-horizontal" role="form" action="createFund.do"
 	method="POST">
-	<jsp:include page="error.jsp" />
 	<div class="form-group">
 		<label class="control-label col-sm-2">Fund Name :</label>
 		<div class="col-sm-4">
@@ -25,5 +24,6 @@
 				class="btn btn-success pull-left">Create Fund</button>
 		</div>
 	</div>
+	<jsp:include page="error.jsp" />
 </form>
 <jsp:include page="template-bottom.jsp" />
