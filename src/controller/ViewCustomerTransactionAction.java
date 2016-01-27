@@ -94,7 +94,7 @@ public class ViewCustomerTransactionAction extends Action {
                                                         tShare.setExecuteDate("N/A");
                                                 }
                                         } else {
-                                                int fundId = tShare.getFundId();
+                                                int fundId = t.getFundId();
                                                 tShare.setFundId(fundId);
                                                 String fundName = fundDAO.getFundName(fundId);
                                                 tShare.setFundName(fundName);
@@ -132,7 +132,7 @@ public class ViewCustomerTransactionAction extends Action {
                                 }
                                 
                                 if (transactionShares.size() == 0) {
-                                        errors.add("No transaction history to be viewed");
+//                                        errors.add("No transaction history to be viewed");
                                         request.setAttribute("customer", customer);
                                         return "transactionHistory_Employee.jsp";
                                 } else {

@@ -71,7 +71,7 @@ public class TransactionHistoryAction extends Action {
                                                         tShare.setExecuteDate("N/A");
                                                 }
                                         } else {
-                                                int fundId = tShare.getFundId();
+                                                int fundId = t.getFundId();
                                                 tShare.setFundId(fundId);
                                                 String fundName = fundDAO.getFundName(fundId);
                                                 tShare.setFundName(fundName);
