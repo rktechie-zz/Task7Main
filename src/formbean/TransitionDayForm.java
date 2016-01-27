@@ -60,7 +60,7 @@ public class TransitionDayForm /* extends FormBean */ {
 				int lastDotIndex = price.lastIndexOf(".");
 				if (lastDotIndex != -1 && price.substring(lastDotIndex + 1).length() > 2
 						&& Integer.parseInt(price.substring(lastDotIndex + 1)) != 0) {
-					errors.add("Price format error! ");
+					errors.add("Price format error! Dollar amounts can be upto 2 decimal places only.");
 				} else if (d < 0.01 || d > 10000) {
 					errors.add("Price of shares must be between one cent (0.01) and ten thousand (10,000.00). ");
 				}
