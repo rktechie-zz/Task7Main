@@ -52,6 +52,10 @@ public class RequestCheckAction extends Action {
 			double d = Double.parseDouble(s);
 			d = d * 100.00;
 			long l = (long) d;
+			if ((d - l) > 0) {
+				errors.add("We only allow at most two decimal places");
+				return "requestCheck.jsp"; 
+			}
 			d = l / 100.00;
 			if (d > transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.00)) {
 				errors.add("Balance is not enough to proceed the request");
