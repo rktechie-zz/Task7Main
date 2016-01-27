@@ -49,7 +49,7 @@ public class DepositCheckForm extends FormBean {
 		}
 		
 		if (Double.parseDouble(depositAmount) > 1000000.0) {
-			errors.add("The amount should be less than 1000,000. ");
+			errors.add("The amount should be less than 1,000,000. ");
 		}
 		
 
