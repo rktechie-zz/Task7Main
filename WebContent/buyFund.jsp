@@ -2,10 +2,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-customer.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
+<h3>&nbspBuy Fund :</h3>
+<br>
 <form class="form-horizontal" role="form" action="buyFund.do"
 	method="POST">
-	<jsp:include page="error.jsp" />
 	<div class="form-group">
 		<label class="control-label col-sm-2">Buy Fund :</label>
 		<div class="col-sm-4">
@@ -26,32 +26,30 @@
 				class="btn btn-success pull-left">Buy Fund</button>
 		</div>
 	</div>
+	<jsp:include page="error.jsp" />
+	<br></br>
+	<br></br>
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-4"></div>
-	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<h3>Funds able to buy:</h3>
-			<div class="table-responsive">
-				<table class="table table-hover table-striped">
-					<thead>
-						<tr>
-							<td width="40%"><b>Fund Name</b></td>
-							<td align="right"><b>Price</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${!(empty fundListInfoList)}">
-							<c:forEach var="u" items="${fundListInfoList}">
-								<tr>
-									<td>${ u.getName() }</td>
-									<td align="right">${ u.getPrice() }</td>
-								</tr>
-							</c:forEach>
-						</c:if>
-					</tbody>
-				</table>
-			</div>
+		<label class="control-label col-sm-2">Funds able to buy: </label>
+		<div class="col-sm-4">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<td><b>Fund Name</b></td>
+						<td><b>Price</b></td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${!(empty fundListInfoList)}">
+						<c:forEach var="u" items="${fundListInfoList}">
+							<tr>
+								<td>${ u.getName() }</td>
+								<td>${ u.getPrice() }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </form>
