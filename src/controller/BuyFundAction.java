@@ -124,8 +124,6 @@ public class BuyFundAction extends Action {
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
 			transactionBean.setAmount(amount * 100l);
-//			transactionBean.setShares((long) (shares * 1000));
-//			transactionBean.setShares((long) -1);
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 
