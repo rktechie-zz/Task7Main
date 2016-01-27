@@ -41,7 +41,7 @@ public class RequestCheckForm extends FormBean {
 		}
 		
 		if (Double.parseDouble(requestAmount) > 1000000.0) {
-			errors.add("The amount should be less than 1000,000. ");
+			errors.add("The amount should be less than 1,000,000. ");
 		}
 
 		if (Double.parseDouble(requestAmount) <= 0) {
