@@ -4,7 +4,8 @@
 		<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
 			<c:forEach var="error" items="${errors}">
 				${error}
-		</c:forEach>
+				<br>
+			</c:forEach>
 		</div>
 	</div>
 </c:if>
