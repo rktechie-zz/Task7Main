@@ -131,7 +131,7 @@ public class ViewCustomerTransactionAction extends Action {
                                 }
                                 
                                 if (transactionShares.size() == 0) {
-                                        errors.add("No transaction history to be viewed");
+//                                        errors.add("No transaction history to be viewed");
                                         request.setAttribute("customer", customer);
                                         return "transactionHistory_Employee.jsp";
                                 } else {
