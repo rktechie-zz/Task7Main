@@ -23,7 +23,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<nav class="navbar navbar-default navbar-fixed-top">
+						<nav class="navbar navbar-inverse navbar-fixed-top">
 							<div class="container-fluid">
 								<div class="navbar-header">
 									<a href="login.do" class="pull-left"><img
