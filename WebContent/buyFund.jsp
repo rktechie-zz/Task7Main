@@ -7,6 +7,12 @@
 <form class="form-horizontal" role="form" action="buyFund.do"
 	method="POST">
 	<div class="form-group">
+		<label class="control-label col-sm-2">Available Cash :</label>
+		<div class="col-sm-4">
+			<label class="control-label col-sm-4">$${avai_cash}</label>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="control-label col-sm-2">Buy Fund :</label>
 		<div class="col-sm-4">
 			<input type="text" class="form-control" id="name" name="name"
@@ -30,7 +36,7 @@
 	<br></br>
 	<br></br>
 	<div class="form-group">
-		<label class="control-label col-sm-2">Funds able to buy: </label>
+		<label class="control-label col-sm-2">Funds you can buy: </label>
 		<div class="col-sm-4">
 			<table class="table table-hover table-striped">
 				<thead>
