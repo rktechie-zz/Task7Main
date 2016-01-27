@@ -43,7 +43,6 @@ public class SellFundAction extends Action {
 		historyDAO = model.getFundPriceHistoryDAO();
 	}
 
-	@Override
 	public String getName() {
 		return "sellFund.do";
 	}
@@ -66,12 +65,10 @@ public class SellFundAction extends Action {
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
 			//PositionBean[] fundList = positionDAO.match(MatchArg.equals("customerId",customerBean.getCustomerId()));
 			//request.setAttribute("fundList",fundList);
-			System.out.println(customerBean.getCustomerId());
 
 			PositionBean[] positionList = positionDAO.match(MatchArg.equals("customerId",customerBean.getCustomerId()));
 			
 			if(positionList != null) {
-				System.out.println("position list not null");
 				List<PositionInfo> positionInfoList = new ArrayList<PositionInfo>();
 				for(PositionBean a: positionList) {
 					double shares = ((double)(a.getShares())/1000.0);
@@ -85,7 +82,6 @@ public class SellFundAction extends Action {
 					String valueString = df2.format(value);
 
 					PositionInfo aInfo = new PositionInfo(name,sharesString,priceString,"$" + valueString);
-					System.out.println("shares:" + aInfo.getShares());
 					positionInfoList.add(aInfo);
 				}
 				session.setAttribute("positionInfoList",positionInfoList);
@@ -115,41 +111,47 @@ public class SellFundAction extends Action {
 				errors.add("You do not own this fund!");
 				return "sellFund.jsp";
 			}
-			long curShares = position.getShares() / 1000;
+			System.out.println("without deviding:" + position.getShares());
+			Double curShares = (double)position.getShares() / 1000;
+			System.out.println("Formal shares are:" + curShares);
+			Double shares =  Double.parseDouble(sellFundForm.getShares());
+			//Check valid shares
+			if (curShares < shares) {
+				errors.add("You do not have enough shares!");
+				return "sellFund.jsp";				
+			}
+			Double validShares = transactionDAO.getValidShares(fundId, curShares);
+			System.out.println("Valid shares:" + validShares);
+			System.out.println("current shares:" + curShares);
+			if (shares > validShares) {
+				System.out.println("*******************");
+				errors.add("You do not have enough shares! (including pending transaction)");
+				return "sellFund.jsp";
+			}
 			
 			//Get the price of this fund of the latest day
-			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
-			if (priceBean == null) {
-				errors.add("Fund doesn't exist");
-				return "sellFund.jsp";
-			}
-			Double latestPrice = (double) (priceBean.getPrice() / 100);
-
-			// Calculate shares
-			Long shares = (long) (Double.parseDouble(sellFundForm.getShares()));
-			//Check valid balance
-			Long validShares = (long) transactionDAO.getValidShares(fundId, curShares);
-			if (shares > validShares) {
-				errors.add("You do not have enough shares!");
-				return "sellFund.jsp";
-			}
+//			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
+//			if (priceBean == null) {
+//				errors.add("Fund doesn't exist");
+//				return "sellFund.jsp";
+//			}
+//			Double latestPrice = (double) (priceBean.getPrice() / 100);
 			
-			Double amount = (double) (shares * latestPrice);
+			// Calculate the worthy amount
+//			Double amount = (double) (shares * latestPrice);
 
 			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(userName);
-			transactionBean.setAmount((long) (amount * 100));
-			transactionBean.setShares(shares * 1000l);
+//			transactionBean.setAmount((long)-1);
+			transactionBean.setShares((long) (shares * 1000l));
 			transactionBean.setTransactionType("4");
 
 			transactionDAO.create(transactionBean);
 			return "success-customer.jsp";
 			
-		
-		 
 		} catch (NumberFormatException e) {
 			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
 			return "sellFund.jsp";

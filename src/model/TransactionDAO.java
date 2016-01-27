@@ -74,22 +74,22 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		return amount;
 	}
 	
-	public double getValidShares (int fundId, double shares) throws RollbackException {
+	public double getValidBalanceNew (String userName, double amount) throws RollbackException {
 		TransactionBean[] tbs = null;
 		try {
 			Transaction.begin();
 			
 			// How to execute select * from table where transactionType IS NULL
-			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("fundId", fundId));
+			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("userName", userName));
 			
 			if (tbs != null) {
 				for (TransactionBean t : tbs) {
 					switch(Integer.parseInt(t.getTransactionType())) {
 					case TransactionBean.SELL_FUND:
-						shares -= t.getShares() / 1000.00;
+						amount += t.getAmount() / 100.00;
 						break;
 					case TransactionBean.BUY_FUND:
-						shares += t.getShares() / 1000.00;
+						amount -= t.getAmount() / 100.00;
 						break;
 					default:
 						break;
@@ -102,6 +102,39 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 		
+		return amount;
+	}
+	
+	public double getValidShares (int fundId, double shares) throws RollbackException {
+		TransactionBean[] tbs = null;
+		try {
+			Transaction.begin();
+			
+			// How to execute select * from table where transactionType IS NULL
+			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("fundId", fundId), MatchArg.equals("transactionType", "4"));
+			
+			if (tbs != null) {
+				for (TransactionBean t : tbs) {
+					System.out.println("inside shares:" + shares);
+					switch(Integer.parseInt(t.getTransactionType())) {
+					case TransactionBean.SELL_FUND:
+						shares -= t.getShares() / 1000.00;
+						System.out.println("I break out");
+						System.out.println("new inside shares:" + shares);
+						break;
+//					case TransactionBean.BUY_FUND:
+//						shares += t.getShares() / 1000.00;
+//						break;
+					default:
+						break;
+					}
+				}
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
 		return shares;
 	}
 	

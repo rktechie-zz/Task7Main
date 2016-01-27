@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-employee.jsp" />
-<br><br><br><br>
+<br>
+<br>
+<br>
+<br>
 
 <jsp:include page="error.jsp" />
 <div class="row">
@@ -29,12 +32,12 @@
 			<tbody>
 				<tr>
 					<td>Address:</td>
-					<td colspan="2">${address1 }, ${address2 }</td>
+					<td colspan="2">${address1 },${address2 }</td>
 
 				</tr>
 				<tr>
 					<td>City, State:</td>
-					<td colspan="2">${city }, ${state}.</td>
+					<td colspan="2">${city },${state}.</td>
 
 				</tr>
 				<tr>
@@ -59,19 +62,20 @@
 	<h3>Funds owned:</h3>
 	<div class="table-responsive">
 		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<td width="40%"><b>Fund Name</b></td>
-					<td align="right"><b>Shares</b></td>
-					<td align="right"><b>Value</b></td>
-				</tr>
-			</thead>
-			<tbody>
 
-				<c:choose>
 
-					<c:when test="${(empty positionInfoList)}"></c:when>
-					<c:otherwise>
+			<c:choose>
+
+				<c:when test="${(empty positionInfoList)}"> No Funds Owned!</c:when>
+				<c:otherwise>
+					<thead>
+						<tr>
+							<td width="40%"><b>Fund Name</b></td>
+							<td align="right"><b>Shares</b></td>
+							<td align="right"><b>Value</b></td>
+						</tr>
+					</thead>
+					<tbody>
 						<c:forEach var="u" items="${positionInfoList}">
 							<tr>
 								<td>${ u.getName() }</td>
@@ -79,11 +83,13 @@
 								<td align="right">${u.getTotal()}</td>
 							</tr>
 						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</tbody>
+					</tbody>
+				</c:otherwise>
+			</c:choose>
+
 		</table>
 	</div>
+</div>
 
 
-	<jsp:include page="template-bottom.jsp" />
+<jsp:include page="template-bottom.jsp" />
