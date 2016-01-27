@@ -41,7 +41,7 @@
                         <th>N/A</th>
                         </c:when>
                         <c:otherwise>
-                        <th>${tran.fundId}</th>
+                        <th>${tran.fundName}</th>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>

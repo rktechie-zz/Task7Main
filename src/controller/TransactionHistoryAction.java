@@ -69,7 +69,7 @@ public class TransactionHistoryAction extends Action {
                                                 int fund_Id = tShare.getFundId();
                                                 FundPriceHistoryBean f = fundPriceHistoryDAO
                                                                 .getLatestFundPrice(fund_Id);
-                                                tShare.setSharePrice(f.getPrice());
+                                                tShare.setSharePrice(f.getPrice() / 100);
 
                                                 if (t.getTransactionId() == 8) {
                                                         if (t.getExecuteDate() == null ) {
@@ -77,9 +77,9 @@ public class TransactionHistoryAction extends Action {
                                                                 tShare.setShares(-1);
                                                         } else {
                                                                 tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setShares(t.getShares());       
+                                                                tShare.setShares(t.getShares() / 1000);       
                                                         }
-                                                        tShare.setAmount(t.getAmount());
+                                                        tShare.setAmount(t.getAmount() / 100);
                                                 }
                                                 
                                                 if (t.getTransactionId() == 4) {
@@ -88,9 +88,9 @@ public class TransactionHistoryAction extends Action {
                                                                 tShare.setAmount(-1);
                                                         } else {
                                                                 tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setAmount(t.getAmount());                                                     
+                                                                tShare.setAmount(t.getAmount() / 100);                                                     
                                                         }
-                                                        tShare.setShares(t.getShares());
+                                                        tShare.setShares(t.getShares() / 1000);
                                                 }
                                         }
                                         transactionShares.add(tShare);
