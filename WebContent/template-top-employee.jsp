@@ -47,13 +47,13 @@
 										data-toggle="dropdown" href="#">EMPLOYEE OPERATION <span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
+											<li><a href="createEmployee.do">CREATE EMPLOYEE ACCOUNT</a></li>
 											<li><a href="depositCheck.do">DEPOSIT CHECK</a></li>
 											<li><a href="createFund.do">CREATE FUND</a></li>
 											<li><a href="transitionDay.do">TRANSITION DAY</a></li>
 											<li><a href="changePassword.do">CHANGE EMPLOYEE PASSWORD</a></li>
-										</ul></li>
-									<li><a href="createEmployee.do">CREATE EMPLOYEE
-											ACCOUNT</a></li>
+										</ul>
+									</li>
 									<li><a href="logout.do" class="pull-right">LOG OUT</a></li>
 								</ul>
 							</div>
