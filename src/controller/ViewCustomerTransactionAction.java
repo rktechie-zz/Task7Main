@@ -98,7 +98,7 @@ public class ViewCustomerTransactionAction extends Action {
                                                 String fundName = fundDAO.getFundName(fundId);
                                                 tShare.setFundName(fundName);
 
-                                                if (t.getTransactionId() == 8) {
+                                                if (t.getTransactionType() .equals(8)) {
                                                         if (t.getExecuteDate() == null ) {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setShares(-1);
