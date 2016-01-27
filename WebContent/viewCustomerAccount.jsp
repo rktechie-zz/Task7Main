@@ -12,12 +12,13 @@
 		<h2 class="page-header">${customerName}'sAccount</h2>
 	</div>
 </div>
-<p>
+<div class="row">
+<div class="container-fluid">
 <div class="col-lg-6">
 	<h3>Customer information:</h3>
 	<div class="table-responsive">
 		<table class="table table-hover table-striped">
-			<thead>
+			<tbody>
 				<tr>
 					<td>Account User Name:</td>
 					<td colspan="2">${userName}</td>
@@ -28,16 +29,24 @@
 					<td colspan="2">${customerName}</td>
 
 				</tr>
-			</thead>
-			<tbody>
 				<tr>
 					<td>Address:</td>
 					<td colspan="2">${address1 },${address2 }</td>
 
 				</tr>
 				<tr>
-					<td>City, State:</td>
-					<td colspan="2">${city },${state}.</td>
+					<td>City:</td>
+					<td colspan="2">${city}</td>
+
+				</tr>
+				<tr>
+					<td>State:</td>
+					<td colspan="2">${state}</td>
+
+				</tr>
+				<tr>
+					<td>Zip:</td>
+					<td colspan="2">${zip}</td>
 
 				</tr>
 				<tr>
@@ -47,14 +56,13 @@
 				</tr>
 				<tr>
 					<td>Last Posted Balance:</td>
-					<td align="center"><b>$ ${cash}</b></td>
-					<td width="30%">&nbsp;</td>
+					<td><b>$ ${cash}</b></td>
 				</tr>
 				<tr>
 					<td>Available Cash:</td>
-					<td align="center"><b>$ ${avai_cash}</b></td>
-					<td>&nbsp;</td>
+					<td><b>$ ${avai_cash}</b></td>
 				</tr>
+				</tbody>
 			</tbody>
 		</table>
 	</div>
@@ -89,6 +97,8 @@
 
 		</table>
 	</div>
+</div>
+</div>
 </div>
 
 

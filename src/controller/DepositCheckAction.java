@@ -57,9 +57,14 @@ public class DepositCheckAction extends Action {
 			double d = Double.parseDouble(s);
 			d = d * 100.0;
 			long l = (long) d;
+			
 			if (customerBean == null) {
 				errors.add("No such user! ");
 				return "depositCheck.jsp";
+			}
+			if ((d - l) > 0) {
+				errors.add("We only allow at most two decimal places");
+				return "depositCheck.jsp"; 
 			}
 			TransactionBean tBean = new TransactionBean();
 			tBean.setCustomerId(customerBean.getCustomerId());

@@ -46,6 +46,11 @@
 
 					</tr>
 					<tr>
+					<td>Last Posted Balance:</td>
+					<td><b>$ ${user.getCash()}</b></td>
+				</tr>
+				<tr>
+					<tr>
 						<td>Available Balance:</td>
 						<td><b>$ ${avai_cash}</b></td>
 

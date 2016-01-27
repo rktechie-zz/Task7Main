@@ -214,6 +214,7 @@ public class ViewCustomerAction extends Action {
 				request.setAttribute("address2",customer.getAddress2());
 				request.setAttribute("state",customer.getState());
 				request.setAttribute("city",customer.getCity());
+				request.setAttribute("zip",customer.getZipcode());
 
 				String lastDay = transactionDAO.getLastDate(customer);
 				request.setAttribute("lastDay", lastDay == null ? "No recent transactions" : lastDay);

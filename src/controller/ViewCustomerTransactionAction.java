@@ -79,7 +79,6 @@ public class ViewCustomerTransactionAction extends Action {
                                         tShare.setCustomeId(t.getCustomerId());
 
                                         if (t.getFundId() == 0) {
-                                                tShare.setAmount(t.getAmount());
                                                 tShare.setFundId(-1);
                                                 tShare.setShares(-1);
                                                 tShare.setSharePrice(-1);
@@ -110,7 +109,7 @@ public class ViewCustomerTransactionAction extends Action {
                                                                 long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
                                                                 tShare.setSharePrice(sharePrice / 100);      
                                                         }
-                                                        tShare.setAmount(t.getAmount());
+                                                        tShare.setAmount(t.getAmount() / 100);
                                                 }
                                                 
                                                 if (t.getTransactionType().equals(4)) {
