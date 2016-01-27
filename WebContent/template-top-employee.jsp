@@ -36,7 +36,7 @@
 										<ul class="dropdown-menu">
 											<li><a href="createCustomer.do">CREATE CUSTOMER
 													ACCOUNT</a></li>
-											<li><a href="changePassword.do">RESET CUSTOMER
+											<li><a href="reset.do">RESET CUSTOMER
 													PASSWORD</a></li>
 											<li><a href="viewCustomer.do">VIEW CUSTOMER
 													ACCOUNT</a></li>
