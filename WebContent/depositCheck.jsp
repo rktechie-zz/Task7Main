@@ -5,7 +5,7 @@
 <h1>&nbsp</h1>
 <h3>&nbsp&nbspDeposit Check: </h3>
 <br>
-<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: You can deposit no more than $1000,000</h4>
+<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: You can deposit no more than $1,000,000</h4>
 <form class="form-horizontal" role="form" action="depositCheck.do"
 	method="POST">
 	<div class="form-group">

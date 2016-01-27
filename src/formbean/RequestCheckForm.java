@@ -39,6 +39,10 @@ public class RequestCheckForm extends FormBean {
 			errors.add("Amount entered is not a valid Dollar amount. ");
 			return errors;
 		}
+		
+		if (Double.parseDouble(requestAmount) > 1000000.0) {
+			errors.add("The amount should be less than 1,000,000. ");
+		}
 
 		if (Double.parseDouble(requestAmount) > 1000000) {
 			errors.add("Please enter an amount less than $ 1,000,000. ");
