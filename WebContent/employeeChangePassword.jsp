@@ -1,6 +1,7 @@
 <jsp:include page="template-top-employee.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
+<h3>&nbspChange Password: </h3>
+<br>
 <form class="form-horizontal" role="form" action="changePassword.do"
 	method="POST">
 	<div class="form-group">

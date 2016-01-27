@@ -104,7 +104,7 @@ public class BuyFundAction extends Action {
 //			Double latestPrice = (double) priceBean.getPrice() / 100;
 
 			// Calculate shares
-			Double amount = (Double.parseDouble(buyFundForm.getAmount()));
+			Double amount = Double.parseDouble(buyFundForm.getAmount());
 			// Can't acceed 10,000,000
 			if (amount > 1000000) {
 				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
@@ -123,10 +123,7 @@ public class BuyFundAction extends Action {
 			transactionBean.setCustomerId(customerId);
 			transactionBean.setFundId(fundId);
 			transactionBean.setUserName(customerBean.getUserName());
-			Long amt = (long) (amount * 100);
-			transactionBean.setAmount(amt);
-//			transactionBean.setShares((long) (shares * 1000));
-//			transactionBean.setShares((long) -1);
+			transactionBean.setAmount((long)(amount * 100l));
 			transactionBean.setTransactionType("8");
 			transactionDAO.create(transactionBean);
 
