@@ -1,4 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:forEach var="error" items="${errors}">
-	<h3 style="color: red">${error}</h3>
-</c:forEach>
+<c:if test="${!(empty errors)}">
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
+			<c:forEach var="error" items="${errors}">
+				${error}
+				<br>
+			</c:forEach>
+		</div>
+	</div>
+</c:if>

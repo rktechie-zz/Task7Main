@@ -151,16 +151,16 @@ public class TransitionDayAction extends Action {
 						
 						switch (transType) {
 						case TransactionBean.SELL_FUND:
-							System.out.println("Checkpoint");
+//							System.out.println("Checkpoint");
 							if (positionDAO.read(tb.getCustomerId(), tb.getFundId()) != null) {
-								System.out.println("Checkpoint1");
+//								System.out.println("Checkpoint1");
 								PositionBean pb = positionDAO.read(tb.getCustomerId(), tb.getFundId());
 
 								if (pb.getShares() - tb.getShares() == 0) {
 									positionDAO.delete(tb.getCustomerId(), tb.getFundId());
 
 								} else {
-									System.out.println("Checkpoint3");
+//									System.out.println("Checkpoint3");
 									pb.setShares(pb.getShares() - tb.getShares());
 									positionDAO.update(pb);
 								}

@@ -107,13 +107,13 @@ public class BuyFundAction extends Action {
 			Long amount = (long) (Double.parseDouble(buyFundForm.getAmount()));
 			// Can't acceed 10,000,000
 			if (amount >= 10000000) {
-				errors.add("Even you are rich, you can not spend more than 1 million!");
+				errors.add("Please enter a smaller amount. ");
 				return "buyFund.jsp";
 			}
 			//Check valid balance
 			Long validBalance = (long) transactionDAO.getValidBalanceNew(userName, curCash);
 			if (amount > validBalance) {
-				errors.add("You do not have enough money!");
+				errors.add("You do not have enough money do proceed with the transaction. ");
 				return "buyFund.jsp";
 			}
 //			Double shares = (double) (amount / latestPrice);
@@ -129,7 +129,7 @@ public class BuyFundAction extends Action {
 
 			return "success-customer.jsp";
 		} catch (NumberFormatException e) {
-			errors.add("Either the number is too long or it is not a number. Please enter a valid number.");
+			errors.add("Either the number is too long or it is not a number. Please enter a valid number. ");
 			return "buyFund.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());

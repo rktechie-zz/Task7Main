@@ -1,9 +1,8 @@
 <jsp:include page="template-top-employee.jsp" />
-
+<br><br>
 <div id="content">
 	<div id="dashBoard" class="container-fluid text-center">
-		<h2>DASHBOARD</h2>
-		<h4>What Can I Do?</h4>
+		<h2>${user.getFirstName()}'s DASHBOARD</h2>
 		<br> <br>
 
 		<div class="row">

@@ -29,14 +29,14 @@ public class SellFundForm extends FormBean{
 		List<String> errors = new ArrayList<String>();
 
 		if (name == null || name.trim().length() == 0)
-			errors.add("Fund name is required");
+			errors.add("Fund name is required. ");
 		if (shares == null || !shares.matches(".*\\d.*"))
-			errors.add("Shares should be numeric");
+			errors.add("Shares should be numeric. ");
 		if (shares != null) {
 			if (shares.length() == 0) {
-				errors.add("You should put the number of shares");
+				errors.add("You should put the number of shares. ");
 			} else if (Double.parseDouble(shares) < 0){
-				errors.add("Shares should not be negetive");
+				errors.add("Shares should not be negetive. ");
 			}
 		}
 		

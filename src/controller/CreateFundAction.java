@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import model.FundDAO;
 import model.Model;
 
+import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
@@ -51,6 +52,10 @@ public class CreateFundAction extends Action{
 			FundBean fundBeanExist = fundDAO.read(createFundForm.getName());
 			if (fundBeanExist != null) {
 				errors.add("Fund already exists!");
+				return "createFund.jsp";
+			}
+			if (fundBeanExist == null && fundDAO.match(MatchArg.equalsIgnoreCase("name", createFundForm.getName() )).length != 0 ){
+				errors.add("Fund already exists! Check case of Fund name typed");
 				return "createFund.jsp";
 			}
 			

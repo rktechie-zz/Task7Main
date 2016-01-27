@@ -39,7 +39,6 @@
 											<li><a href="transactionHistory.do">TRANSACTION
 													HISTORY</a></li>
 											<li><a href="changePassword.do">CHANGE PASSWORD</a></li>
-											<li><a href="changePassword.do">RESET PASSWORD</a></li>
 										</ul></li>
 									<li class="dropdown"><a class="dropdown-toggle"
 										data-toggle="dropdown" href="#">MY OPERATION <span
