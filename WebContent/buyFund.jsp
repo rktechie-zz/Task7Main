@@ -4,6 +4,7 @@
 <h1>&nbsp</h1>
 <h3>&nbspBuy Fund :</h3>
 <br>
+<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: You can buy the amount no more than $1000,000</h4>
 <form class="form-horizontal" role="form" action="buyFund.do"
 	method="POST">
 	<div class="form-group">
