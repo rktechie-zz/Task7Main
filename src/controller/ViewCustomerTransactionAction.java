@@ -82,7 +82,7 @@ public class ViewCustomerTransactionAction extends Action {
                                                 tShare.setFundId(-1);
                                                 tShare.setShares(-1);
                                                 tShare.setSharePrice(-1);
-                                                if (t.getTransactionType().equals(2)) {
+                                                if (t.getTransactionType().equals("2")) {
                                                         tShare.setTransactionType("Request Check");
                                                 } else {
                                                         tShare.setTransactionType("Deposit Check");
@@ -90,18 +90,21 @@ public class ViewCustomerTransactionAction extends Action {
                                                 if (t.getExecuteDate() != null) {
                                                         tShare.setExecuteDate(t.getExecuteDate());
                                                 } else {
-                                                        tShare.setExecuteDate("N/A");
+                                                        tShare.setExecuteDate("Pending");
                                                 }
+                                                tShare.setAmount(t.getAmount() / 100);
                                         } else {
                                                 int fundId = t.getFundId();
                                                 tShare.setFundId(fundId);
                                                 String fundName = fundDAO.getFundName(fundId);
                                                 tShare.setFundName(fundName);
 
-                                                if (t.getTransactionType() .equals(8)) {
+                                                if (t.getTransactionType() .equals("8")) {
+                                                        tShare.setTransactionType("Buy Fund");
                                                         if (t.getExecuteDate() == null ) {
-                                                                tShare.setExecuteDate("N/A");
+                                                                tShare.setExecuteDate("Pending");
                                                                 tShare.setShares(-1);
+                                                                tShare.setSharePrice(-1);  
                                                         } else {
                                                                 String executeDate = t.getExecuteDate();
                                                                 tShare.setExecuteDate(executeDate);
@@ -110,13 +113,12 @@ public class ViewCustomerTransactionAction extends Action {
                                                                 tShare.setSharePrice(sharePrice / 100);      
                                                         }
                                                         tShare.setAmount(t.getAmount() / 100);
-                                                }
-                                                
-                                                if (t.getTransactionType().equals(4)) {
+                                                } else {
                                                         tShare.setTransactionType("Sell Fund");
                                                         if (t.getExecuteDate() == null ) {
-                                                                tShare.setExecuteDate("N/A");
+                                                                tShare.setExecuteDate("Pending");
                                                                 tShare.setAmount(-1);
+                                                                tShare.setSharePrice(-1); 
                                                         } else {
                                                                 String executeDate = t.getExecuteDate();
                                                                 tShare.setExecuteDate(executeDate);

@@ -5,7 +5,7 @@
 <br><br><br><br>
 <jsp:include page="error.jsp" />
 
-<%-- <div id="viewTransactionHistory" class="container-fluid text-center">
+<div id="viewTransactionHistory" class="container-fluid text-center">
      <br><br><br><br>
      <jsp:include page="error.jsp" />
     <ul class="list-group">
@@ -16,7 +16,7 @@
         <li class="list-group-item list-group-item-warning">Customer
             User Name: ${customer.userName}</li>
     </ul>
-</div> --%>
+</div>
 
 <div class="container">
     <h3>Detailed Information</h3>
