@@ -2,7 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-employee.jsp" />
 <h1>&nbsp</h1>
-<h1>&nbsp</h1>
+<h3>&nbspDeposit Check: </h3>
+<br>
 <form class="form-horizontal" role="form" action="depositCheck.do"
 	method="POST">
 	<div class="form-group">

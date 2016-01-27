@@ -31,14 +31,14 @@ public class BuyFundForm extends FormBean{
 		List<String> errors = new ArrayList<String>();
 
 		if (name == null || name.trim().length() == 0)
-			errors.add("Fund name is required");
+			errors.add("Fund name is required. ");
 		if (amount == null || !amount.matches(".*\\d.*")) 
-			errors.add("Ammount should be numeric");
+			errors.add("Amount should be numeric. ");
 		if (amount != null) {
 			if (amount.length() == 0) {
-				errors.add("You should put the number of amount");
+				errors.add("You should put the amount. ");
 			} else if (Double.parseDouble(amount) < 0){
-				errors.add("Amount should not be negetive");
+				errors.add("Amount should not be negetive. ");
 			}
 		}
 
