@@ -111,7 +111,7 @@ public class BuyFundAction extends Action {
 				return "buyFund.jsp";
 			}
 			//Check valid balance
-			Long validBalance = (long) transactionDAO.getValidBalance(userName, curCash);
+			Long validBalance = (long) transactionDAO.getValidBalanceNew(userName, curCash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money!");
 				return "buyFund.jsp";

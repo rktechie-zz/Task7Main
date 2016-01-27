@@ -74,6 +74,37 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		return amount;
 	}
 	
+	public double getValidBalanceNew (String userName, double amount) throws RollbackException {
+		TransactionBean[] tbs = null;
+		try {
+			Transaction.begin();
+			
+			// How to execute select * from table where transactionType IS NULL
+			tbs =  match(MatchArg.equals("executeDate", null), MatchArg.equals("userName", userName));
+			
+			if (tbs != null) {
+				for (TransactionBean t : tbs) {
+					switch(Integer.parseInt(t.getTransactionType())) {
+					case TransactionBean.SELL_FUND:
+						amount += t.getAmount() / 100.00;
+						break;
+					case TransactionBean.BUY_FUND:
+						amount -= t.getAmount() / 100.00;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+			
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+		
+		return amount;
+	}
+	
 	public double getValidShares (int fundId, double shares) throws RollbackException {
 		TransactionBean[] tbs = null;
 		try {
