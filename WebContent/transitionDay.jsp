@@ -7,7 +7,7 @@
 	<jsp:include page="error.jsp" />
 
 	<form role="form-horizontal" method="POST">
-	    <h3>Transition Day : </h3><h4>(Last trading day was : ${ lastDay })</h4>
+	    <h3>Transition Day </h3><h4>Last trading day was : ${ lastDay }</h4>
 		<br>
 		<h3>Select the trading day:</h3>
 
