@@ -58,7 +58,7 @@ public class DepositCheckAction extends Action {
 			d = d * 100.0;
 			long l = (long) d;
 			if (customerBean == null) {
-				errors.add("No such user!");
+				errors.add("No such user! ");
 				return "depositCheck.jsp";
 			}
 			TransactionBean tBean = new TransactionBean();

@@ -35,9 +35,9 @@ public class TransitionDayForm /* extends FormBean */ {
 		List<String> errors = new ArrayList<String>();
 
 		if (date == null || date.length() == 0)
-			errors.add("Date required");
+			errors.add("Date required. ");
 		if (action == null)
-			errors.add("No Action detected");
+			errors.add("No Action detected. ");
 
 		if (errors.size() > 0)
 			return errors;
@@ -49,7 +49,7 @@ public class TransitionDayForm /* extends FormBean */ {
 			dateFormat.setLenient(false);
 			dateFormat.parse(date);
 		} catch (Exception e) {
-			errors.add("Invalid date");
+			errors.add("Invalid date. ");
 		}
 
 		for (String price : map.values()) {
@@ -60,12 +60,12 @@ public class TransitionDayForm /* extends FormBean */ {
 				int lastDotIndex = price.lastIndexOf(".");
 				if (lastDotIndex != -1 && price.substring(lastDotIndex + 1).length() > 2
 						&& Integer.parseInt(price.substring(lastDotIndex + 1)) != 0) {
-					errors.add("Price format error!");
+					errors.add("Price format error! ");
 				} else if (d < 0.01 || d > 10000) {
-					errors.add("Price of shares must be between one cent (0.01) and ten thousand (10,000.00)");
+					errors.add("Price of shares must be between one cent (0.01) and ten thousand (10,000.00). ");
 				}
 			} catch (Exception e) {
-				errors.add("Price format error!");
+				errors.add("Price format error! ");
 			}
 		}
 
