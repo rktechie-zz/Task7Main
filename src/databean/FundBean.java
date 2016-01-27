@@ -10,7 +10,7 @@ public class FundBean {
 	
 	public void setFundId(int v)	{ fundId = v; 	}
 	public void setName(String  v)	{ name = v;		}
-	public void setSymbol(String  v){ symbol = v;	}
+	public void setSymbol(String  v) { symbol = v;	}
 	
 	public int	getFundId()		{ return fundId; 	}
 	public String getName()	 	{ return name;		}
