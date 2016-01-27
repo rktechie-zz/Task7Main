@@ -51,7 +51,6 @@ public class TransactionHistoryAction extends Action {
                                         TransactionShareBean tShare = new TransactionShareBean();
 
                                         tShare.setTransactionId(t.getTransactionId());
-                                        tShare.setTransactionType(t.getTransactionType());
                                         tShare.setCustomeId(t.getCustomerId());
 
                                         if (t.getFundId() == 0) {
@@ -59,6 +58,11 @@ public class TransactionHistoryAction extends Action {
                                                 tShare.setFundId(-1);
                                                 tShare.setShares(-1);
                                                 tShare.setSharePrice(-1);
+                                                if (t.getTransactionType().equals(2)) {
+                                                        tShare.setTransactionType("Request Check");
+                                                } else {
+                                                        tShare.setTransactionType("Deposit Check");
+                                                }
                                                 if (t.getExecuteDate() != null) {
                                                         tShare.setExecuteDate(t.getExecuteDate());
                                                 } else {
@@ -71,7 +75,8 @@ public class TransactionHistoryAction extends Action {
                                                                 .getLatestFundPrice(fund_Id);
                                                 tShare.setSharePrice(f.getPrice() / 100);
 
-                                                if (t.getTransactionId() == 8) {
+                                                if (t.getTransactionType().equals(8)) {
+                                                        tShare.setTransactionType("Buy Fund");
                                                         if (t.getExecuteDate() == null ) {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setShares(-1);
@@ -82,7 +87,8 @@ public class TransactionHistoryAction extends Action {
                                                         tShare.setAmount(t.getAmount() / 100);
                                                 }
                                                 
-                                                if (t.getTransactionId() == 4) {
+                                                if (t.getTransactionType().equals(4)) {
+                                                        tShare.setTransactionType("Sell Fund");
                                                         if (t.getExecuteDate() == null ) {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setAmount(-1);
