@@ -16,10 +16,10 @@ public class CreateFundForm extends FormBean{
 		return name;
 	}
 	public void setSymbol(String symbol) {
-		this.symbol = symbol;
+		this.symbol = sanitize(symbol);
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = sanitize(name);
 	}
 	
 	public List<String> getValidationErrors() {

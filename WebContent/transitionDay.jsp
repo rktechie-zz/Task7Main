@@ -4,6 +4,7 @@
 <h1>&nbsp</h1>
 <h3>&nbspTransition Day :</h3>
 <h4>&nbspLast trading day was : ${ lastDay }</h4>
+<h4 style="color:red;">Note: Minimum Share Price is $0.01. Maximum Share Price is $1,000</h4>
 <br>
 <form class="form-horizontal" role="form" method="POST">
 	<div class="form-group">

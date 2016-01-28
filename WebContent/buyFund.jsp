@@ -3,7 +3,7 @@
 <jsp:include page="template-top-customer.jsp" />
 <h1>&nbsp</h1>
 <h3>&nbspBuy Fund :</h3>
-<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: Maximum Buy Amount is $1,000,000</h4>
+<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: Minimum Buy Amount is $1. Maximum Buy Amount is $1,000,000</h4>
 <form class="form-horizontal" role="form" action="buyFund.do"
 	method="POST">
 	<div class="form-group">

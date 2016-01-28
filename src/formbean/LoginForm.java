@@ -16,7 +16,7 @@ public class LoginForm extends FormBean {
 
 	public void setUserName(String userName) {
 		//System.out.println("uname: " + userName);
-		this.userNm = userName;
+		this.userNm = sanitize(userName);
 	}
 
 	public String getPassword() {
@@ -24,7 +24,7 @@ public class LoginForm extends FormBean {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = sanitize(password);
 	}
 
 	public String getType() {
@@ -62,5 +62,9 @@ public class LoginForm extends FormBean {
 			return errors;
 		
 		return errors;
+	}
+	
+	private String sanitize(String s) {
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 }

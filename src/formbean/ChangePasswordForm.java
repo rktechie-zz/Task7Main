@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybeans.form.FormBean;
 
+import sun.security.krb5.internal.PAData.SaltAndParams;
+
 public class ChangePasswordForm extends FormBean {
 	private String currentPassword;
 	private String newPassword;
@@ -16,7 +18,7 @@ public class ChangePasswordForm extends FormBean {
 	}
 
 	public void setCurrentPassword(String currentPassword) {
-		this.currentPassword = currentPassword;
+		this.currentPassword = sanitize(currentPassword);
 	}
 
 	public String getNewPassword() {
@@ -24,7 +26,7 @@ public class ChangePasswordForm extends FormBean {
 	}
 
 	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
+		this.newPassword = sanitize(newPassword);
 	}
 
 	public String getConfirmPassword() {
@@ -32,7 +34,7 @@ public class ChangePasswordForm extends FormBean {
 	}
 
 	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
+		this.confirmPassword = sanitize(confirmPassword);
 	}
 
 	public String getType() {
@@ -65,5 +67,9 @@ public class ChangePasswordForm extends FormBean {
 		}
 
 		return errors;
+	}
+	
+	private String sanitize(String s) {
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 }
