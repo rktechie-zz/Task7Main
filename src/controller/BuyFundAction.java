@@ -97,15 +97,20 @@ public class BuyFundAction extends Action {
 			
 			// Calculate shares
 //			if (buyFundForm.getAmount())
-			Double amount = Double.parseDouble(buyFundForm.getAmount());
+			double amount = Double.parseDouble(buyFundForm.getAmount());
 			// Can't acceed 10,000,000
 			if (amount > 1000000) {
 				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
 				return "buyFund.jsp";
 			}
+			if ((amount * 100.0 - (long) amount) > 0) {
+				errors.add("We only allow at most two decimal for amount");
+				return "buyFund.jsp"; 
+			}
+			
 			
 			//Check valid balance
-			Double validBalance = transactionDAO.getValidBalance(userName, curCash);
+			double validBalance = transactionDAO.getValidBalance(userName, curCash);
 //			balanceInfo balanceInfo = new balanceInfo(validBalance);
 //			session.setAttribute("balanceInfo", balanceInfo);
 			if (amount > validBalance) {
