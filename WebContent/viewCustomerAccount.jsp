@@ -1,23 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-employee.jsp" />
+<h1>&nbsp</h1>
+<h3>&nbspView Customer Account:</h3>
 <br>
-<br>
-<br>
-<br>
-
 <jsp:include page="error.jsp" />
-<div class="row">
-	<div class="container-fluid col-lg-12">
-		<h2 class="page-header">${customerName}'sAccount</h2>
-	</div>
-</div>
 <div class="row">
 <div class="container-fluid">
 <div class="col-lg-6">
-	<h3>Customer information:</h3>
+	<h4>Customer information:</h4>
 	<div class="table-responsive">
-		<table class="table table-hover table-striped">
+		<table class="table table-hover">
 			<tbody>
 				<tr>
 					<td>Account User Name:</td>
@@ -56,25 +49,23 @@
 				</tr>
 				<tr>
 					<td>Last Posted Balance:</td>
-					<td><b>$ ${cash}</b></td>
+					<td>$${cash}</td>
 				</tr>
 				<tr>
 					<td>Available Cash:</td>
-					<td><b>$ ${avai_cash}</b></td>
+					<td>$${avai_cash}</td>
 				</tr>
 				</tbody>
 			</tbody>
 		</table>
 	</div>
 
-	<h3>Funds owned:</h3>
+	<h4>Funds owned:</h4>
 	<div class="table-responsive">
-		<table class="table table-hover table-striped">
-
-
+		<table class="table table-hover">
 			<c:choose>
 
-				<c:when test="${(empty positionInfoList)}"> No Funds Owned!</c:when>
+				<c:when test="${(empty positionInfoList)}"> No funds owned.</c:when>
 				<c:otherwise>
 					<thead>
 						<tr>
