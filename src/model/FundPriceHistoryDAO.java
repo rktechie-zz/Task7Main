@@ -20,6 +20,21 @@ public class FundPriceHistoryDAO extends GenericDAO<FundPriceHistoryBean> {
 		super(FundPriceHistoryBean.class, tableName, cp);
 	}
 	
+        public long getSharePrice(int fundId, String executeDate) throws RollbackException{
+                long sharePrice = 0;
+                try {
+                        Transaction.begin();
+                        
+                        FundPriceHistoryBean[] arr = match(MatchArg.equals("fundId", fundId), MatchArg.equals("executeDate", executeDate));
+                        sharePrice = arr[0].getPrice();
+                        
+                        Transaction.commit();
+                } finally {
+                        if (Transaction.isActive()) Transaction.rollback();
+                }
+                return sharePrice;
+        }
+	
 	public FundPriceHistoryBean getLatestFundPrice(int fundId) throws RollbackException{
 		FundPriceHistoryBean[] fundPriceHistory = match(MatchArg.equals("fundId", fundId));
 		if(fundPriceHistory.length == 0) return null;

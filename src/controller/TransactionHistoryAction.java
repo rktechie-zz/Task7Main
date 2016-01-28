@@ -10,9 +10,9 @@ import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 
 import databean.CustomerBean;
-import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import databean.TransactionShareBean;
+import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
 import model.TransactionDAO;
@@ -20,10 +20,12 @@ import model.TransactionDAO;
 public class TransactionHistoryAction extends Action {
         private TransactionDAO transactionDAO;
         private FundPriceHistoryDAO fundPriceHistoryDAO;
+        private FundDAO fundDAO;
 
         public TransactionHistoryAction(Model model) {
                 transactionDAO = model.getTransactionDAO();
                 fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
+                fundDAO = model.getFundDAO();
         }
 
         @Override
@@ -69,11 +71,10 @@ public class TransactionHistoryAction extends Action {
                                                         tShare.setExecuteDate("N/A");
                                                 }
                                         } else {
-                                                tShare.setFundId(t.getFundId());
-                                                int fund_Id = tShare.getFundId();
-                                                FundPriceHistoryBean f = fundPriceHistoryDAO
-                                                                .getLatestFundPrice(fund_Id);
-                                                tShare.setSharePrice(f.getPrice() / 100);
+                                                int fundId = tShare.getFundId();
+                                                tShare.setFundId(fundId);
+                                                String fundName = fundDAO.getFundName(fundId);
+                                                tShare.setFundName(fundName);
 
                                                 if (t.getTransactionType().equals(8)) {
                                                         tShare.setTransactionType("Buy Fund");
@@ -81,8 +82,11 @@ public class TransactionHistoryAction extends Action {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setShares(-1);
                                                         } else {
-                                                                tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setShares(t.getShares() / 1000);       
+                                                                String executeDate = t.getExecuteDate();
+                                                                tShare.setExecuteDate(executeDate);
+                                                                tShare.setShares(t.getShares() / 1000);
+                                                                long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
+                                                                tShare.setSharePrice(sharePrice / 100);
                                                         }
                                                         tShare.setAmount(t.getAmount() / 100);
                                                 }
@@ -93,8 +97,11 @@ public class TransactionHistoryAction extends Action {
                                                                 tShare.setExecuteDate("N/A");
                                                                 tShare.setAmount(-1);
                                                         } else {
-                                                                tShare.setExecuteDate(t.getExecuteDate());
-                                                                tShare.setAmount(t.getAmount() / 100);                                                     
+                                                                String executeDate = t.getExecuteDate();
+                                                                tShare.setExecuteDate(executeDate);
+                                                                tShare.setAmount(t.getAmount() / 100);
+                                                                long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
+                                                                tShare.setSharePrice(sharePrice / 100);
                                                         }
                                                         tShare.setShares(t.getShares() / 1000);
                                                 }

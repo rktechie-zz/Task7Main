@@ -22,7 +22,7 @@
 
 					<tr>
 						<td>Address:</td>
-						<td colspan="2">${user.getAddress1() }${user.getAddress2() }</td>
+						<td colspan="2">${user.getAddress1() } ${user.getAddress2() }</td>
 
 					</tr>
 					<tr>
