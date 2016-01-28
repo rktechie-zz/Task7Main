@@ -98,6 +98,10 @@ public class BuyFundAction extends Action {
 			// Calculate shares
 //			if (buyFundForm.getAmount())
 			double amount = Double.parseDouble(buyFundForm.getAmount());
+			if (amount < 1) {
+				errors.add("Please enter an amount at least $1. ");
+				return "buyFund.jsp";
+			}
 			// Can't acceed 10,000,000
 			if (amount > 1000000) {
 				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
