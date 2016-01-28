@@ -105,7 +105,7 @@ public class BuyFundAction extends Action {
 			}
 			
 			//Check valid balance
-			Double validBalance = transactionDAO.getValidBalanceNew(userName, cash);
+			Double validBalance = transactionDAO.getValidBalance(userName, cash);
 			if (amount > validBalance) {
 				errors.add("You do not have enough money to proceed with the transaction. ");
 
