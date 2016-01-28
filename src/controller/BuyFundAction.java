@@ -75,10 +75,11 @@ public class BuyFundAction extends Action {
 				session.setAttribute("fundListInfoList", fundInfoList);
 			}
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
-			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100);
+			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100.00);
 			DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
+			//System.out.println(cash);
 			request.setAttribute("avai_cash",df2.format(transactionDAO.getValidBalance(customerBean.getUserName(), cash)));
-			
+			//System.out.println(request.getAttribute("avai_cash"));
 			if (!buyFundForm.isPresent()) {
 				return "buyFund.jsp";
 			}
@@ -118,9 +119,9 @@ public class BuyFundAction extends Action {
 				return "buyFund.jsp";
 			}
 			//Check valid balance
-			Double validBalance = transactionDAO.getValidBalanceNew(userName, curCash);
+			Double validBalance = transactionDAO.getValidBalanceNew(userName, cash);
 			if (amount > validBalance) {
-				errors.add("You do not have enough money do proceed with the transaction. ");
+				errors.add("You do not have enough money to proceed with the transaction. ");
 				return "buyFund.jsp";
 			}
 //			Double shares = (double) (amount / latestPrice);
