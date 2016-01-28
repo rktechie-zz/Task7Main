@@ -36,7 +36,7 @@ public class SellFundForm extends FormBean{
 			if (shares.length() == 0) {
 				errors.add("You should put the number of shares. ");
 			} else if (Double.parseDouble(shares) < 0){
-				errors.add("Shares should not be negetive. ");
+				errors.add("Shares should not be negative. ");
 			}
 		}
 		

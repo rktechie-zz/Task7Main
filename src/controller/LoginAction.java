@@ -107,6 +107,8 @@ public class LoginAction extends Action {
 					String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
 					//System.out.println(s);
 					session.setAttribute("avai_cash",s);
+					String str1 = df2.format( user.getCash() / 100.00);
+					session.setAttribute("cash",str1);
 					
 					try{
 						ArrayList<PositionInfo> positionInfoList = getPositionList(user);
@@ -184,7 +186,7 @@ public class LoginAction extends Action {
 					session.setAttribute("lastDay", s);
 				}
 				else session.setAttribute("lastDay", lastDay);
-				String str1 = df2.format( user.getCash() / 100.0);
+				String str1 = df2.format( user.getCash() / 100.00);
 				session.setAttribute("cash",str1);
 				session.setAttribute("user", user);
 				String s = df2.format(transactionDAO.getValidBalance(user.getUserName(), user.getCash() / 100.0));
