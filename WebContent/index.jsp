@@ -70,7 +70,7 @@
 				<div class="col-sm-offset-4 col-sm-4">
 					<button type="submit" class="btn btn-primary" name="type"
 						value="customer">Customer Login</button>
-					<button type="submit" class="btn btn-primary" name="type"
+					<button type="submit" class="btn btn-info" name="type"
 						value="employee">Employee Login</button>
 				</div>
 			</div>
