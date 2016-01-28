@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 					<td>Last Posted Balance:</td>
-					<td><b>$ ${user.getCash()}</b></td>
+					<td><b>$ ${cash}</b></td>
 				</tr>
 				<tr>
 					<tr>
