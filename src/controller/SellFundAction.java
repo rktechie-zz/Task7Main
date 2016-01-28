@@ -20,7 +20,6 @@ import org.mybeans.form.FormBeanFactory;
 
 import databean.CustomerBean;
 import databean.FundBean;
-import databean.FundPriceHistoryBean;
 import databean.PositionBean;
 import databean.PositionInfo;
 import databean.TransactionBean;
@@ -122,21 +121,9 @@ public class SellFundAction extends Action {
 			System.out.println("Valid shares:" + validShares);
 			System.out.println("current shares:" + curShares);
 			if (shares > validShares) {
-				System.out.println("*******************");
 				errors.add("You do not have enough shares! (including pending transaction)");
 				return "sellFund.jsp";
 			}
-			
-			//Get the price of this fund of the latest day
-//			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
-//			if (priceBean == null) {
-//				errors.add("Fund doesn't exist");
-//				return "sellFund.jsp";
-//			}
-//			Double latestPrice = (double) (priceBean.getPrice() / 100);
-			
-			// Calculate the worthy amount
-//			Double amount = (double) (shares * latestPrice);
 
 			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();

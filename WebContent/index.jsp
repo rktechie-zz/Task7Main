@@ -4,7 +4,7 @@
 
 <head>
 
-<title>Index</title>
+<title>Welcome to CFS</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -70,7 +70,7 @@
 				<div class="col-sm-offset-4 col-sm-4">
 					<button type="submit" class="btn btn-primary" name="type"
 						value="customer">Customer Login</button>
-					<button type="submit" class="btn btn-info" name="type"
+					<button type="submit" class="btn btn-success" name="type"
 						value="employee">Employee Login</button>
 				</div>
 			</div>

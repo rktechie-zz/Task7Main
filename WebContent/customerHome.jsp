@@ -61,7 +61,7 @@
 
 		<h3>Funds owned:</h3>
 		<div class="table-responsive">
-			<table class="table table-hover table-striped">
+			<table class="table table-hover">
 
 
 				<c:choose>
