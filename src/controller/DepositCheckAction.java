@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -66,21 +67,23 @@ public class DepositCheckAction extends Action {
 				errors.add("We only allow at most two decimal places");
 				return "depositCheck.jsp"; 
 			}
+			Transaction.begin();
 			TransactionBean tBean = new TransactionBean();
 			tBean.setCustomerId(customerBean.getCustomerId());
 			tBean.setTransactionType("1");
 			tBean.setAmount(l);
 			tBean.setUserName(customerBean.getUserName());
 			transactionDAO.create(tBean);
+			Transaction.commit();
 			request.removeAttribute("form");
 			return "success-employee.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
-			errors.add("Sytem roll back");
+			errors.add(e.getMessage());
 			return "depositCheck.jsp";
-		} catch (FormBeanException e1) {
+		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
-			errors.add("Form data wrong");
+			errors.add(e.getMessage());
 			return "depositCheck.jsp";
 		}
 	}

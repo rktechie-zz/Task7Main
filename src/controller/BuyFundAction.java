@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
@@ -17,6 +16,7 @@ import databean.FundBean;
 import databean.FundInfoBean;
 import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
+import databean.balanceInfo;
 import formbean.BuyFundForm;
 import model.CustomerDAO;
 import model.FundDAO;
@@ -87,12 +87,30 @@ public class BuyFundAction extends Action {
 			if (errors.size() != 0) {
 				return "buyFund.jsp";
 			}
-
+			
 			// Current customer and the customer ID
 			
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
 			long curCash = customerBean.getCash() / 100;
+			
+			// Calculate shares
+//			if (buyFundForm.getAmount())
+			Double amount = Double.parseDouble(buyFundForm.getAmount());
+			// Can't acceed 10,000,000
+			if (amount > 1000000) {
+				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
+				return "buyFund.jsp";
+			}
+			
+			//Check valid balance
+			Double validBalance = transactionDAO.getValidBalanceNew(userName, curCash);
+//			balanceInfo balanceInfo = new balanceInfo(validBalance);
+//			session.setAttribute("balanceInfo", balanceInfo);
+			if (amount > validBalance) {
+				errors.add("You do not have enough money do proceed with the transaction.");
+				return "buyFund.jsp";
+			}
 
 			// Get the fund ID of the fund name in form
 			FundBean fundBean = fundDAO.read(buyFundForm.getName());
@@ -101,29 +119,6 @@ public class BuyFundAction extends Action {
 				return "buyFund.jsp";
 			}
 			int fundId = fundBean.getFundId();
-
-			// Get the price of this fund of the latest day
-//			FundPriceHistoryBean priceBean = fundPriceHistoryDAO.getLatestFundPrice(fundId);
-//			if (priceBean == null) {
-//				errors.add("This fund does not have price yet, not able to buy");
-//				return "buyFund.jsp";
-//			}
-//			Double latestPrice = (double) priceBean.getPrice() / 100;
-
-			// Calculate shares
-			Double amount = Double.parseDouble(buyFundForm.getAmount());
-			// Can't acceed 10,000,000
-			if (amount > 1000000) {
-				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
-				return "buyFund.jsp";
-			}
-			//Check valid balance
-			Double validBalance = transactionDAO.getValidBalanceNew(userName, curCash);
-			if (amount > validBalance) {
-				errors.add("You do not have enough money do proceed with the transaction. ");
-				return "buyFund.jsp";
-			}
-//			Double shares = (double) (amount / latestPrice);
 
 			// Create a transaction bean
 			TransactionBean transactionBean = new TransactionBean();

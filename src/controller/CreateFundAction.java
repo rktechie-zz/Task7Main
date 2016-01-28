@@ -11,6 +11,7 @@ import model.Model;
 
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -63,12 +64,24 @@ public class CreateFundAction extends Action{
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-			FundBean fundBean = new FundBean();
-			fundBean.setName(createFundForm.getName());
-			fundBean.setSymbol(createFundForm.getSymbol());
+			
+			try {
+				Transaction.begin();
+				
+				FundBean fundBean = new FundBean();
+				fundBean.setName(createFundForm.getName());
+				fundBean.setSymbol(createFundForm.getSymbol());
+				
+				Transaction.commit();
+				
+				fundDAO.create(fundBean);
+				return "success-employee.jsp";	
+			} finally {
+				if (Transaction.isActive()) {
+					Transaction.rollback();
+				}
+			}
 		
-			fundDAO.create(fundBean);
-			return "success-employee.jsp";			
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "createFund.jsp";
