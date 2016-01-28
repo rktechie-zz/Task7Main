@@ -59,8 +59,9 @@ public class ChangePasswordAction extends Action{
 					return "customerChangePassword.jsp";
 				}
 
-				user.setPassword(changePasswordForm.getNewPassword());
-				customerDAO.update(user);
+				/*user.setPassword(changePasswordForm.getNewPassword());
+				customerDAO.update(user);*/
+				customerDAO.setPassword(user.getUserName(),changePasswordForm.getNewPassword());
 				
 				request.setAttribute("msg", "Password is updated successfully.");
 
@@ -86,8 +87,9 @@ public class ChangePasswordAction extends Action{
 					return "employeeChangePassword.jsp";
 				}
 
-				user.setPassword(changePasswordForm.getNewPassword());
-				employeeDAO.update(user);
+				/*user.setPassword(changePasswordForm.getNewPassword());
+				employeeDAO.update(user);*/
+				employeeDAO.setPassword(user.getUserName(), changePasswordForm.getNewPassword());
 				
 				request.setAttribute("msg", "Password is updated successfully.");
 				

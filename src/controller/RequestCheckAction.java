@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +14,18 @@ import org.mybeans.form.FormBeanFactory;
 import databean.CustomerBean;
 import databean.TransactionBean;
 import formbean.RequestCheckForm;
+import model.CustomerDAO;
 import model.Model;
 import model.TransactionDAO;
 
 public class RequestCheckAction extends Action {
 	private FormBeanFactory<RequestCheckForm> formBeanFactory = FormBeanFactory.getInstance(RequestCheckForm.class);
 	private TransactionDAO transactionDAO;
+	private CustomerDAO customerDAO;
 
 	public RequestCheckAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
 	public String getName() {
@@ -39,9 +43,15 @@ public class RequestCheckAction extends Action {
 			RequestCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			
+			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100);
+			DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
+			request.setAttribute("avai_cash",df2.format(transactionDAO.getValidBalance(customerBean.getUserName(), cash)));
+			
 			if (!form.isPresent()) {
 				return "requestCheck.jsp";
 			}
+			
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				return "requestCheck.jsp";

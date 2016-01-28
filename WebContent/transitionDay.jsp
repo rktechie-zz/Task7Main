@@ -2,7 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="template-top-employee.jsp" />
 <h1>&nbsp</h1>
-<h3>&nbspTransition Day : <small>(Last trading day was : ${ lastDay })</small></h3>
+<h3>&nbspTransition Day :</h3>
+<h4>&nbspLast trading day was : ${ lastDay }</h4>
 <br>
 <form class="form-horizontal" role="form" method="POST">
 	<div class="form-group">
@@ -10,7 +11,7 @@
 		<div class="col-sm-4">
 			<table class="table table-bordered table-hover">
 				<thead>
-					<tr class="success">
+					<tr class="">
 						<th width="20%">Trading Day: (mm/dd/yyyy)</th>
 						<th><input name="date" type="date" required
 							class="form-control"></th>

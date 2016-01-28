@@ -2,19 +2,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="template-top-customer.jsp" />
+<br><br><br><br>
 <jsp:include page="error.jsp" />
 
-<div id="viewTransactionHistory" class="container-fluid text-center">
-     <br><br><br><br>
-     <jsp:include page="error.jsp" />
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-success">Customer
-            First Name: ${customer.firstName}</li>
-         <li class="list-group-item list-group-item-success">Customer
-            Last Name: ${customer.lastName}</li>
-        <li class="list-group-item list-group-item-warning">Customer
-            User Name: ${customer.userName}</li>
-    </ul>
+<div class="row">
+<div class="container-fluid">
+<div class="col-lg-6">
+<h4>Customer information:</h4>
+<div class="table-responsive">
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<td>Account User Name:</td>
+					<td colspan="2">${customer.userName}</td>
+				</tr>
+				<tr>
+					<td>Customer Name:</td>
+					<td colspan="2">${customer.firstName} ${customer.lastName}</td>
+				</tr>
+				</tbody>
+				</table>
+</div>
+</div>
+</div>
 </div>
 
 <div class="container">

@@ -3,9 +3,15 @@
 <jsp:include page="template-top-customer.jsp" />
 <h1>&nbsp</h1>
 <h3>&nbspBuy Fund :</h3>
-<br>
+<h4 class="col-sm-10 col-sm-offset-2" style="color:red;">Note: Maximum Buy Amount is $1,000,000</h4>
 <form class="form-horizontal" role="form" action="buyFund.do"
 	method="POST">
+	<div class="form-group">
+		<label class="control-label col-sm-2">Available Cash :</label>
+		<div class="col-sm-4">
+			<label class="col-sm-4">$${avai_cash}</label>
+		</div>
+	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2">Buy Fund :</label>
 		<div class="col-sm-4">
@@ -28,9 +34,9 @@
 	</div>
 	<jsp:include page="error.jsp" />
 	<br></br>
-	<br></br>
+	<br>
 	<div class="form-group">
-		<label class="control-label col-sm-2">Funds able to buy: </label>
+		<label class="control-label col-sm-2">Funds you can buy: </label>
 		<div class="col-sm-4">
 			<table class="table table-hover table-striped">
 				<thead>

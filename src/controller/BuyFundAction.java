@@ -18,6 +18,7 @@ import databean.FundPriceHistoryBean;
 import databean.TransactionBean;
 import databean.balanceInfo;
 import formbean.BuyFundForm;
+import model.CustomerDAO;
 import model.FundDAO;
 import model.FundPriceHistoryDAO;
 import model.Model;
@@ -27,6 +28,7 @@ public class BuyFundAction extends Action {
 	private FormBeanFactory<BuyFundForm> formBeanFactory = FormBeanFactory.getInstance(BuyFundForm.class);
 
 	private TransactionDAO transactionDAO;
+	private CustomerDAO customerDAO;
 	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundPriceHistoryDAO;
 
@@ -34,6 +36,7 @@ public class BuyFundAction extends Action {
 		transactionDAO = model.getTransactionDAO();
 		fundDAO = model.getFundDAO();
 		fundPriceHistoryDAO = model.getFundPriceHistoryDAO();
+		customerDAO = model.getCustomerDAO();
 	}
 
 	@Override
@@ -71,6 +74,10 @@ public class BuyFundAction extends Action {
 				}
 				session.setAttribute("fundListInfoList", fundInfoList);
 			}
+			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100);
+			DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
+			request.setAttribute("avai_cash",df2.format(transactionDAO.getValidBalance(customerBean.getUserName(), cash)));
 			
 			if (!buyFundForm.isPresent()) {
 				return "buyFund.jsp";
@@ -82,7 +89,7 @@ public class BuyFundAction extends Action {
 			}
 			
 			// Current customer and the customer ID
-			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
+			
 			String userName = customerBean.getUserName();
 			int customerId = customerBean.getCustomerId();
 			long curCash = customerBean.getCash() / 100;
@@ -91,8 +98,8 @@ public class BuyFundAction extends Action {
 //			if (buyFundForm.getAmount())
 			Double amount = Double.parseDouble(buyFundForm.getAmount());
 			// Can't acceed 10,000,000
-			if (amount >= 10000000) {
-				errors.add("Please enter a smaller amount. ");
+			if (amount > 1000000) {
+				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
 				return "buyFund.jsp";
 			}
 			

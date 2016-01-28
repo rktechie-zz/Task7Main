@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -53,14 +54,14 @@ public class CreateEmployeeAction extends Action{
 					errors.add("This username already exists. Please select a new username.");
 					return "createEmployee.jsp";
 				}	
-
+				Transaction.begin();
 				EmployeeBean newUser = new EmployeeBean();
 				newUser.setUserName(form.getUserName());
 				newUser.setFirstName(form.getFirstName());
 				newUser.setLastName(form.getLastName());
 				newUser.setPassword(form.getPassword());
 				employeeDAO.create(newUser);
-
+				Transaction.commit();
 				request.setAttribute("message", "Employee account for " +form.getUserName()+ " was created successfully.");
 				request.removeAttribute("form");
 

@@ -9,7 +9,6 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import databean.CustomerBean;
 import databean.EmployeeBean;
 import formbean.ResetCustPassForm;
 import model.CustomerDAO;
@@ -63,15 +62,16 @@ public class ResetCustPassAction extends Action {
 					return "resetCustPass.jsp";
 				}
 
-				CustomerBean user = customerDAO.read(form.getCustomer());
+				//CustomerBean user = customerDAO.read(form.getCustomer());
 
-				if (user == null) {
+				/*if (user == null) {
 					errors.add("User Name does not exist");
 					return "resetCustPass.jsp";
 				}
 				
 				user.setPassword(form.getNewPass());
-				customerDAO.update(user);
+				customerDAO.update(user);*/
+				customerDAO.setPassword(form.getCustomer(),form.getNewPass());
 				return "success-employee.jsp";
 
 

@@ -8,7 +8,7 @@
 	<div class="col-lg-6">
 		<h3>Customer information:</h3>
 		<div class="table-responsive">
-			<table class="table table-hover table-striped">
+			<table class="table table-hover">
 				<tbody>
 					<tr>
 						<td>Account User Name:</td>
@@ -46,8 +46,13 @@
 
 					</tr>
 					<tr>
+					<td>Last Posted Balance:</td>
+					<td><b>$ ${cash}</b></td>
+				</tr>
+				<tr>
+					<tr>
 						<td>Available Balance:</td>
-						<td><b>$ ${avai_cash}</b></td>
+						<td>$${avai_cash}</td>
 
 					</tr>
 				</tbody>
@@ -61,7 +66,7 @@
 
 				<c:choose>
 
-					<c:when test="${(empty positionInfoList)}"> You Don't own any Funds currently!</c:when>
+					<c:when test="${(empty positionInfoList)}"> You don't own any funds currently.</c:when>
 					<c:otherwise>
 						<thead>
 							<tr>

@@ -106,6 +106,11 @@ public class TransitionDayAction extends Action {
 				if (!form.isPresent()) {
 					return "transitionDay.jsp";
 				}
+				//System.out.println(lastTranDay);
+				if(transactionDAO.match(MatchArg.equals("executeDate", null)).length == 0 && fundDAO.match().length == 0){
+					errors.add("Please add fund or a transaction to run Transition Day. ");
+					return "transitionDay.jsp";
+				}
 
 				// Any validation errors?
 				HashMap<String, String> map = new HashMap<String, String>();

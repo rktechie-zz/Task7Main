@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -55,7 +56,7 @@ public class CreateCustomerAction extends Action {
 					return "createCustomer.jsp";
 				}
 //				double cash = Double.parseDouble(form.getCash()) * 100.0;
-				
+				Transaction.begin();
 				CustomerBean newUser = new CustomerBean();
 				newUser.setUserName(form.getUserName());
 				newUser.setLastName(form.getLastName());
@@ -70,6 +71,7 @@ public class CreateCustomerAction extends Action {
 //				newUser.setCash((long)(cash));
 
 				customerDAO.create(newUser);
+				Transaction.commit();
 
 				request.removeAttribute("form");
 				request.setAttribute("message", "Customer account is created successfully.");
