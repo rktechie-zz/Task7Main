@@ -109,15 +109,20 @@ public class SellFundAction extends Action {
 				return "sellFund.jsp";
 			}
 			System.out.println("without deviding:" + position.getShares());
-			Double curShares = (double)position.getShares() / 1000;
+			double curShares = (double)position.getShares() / 1000;
 			System.out.println("Formal shares are:" + curShares);
-			Double shares =  Double.parseDouble(sellFundForm.getShares());
+			double shares =  Double.parseDouble(sellFundForm.getShares());
+			if ((shares * 1000.0 - (long) shares) > 0) {
+				errors.add("We only allow at most three decimal for shares");
+				return "sellFund.jsp"; 
+			}
+			
 			//Check valid shares
 			if (curShares < shares) {
 				errors.add("You do not have enough shares!");
 				return "sellFund.jsp";				
 			}
-			Double validShares = transactionDAO.getValidShares(fundId, curShares);
+			double validShares = transactionDAO.getValidShares(fundId, curShares);
 			System.out.println("Valid shares:" + validShares);
 			System.out.println("current shares:" + curShares);
 			if (shares > validShares) {
