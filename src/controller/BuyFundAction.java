@@ -104,7 +104,7 @@ public class BuyFundAction extends Action {
 			}
 			
 			//Check valid balance
-			Double validBalance = transactionDAO.getValidBalanceNew(userName, curCash);
+			Double validBalance = transactionDAO.getValidBalance(userName, curCash);
 //			balanceInfo balanceInfo = new balanceInfo(validBalance);
 //			session.setAttribute("balanceInfo", balanceInfo);
 			if (amount > validBalance) {
