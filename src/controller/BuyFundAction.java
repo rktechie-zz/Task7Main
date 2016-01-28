@@ -103,7 +103,7 @@ public class BuyFundAction extends Action {
 				errors.add("Please enter an amount less than or equal to $ 1,000,000. ");
 				return "buyFund.jsp";
 			}
-			if ((amount * 100.0 - (long) amount) > 0) {
+			if ((amount * 100.0 - (long) (amount * 100.0)) > 0) {
 				errors.add("We only allow at most two decimal for amount");
 				return "buyFund.jsp"; 
 			}

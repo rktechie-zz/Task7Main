@@ -112,7 +112,7 @@ public class SellFundAction extends Action {
 			double curShares = (double)position.getShares() / 1000;
 			System.out.println("Formal shares are:" + curShares);
 			double shares =  Double.parseDouble(sellFundForm.getShares());
-			if ((shares * 1000.0 - (long) shares) > 0) {
+			if ((shares * 1000.0 - (long) (shares * 1000.0)) > 0) {
 				errors.add("We only allow at most three decimal for shares");
 				return "sellFund.jsp"; 
 			}

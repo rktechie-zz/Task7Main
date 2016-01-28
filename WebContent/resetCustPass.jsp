@@ -24,6 +24,13 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="control-label col-sm-2">Search by
+			Username:</label>
+		<div class="col-sm-4">
+		<input class="form-control" name="customer2" type="text" class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="control-label col-sm-2" for="newPassword">New
 			Password:</label>
 		<div class="col-sm-4">
