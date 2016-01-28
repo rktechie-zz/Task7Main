@@ -173,6 +173,7 @@ public class TransitionDayAction extends Action {
 								double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
 								long amount = (long) (price * tb.getShares() / 1000 * 100);
 								cb.setCash(cb.getCash() + amount);
+								System.out.println(cb.getCash());
 								customerDAO.update(cb);
 								tb.setAmount(amount);
 							}
@@ -181,10 +182,12 @@ public class TransitionDayAction extends Action {
 							
 							long shares = 0;
 							double price = fundPriceHistoryDAO.read(tb.getFundId(), today).getPrice() / 100.0;
-							
+							System.out.println("price: " + price);
 							if (positionDAO.read(tb.getCustomerId(), tb.getFundId()) == null) {
 								double amount = tb.getAmount() / 100.00;
+								System.out.println("Checkpoint 1 " + amount);
 								shares = (long) (amount / price * 1000);
+								System.out.println("Checkpoint 1 " + shares);
 
 								PositionBean pb = new PositionBean();
 								
@@ -192,13 +195,12 @@ public class TransitionDayAction extends Action {
 								
 								pb.setFundId(tb.getFundId());
 								pb.setShares(shares);
-								;
 								positionDAO.create(pb);
 								
 
 							} else {
 								double amount = tb.getAmount() / 100.00;
-								
+								System.out.println("Checkpoint 2 " + amount);
 								shares = (long) (amount / price * 1000);
 
 								PositionBean pb = positionDAO.read(tb.getCustomerId(), tb.getFundId());
@@ -207,9 +209,11 @@ public class TransitionDayAction extends Action {
 							}
 
 							tb.setAmount((long) (shares / 1000.0 * price * 100));
+							System.out.println("Checkpoint 3 " + tb.getAmount());
 							tb.setShares(shares);
 
 							cb.setCash(cb.getCash() - tb.getAmount());
+							System.out.println("Checkpoint 4 " + cb.getCash());
 							customerDAO.update(cb);
 							break;
 						case TransactionBean.REQUEST_CHECK:

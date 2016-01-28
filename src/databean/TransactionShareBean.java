@@ -9,10 +9,10 @@ public class TransactionShareBean /* implements Comparable<TransactionBean> */ {
         private int fundId;
         private String fundName;
         private String executeDate;
-        private long shares;
-        private long sharePrice;
+        private double shares;
+        private double sharePrice;
         private String transactionType;
-        private long amount;
+        private double amount;
 
         public int getCustomeId() {
                 return customerId;
@@ -54,19 +54,19 @@ public class TransactionShareBean /* implements Comparable<TransactionBean> */ {
                 this.executeDate = executeDate;
         }
 
-        public long getShares() {
+        public double getShares() {
                 return shares;
         }
 
-        public void setShares(long shares) {
+        public void setShares(double shares) {
                 this.shares = shares;
         }
 
-        public long getSharePrice() {
+        public double getSharePrice() {
                 return sharePrice;
         }
 
-        public void setSharePrice(long sharePrice) {
+        public void setSharePrice(double sharePrice) {
                 this.sharePrice = sharePrice;
         }
 
@@ -78,11 +78,11 @@ public class TransactionShareBean /* implements Comparable<TransactionBean> */ {
                 this.transactionType = transactionType;
         }
 
-        public long getAmount() {
+        public double getAmount() {
                 return amount;
         }
 
-        public void setAmount(long amount) {
+        public void setAmount(double amount) {
                 this.amount = amount;
         }
 }

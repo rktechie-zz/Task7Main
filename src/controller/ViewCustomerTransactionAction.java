@@ -92,7 +92,7 @@ public class ViewCustomerTransactionAction extends Action {
                                                 } else {
                                                         tShare.setExecuteDate("Pending");
                                                 }
-                                                tShare.setAmount(t.getAmount() / 100);
+                                                tShare.setAmount(t.getAmount() / 100.0);
                                         } else {
                                                 int fundId = t.getFundId();
                                                 tShare.setFundId(fundId);
@@ -108,11 +108,11 @@ public class ViewCustomerTransactionAction extends Action {
                                                         } else {
                                                                 String executeDate = t.getExecuteDate();
                                                                 tShare.setExecuteDate(executeDate);
-                                                                tShare.setShares(t.getShares() / 1000);
+                                                                tShare.setShares(t.getShares() / 1000.0);
                                                                 long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
-                                                                tShare.setSharePrice(sharePrice / 100);      
+                                                                tShare.setSharePrice(sharePrice / 100.0);      
                                                         }
-                                                        tShare.setAmount(t.getAmount() / 100);
+                                                        tShare.setAmount(t.getAmount() / 100.0);
                                                 } else {
                                                         tShare.setTransactionType("Sell Fund");
                                                         if (t.getExecuteDate() == null ) {
@@ -122,11 +122,11 @@ public class ViewCustomerTransactionAction extends Action {
                                                         } else {
                                                                 String executeDate = t.getExecuteDate();
                                                                 tShare.setExecuteDate(executeDate);
-                                                                tShare.setAmount(t.getAmount() / 100);
+                                                                tShare.setAmount(t.getAmount() / 100.0);
                                                                 long sharePrice = fundPriceHistoryDAO.getSharePrice(fundId, executeDate);
-                                                                tShare.setSharePrice(sharePrice / 100);
+                                                                tShare.setSharePrice(sharePrice / 100.0);
                                                         }
-                                                        tShare.setShares(t.getShares() / 1000);
+                                                        tShare.setShares(t.getShares() / 1000.0);
                                                 }
                                         }                                             
                                         transactionShares.add(tShare);
