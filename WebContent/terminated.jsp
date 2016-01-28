@@ -24,7 +24,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<nav class="navbar navbar-default navbar-fixed-top">
+						<nav class="navbar navbar-inverse navbar-fixed-top">
 							<div class="container-fluid">
 								<div class="navbar-header">
 									<a href="index.jsp" class="pull-left"><img
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="jumbotron text-center">
+		<div class="text-center">
 
 			<c:forEach var="error" items="${errors}">
 				<h3 style="color: red">${error}</h3>

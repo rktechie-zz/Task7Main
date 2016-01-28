@@ -24,7 +24,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<nav class="navbar navbar-default navbar-fixed-top">
+						<nav class="navbar navbar-inverse navbar-fixed-top">
 							<div class="container-fluid">
 								<div class="navbar-header">
 									<a href="index.jsp" class="pull-left"><img
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="jumbotron text-center">
+		<div class="text-center">
 			<h3>&nbsp</h3>
 			<h3>Hello ${user.getFirstName()} ${user.getLastName()}</h3>
 			<h3>Your credentials have been used to log-in from another
@@ -71,17 +71,17 @@
 					<div class="col-lg-4 col-lg-offset-4">
 						<table class="table table-bordered table-hover">
 							<thead>
-								<tr class="success">
+								<tr class="warning">
 									<th style="display: block; margin: auto;">User Name:
 										${user.getUserName()}</th>
 								</tr>
 								<tr>
 									<th><input name="passwd" type="password" required
-										placeholder="Enter Password Here!" class="form-control"></th>
+										placeholder="Enter Password" class="form-control"></th>
 								</tr>
 								<tr>
 									<th><button type="submit" name="action" value="create"
-											class="btn btn-primary" style="display: block; margin: auto;">Submit
+											class="btn btn-success" style="display: block; margin: auto;">Submit
 											& Logout</button></th>
 								</tr>
 
