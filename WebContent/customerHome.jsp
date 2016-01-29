@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 					<td>Last Posted Balance:</td>
-					<td><b>$${cash}</b></td>
+					<td>$${cash}</td>
 				</tr>
 				<tr>
 					<tr>
@@ -72,7 +72,6 @@
 							<tr>
 								<td width="20%"><b>Fund Name</b></td>
 								<td align="right"><b>Shares</b></td>
-								<td align="right"><b>Value</b></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -82,7 +81,6 @@
 								<tr>
 									<td>${ u.getName() }</td>
 									<td align="right">${ u.getShares() }</td>
-									<td align="right">${u.getTotal()}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

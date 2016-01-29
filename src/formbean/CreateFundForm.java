@@ -29,8 +29,8 @@ public class CreateFundForm extends FormBean{
 			errors.add("Fund name is required");
 		if (name.matches(".*\\d.*")) 
 			errors.add("Fund name should not contain number");
-		if (symbol == null || symbol.length() < 1
-				|| symbol.length() >5)
+		if (symbol == null || symbol.trim().length() < 1
+				|| symbol.trim().length() >5)
 			errors.add("The length of symbol should be between 1~5");
 
 		if (errors.size() > 0)

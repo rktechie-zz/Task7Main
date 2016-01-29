@@ -71,7 +71,6 @@
 						<tr>
 							<td width="40%"><b>Fund Name</b></td>
 							<td align="right"><b>Shares</b></td>
-							<td align="right"><b>Value</b></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -79,7 +78,6 @@
 							<tr>
 								<td>${ u.getName() }</td>
 								<td align="right">${ u.getShares() }</td>
-								<td align="right">${u.getTotal()}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

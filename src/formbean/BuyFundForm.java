@@ -35,7 +35,7 @@ public class BuyFundForm extends FormBean{
 		if (amount == null || !amount.matches(".*\\d.*")) 
 			errors.add("Amount should be numeric. ");
 		if (amount != null) {
-			if (amount.length() == 0) {
+			if (amount.trim().length() == 0) {
 				errors.add("You should put the amount. ");
 			} else if (Double.parseDouble(amount) < 0){
 				errors.add("Amount should not be negative. ");

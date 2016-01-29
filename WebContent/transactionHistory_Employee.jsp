@@ -12,7 +12,7 @@
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<td>Account User Name:</td>
+					<td>Customer Username:</td>
 					<td colspan="2">${customer.userName}</td>
 				</tr>
 				<tr>

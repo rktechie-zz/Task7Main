@@ -33,7 +33,7 @@ public class SellFundForm extends FormBean{
 		if (shares == null || !shares.matches(".*\\d.*"))
 			errors.add("Shares should be numeric. ");
 		if (shares != null) {
-			if (shares.length() == 0) {
+			if (shares.trim().length() == 0) {
 				errors.add("You should put the number of shares. ");
 			} else if (Double.parseDouble(shares) < 0){
 				errors.add("Shares should not be negative. ");

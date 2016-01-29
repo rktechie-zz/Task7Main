@@ -14,16 +14,12 @@ public class ResetCustPassForm extends FormBean {
 	private String confPass;
 	private String action;
 
-
-
-
-
 	public String getCustomer1() {
 		return customer1;
 	}
 
 	public void setCustomer1(String customer1) {
-		this.customer1 = customer1;
+		this.customer1 = sanitize(customer1);
 	}
 
 	public String getCustomer2() {
@@ -31,7 +27,7 @@ public class ResetCustPassForm extends FormBean {
 	}
 
 	public void setCustomer2(String customer2) {
-		this.customer2 = customer2;
+		this.customer2 = sanitize(customer2);
 	}
 
 	public String getNewPass() {
@@ -39,7 +35,7 @@ public class ResetCustPassForm extends FormBean {
 	}
 
 	public void setNewPass(String newPass) {
-		this.newPass = newPass;
+		this.newPass = sanitize(newPass);
 	}
 
 	public String getConfPass() {
@@ -47,7 +43,7 @@ public class ResetCustPassForm extends FormBean {
 	}
 
 	public void setConfPass(String confPass) {
-		this.confPass = confPass;
+		this.confPass = sanitize(confPass);
 	}
 
 	public String getAction() {
@@ -77,11 +73,11 @@ public class ResetCustPassForm extends FormBean {
 		if ((customer1 !=  null && customer2 != null && customer1.trim().length() != 0 && customer2.trim().length() != 0  && !customer1.trim().equals(customer2.trim()))) {
 			errors.add("Usernames inconcistency");
 		}
-		if (newPass == null || newPass.length() == 0) {
+		if (newPass == null || newPass.trim().length() == 0) {
 			errors.add("New password is required");
 		}
 
-		if (confPass == null || confPass.length() == 0) {
+		if (confPass == null || confPass.trim().length() == 0) {
 			errors.add("Confirm Password is required");
 		}
 		if (action == null || action.length() == 0) {
@@ -105,6 +101,11 @@ public class ResetCustPassForm extends FormBean {
 
 		return errors;
 	}
+	
+
+    private String sanitize(String s) {
+            return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+    }
 }
 
 
