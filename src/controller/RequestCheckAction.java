@@ -44,7 +44,7 @@ public class RequestCheckAction extends Action {
 			request.setAttribute("form",form);
 			
 			CustomerBean customerBean = (CustomerBean) session.getAttribute("user");
-			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100);
+			Double cash = (double) (customerDAO.read(customerBean.getUserName()).getCash()/100.0);
 			DecimalFormat df2 = new DecimalFormat(	"###,##0.00");
 			request.setAttribute("avai_cash",df2.format(transactionDAO.getValidBalance(customerBean.getUserName(), cash)));
 			
