@@ -99,7 +99,7 @@ public class BuyFundAction extends Action {
 //			if (buyFundForm.getAmount())
 			double amount = Double.parseDouble(buyFundForm.getAmount());
 			if (amount < 1) {
-				errors.add("Please enter an amount at least $1. ");
+				errors.add("Please enter an amount of at least $1. ");
 				return "buyFund.jsp";
 			}
 			// Can't acceed 10,000,000
@@ -108,7 +108,7 @@ public class BuyFundAction extends Action {
 				return "buyFund.jsp";
 			}
 			if ((amount * 100.0 - (long) (amount * 100.0)) > 0) {
-				errors.add("We only allow at most two decimal for amount");
+				errors.add("We only allow at most two decimals for amount");
 				return "buyFund.jsp"; 
 			}
 			

@@ -32,8 +32,7 @@
 
 <div class="container">
 	<h3>Detailed Information</h3>
-	<p>Include all pending transactions but no cash operation:</p>
-	<table class="table table-striped">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>Transaction Date</th>
