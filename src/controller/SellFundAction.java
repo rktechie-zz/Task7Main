@@ -124,7 +124,7 @@ public class SellFundAction extends Action {
 				errors.add("You do not have enough shares!");
 				return "sellFund.jsp";				
 			}
-			double validShares = transactionDAO.getValidShares(fundId, curShares);
+			double validShares = transactionDAO.getValidShares(customerId, fundId, curShares);
 			if (shares > validShares) {
 				errors.add("You do not have enough shares! (including pending transaction)");
 				return "sellFund.jsp";
