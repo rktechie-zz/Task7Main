@@ -55,7 +55,7 @@
 			</table>
 				<c:if test="${!(empty errors)}">
 					<div class="form-group">
-						<div class="alert alert-danger">
+						<div class="alert alert-warning">
 							<c:forEach var="error" items="${errors}">
 								${error}
 							</c:forEach>
